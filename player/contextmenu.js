@@ -1,3 +1,5 @@
+// Web Media Player by SamuelLouf (https://samuellouf.github.io/WebMediaPlayer) | v.1.0.0
+
 function ContextMenu(menu, options){
 	var self = this;
 	var num = ContextMenu.count++;

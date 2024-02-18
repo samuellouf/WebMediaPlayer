@@ -1,3 +1,5 @@
+// Web Media Player by SamuelLouf (https://samuellouf.github.io/WebMediaPlayer) | v.1.0.0
+
 class AppWindow{
   turnIntoApp(elmnt){
     this.dragElement(elmnt);

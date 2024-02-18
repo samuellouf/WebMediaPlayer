@@ -1,3 +1,5 @@
+// Web Media Player by SamuelLouf (https://samuellouf.github.io/WebMediaPlayer) | v.1.0.0
+
 let viewer = new Viewer(true, true);
 
 viewer.videoElement.addEventListener("play", async function (){

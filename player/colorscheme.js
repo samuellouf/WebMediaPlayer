@@ -1,3 +1,5 @@
+// Web Media Player by SamuelLouf (https://samuellouf.github.io/WebMediaPlayer) | v.1.0.0
+
 class ColorScheme{
   constructor(){
     this.schemes = ['system', 'light', 'dark', 'orange'];
