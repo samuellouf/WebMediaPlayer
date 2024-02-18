@@ -111,5 +111,8 @@ if (params.get('url') != null){
   loadFile(params.get('url'));
 }
 
-document.querySelector('app#settings-app.appwindow section.ui div.app div.pages div.interface div.language select').value = ui_translator.getSelectedLanguage();
+if (params.get('mode') != null){
+  viewer.setMode(params.get('mode'));
+}
 
+document.querySelector('app#settings-app.appwindow section.ui div.app div.pages div.interface div.language select').value = ui_translator.getSelectedLanguage();
