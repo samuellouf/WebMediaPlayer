@@ -222,6 +222,9 @@ class Viewer {
       // document.querySelector('div.viewer div.loading').style.display = 'none';
     }
     this.fileName.children[0].innerText = file.name;
+    if (this.playWhenLoaded){
+      this.play();
+    }
     await delay(0.2);
     while (!this.isPaused()){
       if (!this.timeInput.matches(':active')){
@@ -230,12 +233,6 @@ class Viewer {
       this.refreshTimeIndicators();
       await delay(0.2);
     }
-    if (this.playWhenLoaded){
-      this.play();
-    }
-    this.fileName.classList.toggle('hidden');
-    await delay(3);
-    this.fileName.classList.toggle('hidden');
   }
 
   installMidiPlayer() {
@@ -276,9 +273,14 @@ class Viewer {
       this.play();
     }
     this.fileName.children[0].innerText = file.name;
-    this.fileName.classList.toggle('hidden');
-    await delay(3);
-    this.fileName.classList.toggle('hidden');
+    await delay(0.2);
+    while (!this.isPaused()){
+      if (!this.timeInput.matches(':active')){
+        this.refreshTimeInput();
+      }
+      this.refreshTimeIndicators();
+      await delay(0.2);
+    }
   }
 
   switchVideoToPC(){
@@ -336,17 +338,6 @@ class Viewer {
       this.play();
     }
     this.fileName.children[0].innerText = file.name;
-    await delay(0.2);
-    while (!this.isPaused()){
-      if (!this.timeInput.matches(':active')){
-        this.refreshTimeInput();
-      }
-      this.refreshTimeIndicators();
-      await delay(0.2);
-    }
-    this.fileName.classList.toggle('hidden');
-    await delay(3);
-    this.fileName.classList.toggle('hidden');
   }
 
   // Both
