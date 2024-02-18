@@ -181,7 +181,7 @@ class Viewer {
   isPlayableByAudioElement(file) {
     if (file.type.split('/')[0] == 'audio'){
       var acceptedAudioFormats = ['flac', 'm4a', 'wav', 'weba', 'webm', 'mp3', 'ogg'];
-      return acceptedAudioFormats.includes(file.type.split('/')[1]);
+      return acceptedAudioFormats.includes(file.name.split('.').pop());
     } else {
       return false;
     }
@@ -220,6 +220,14 @@ class Viewer {
       // document.querySelector('div.viewer div.loading').style.display = 'none';
     }
     this.fileName.children[0].innerText = file.name;
+    await delay(0.2);
+    while (!this.isPaused()){
+      if (!this.timeInput.matches(':active')){
+        this.refreshTimeInput();
+      }
+      this.refreshTimeIndicators();
+      await delay(0.2);
+    }
     if (this.playWhenLoaded){
       this.play();
     }
@@ -326,6 +334,14 @@ class Viewer {
       this.play();
     }
     this.fileName.children[0].innerText = file.name;
+    await delay(0.2);
+    while (!this.isPaused()){
+      if (!this.timeInput.matches(':active')){
+        this.refreshTimeInput();
+      }
+      this.refreshTimeIndicators();
+      await delay(0.2);
+    }
     this.fileName.classList.toggle('hidden');
     await delay(3);
     this.fileName.classList.toggle('hidden');
