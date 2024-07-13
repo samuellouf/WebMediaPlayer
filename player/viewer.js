@@ -49,7 +49,7 @@ class Viewer {
         fullscreen = 100;
       }
 
-      if (window.outerHeight - e.clientY <= (240 - fullscreen)){
+      if (window.outerHeight - e.clientY <= (document.querySelector('.controls').clientHeight + 120 - fullscreen)){
         document.querySelector('div.controls').classList.remove('hidden');
         // document.querySelector('div.subtitles').classList.add('up');
       } else {
