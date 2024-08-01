@@ -1,7 +1,6 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!-- Version 0.2 -->
 <html lang="en">
 <head>
-  <!-- Web Media Player by SamuelLouf (https://samuellouf.github.io/WebMediaPlayer) | v.1.0.0 -->
   <meta charset="UTF-8">
   <title>Web Media Player</title>
   <link rel="stylesheet" href="./page.css">
@@ -16,6 +15,87 @@
     </div>
   </noscript>
   <div class="viewer">
+    <div class="vfc hidden">
+      <div class="popup">
+        <div class="header">
+          <span class="name"><ui t_id="vfc"></ui></span>
+          <span class="close"><button onclick="document.querySelector('.vfc').classList.add('hidden');">X</button></span>
+        </div>
+        <div class="main">
+          <div class="preview">
+            <img height="250" class="preview" src="image.png"><br>
+            <b><ui t_id="vfc_congrats"></ui></b><br>
+            <div class="buttons">
+              <button onclick="document.querySelector('.vfc .popup .main .preview img').requestFullscreen()"><ui t_id="vfc_bigger"></ui></button>
+            </div>
+            <br>
+            <div class="buttons">
+              <button onclick="viewer.downloadVideoFrameCapture();"><ui t_id="vfc_download"></ui></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="audiotracks hidden">
+      <div class="popup">
+        <div class="header">
+          <span class="name"><ui t_id="audio_tracks"></ui></span>
+          <span class="close"><button onclick="document.querySelector('.audiotracks').classList.add('hidden');">X</button></span>
+        </div>
+        <div class="main">
+          <br>
+          <b><ui t_id="select_audio_track"></ui></b><br>
+          <br>
+          <!-- Audio Tracks -->
+          <select onchange="viewer.selectedAudioTrack(this.value);" name="track">
+          </select>
+          <br>
+          <br>
+          <div>
+            <label class="label"><ui t_id="label"></ui><input type="text" readonly name="label"></label><br>
+            <label class="language"><ui t_id="language"></ui><input type="text" readonly name="language"></label><br>
+            <label class="id"><ui t_id="id"></ui><input type="text" readonly name="id"></label>
+          </div>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="buttons">
+            <button onclick="viewer.playSelectedAudioTrack();"><ui t_id="play_audio_track"></ui> "<span class="track"></span>"</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="videotracks hidden">
+      <div class="popup">
+        <div class="header">
+          <span class="name"><ui t_id="video_tracks"></ui></span>
+          <span class="close"><button onclick="document.querySelector('.videotracks').classList.add('hidden');">X</button></span>
+        </div>
+        <div class="main">
+          <br>
+          <b><ui t_id="select_video_track"></ui></b><br>
+          <br>
+          <!-- Video Tracks -->
+          <select onchange="viewer.selectedVideoTrack(this.value);" name="track">
+          </select>
+          <br>
+          <br>
+          <div>
+            <label class="label"><ui t_id="label"></ui><input type="text" readonly name="label"></label><br>
+            <label class="language"><ui t_id="language"></ui><input type="text" readonly name="language"></label><br>
+            <label class="id"><ui t_id="id"></ui><input type="text" readonly name="id"></label>
+          </div>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="buttons">
+            <button onclick="viewer.playSelectedVideoTrack();"><ui t_id="play_video_track"></ui> "<span class="track"></span>"</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="filename hidden"><span class="file">My File</span></div>
     <div class="loading" style="display: none;">
       <div class="content">
@@ -41,21 +121,23 @@
         <source src="./video.mp4" type="video/mp4">
       </video>
       <img src="./image.png">
+      <iframe src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
+    <div class="exitfullscreenfloat hidden">X</div>
     <div class="controls hidden">
       <div class="time">
         <span class="time">--:--</span>
-        <span><input type="range" style="width: 92.5%;" value="0" max="1000" onclick="viewer.refreshElementTime();" onchange="viewer.refreshElementTime();"></span>
+        <span class="i"><input name="time" type="range" value="0" max="100000" onclick="viewer.refreshElementTime();" onchange="viewer.refreshElementTime();"></span>
         <span class="total-time">--:--</span>
       </div>
       <div class="options">
-        <div poseas="button" onclick="viewer.toggleLecture();" class="toggle-lecture">
+        <div poseas="button" onclick="viewer.toggleLecture();" class="toggle-lecture" title="Toggle lecture" t_id="title:play_pause">
           <div class="playpause">
             <button role="play" class="play"></button>
             <button role="pause" class="pause hidden"></button>
           </div>
         </div>
-        <div poseas="button" onclick="viewer.toggleFullscreen();" class="fullscreen">
+        <div poseas="button" onclick="viewer.toggleFullscreen();" class="fullscreen" t_id="title:fullscreen_on_off">
           <svg width="40px" height="40px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="enter">
             <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
             <title>Enter Fullscreen</title>
@@ -88,7 +170,7 @@
             </g>
           </svg>
         </div>
-        <div poseas="button" class="loop" onclick="viewer.toggleLoop();">
+        <div poseas="button" class="loop" onclick="viewer.toggleLoop();" title="loop" t_id="title:loop_on_off">
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0,0,319.70753,319.70788">
             <g transform="translate(-80.14623,-20.14606)">
               <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill-rule="nonzero" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" style="mix-blend-mode: normal">
@@ -101,9 +183,9 @@
                 </g>
               </g>
             </g>
-          </svg><!--rotationCenter:159.8537670793972:159.85393860360386-->
+          </svg>
         </div>
-        <div poseas="button" onclick="viewer.togglePictureInPicture();" class="pip">
+        <div poseas="button" onclick="viewer.togglePictureInPicture();" class="pip" title="Picture in Picture" t_id="title:picture_in_picture_on_off">
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0,0,249.53743,249.03163">
             <g transform="translate(-115.23128,-55.48419)">
               <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill-rule="nonzero" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" style="mix-blend-mode: normal">
@@ -112,15 +194,83 @@
                 <path d="M115.23128,304.51581v-249.03163h249.53743v249.03163z" fill="none" stroke="none" stroke-width="0"/>
               </g>
             </g>
-          </svg><!--rotationCenter:124.76871515330816:124.51581323486592-->
+          </svg>
         </div>
         <div poseas="button" class="hidden">
           <svg width="40" height="40" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
             <path d="M 6 6 C 4.897 6 4 6.897 4 8 L 4 12 L 6 12 L 6 8 L 26 8 L 26 24 L 18 24 L 18 26 L 26 26 C 27.103 26 28 25.103 28 24 L 28 8 C 28 6.897 27.103 6 26 6 L 6 6 z M 4 14 L 4 16 C 9.169375 16 13.436179 19.942273 13.949219 24.978516 C 13.983421 25.314265 14 25.655375 14 26 L 16 26 C 16 19.383 10.617 14 4 14 z M 4 18 L 4 20 C 7.309 20 10 22.691 10 26 L 12 26 C 12 21.589 8.411 18 4 18 z M 4 22 L 4 26 L 8 26 C 8 23.791 6.209 22 4 22 z" class="w"></path>
           </svg>
         </div>
+        <div poseas="button" class="subtitlesbtn" onclick="toggleSubtitlesMenu();" title="Subtitles settings">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0,0,199.227,199.227">
+            <g transform="translate(-140.3865,-80.3865)">
+              <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill-rule="nonzero" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" style="mix-blend-mode: normal">
+                <path d="M140.3865,279.6135v-199.227h199.227v199.227z" class="ww" fill="none" stroke="none" stroke-width="0"/>
+                <path d="M146.90691,244.56456v-129.12913h186.18619v129.12913z" class="ww" fill="none" stroke="#000000" stroke-width="12.5"/>
+                <text transform="translate(160.62006,139.61875) scale(0.5,0.5)" class="ww" font-size="40" xml:space="preserve" fill="#000000" fill-rule="nonzero" stroke="#000000" stroke-width="10" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="Sans Serif" font-weight="normal" text-anchor="start" style="mix-blend-mode: normal">
+                  <tspan x="0" dy="0">C C</tspan>
+                  <tspan x="0" dy="46.15px">--------  ----------     -</tspan>
+                  <tspan x="0" dy="46.15px">--    -------       -----</tspan>
+                  <tspan x="0" dy="46.15px">   -----  --- -- -    ---</tspan>
+                  <tspan x="0" dy="46.15px">-----------  --     ------</tspan>
+                </text>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div poseas="button" class="vfcbtn" title="Capture the current frame" t_id="title:vfc_capture_current">
+          <div onclick="viewer.takeCaptureOfVideoElementAtTime();">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0,0,199.227,199.227">
+              <g transform="translate(-140.3865,-80.3865)">
+                <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill-rule="nonzero" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" style="mix-blend-mode: normal">
+                  <path d="M140.3865,279.6135v-199.227h199.227v199.227z" fill="none" stroke="none" stroke-width="0"/>
+                  <path d="M146.90691,244.56456v-129.12913h186.18619v129.12913z" fill="none" class="ww" stroke="#000000" stroke-width="12.5"/>
+                  <path d="M162.02131,111.82701v-14.94202h50.42933v14.94203z" fill="#000000" class="w ww" stroke="#000000" stroke-width="5"/>
+                  <path d="M287.16078,180.00001c0,26.04617 -21.11459,47.16077 -47.16077,47.16077c-26.04617,0 -47.16077,-21.11459 -47.16077,-47.16077c0,-26.04617 21.11459,-47.16077 47.16077,-47.16077c26.04617,0 47.16077,21.11459 47.16077,47.16077z" fill="#000000" stroke="#000000" class="w ww" stroke-width="5"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <select onchange="viewer.vfcSelected(this);" name="vfc">
+            <option value="current" t_id="vfc_capture_current">PASS</option>
+            <option value="custom" t_id="vfc_capture_custom">PASS</option>
+          </select>
+        </div>
+        <div poseas="button" title="Audio Tracks" t_id="title:audio_tracks" class="audiotracksbtn" onclick="viewer.openAudioTracksMenu();">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0,0,199.227,199.227">
+            <g transform="translate(-140.3865,-80.3865)">
+              <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill="none" fill-rule="nonzero" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" style="mix-blend-mode: normal">
+                <path d="M140.3865,279.6135v-199.227h199.227v199.227z" stroke="none" stroke-width="0" stroke-linecap="butt"/>
+                <path d="M146.61234,187.09646c0,0 8.62622,-61.29908 21.38868,-61.32017c4.67435,-0.00772 7.9408,90.15789 16.49048,92.50542c4.67889,1.28471 10.4771,-57.01005 16.00414,-57.19117c10.02502,-0.32852 16.81443,79.2303 28.29604,80.69267c5.5023,0.70081 36.91289,-123.51888 51.12832,-123.56937c8.19598,-0.02911 9.76651,92.31631 16.77596,100.13664c17.86127,19.92754 36.69169,-31.56264 36.69169,-31.56264" stroke="#000000" class="ww" stroke-width="10" stroke-linecap="round"/>
+              </g>
+            </g>
+          </svg>
+          <span>˅</span>
+        </div>
+        <div poseas="button" title="Video Tracks" t_id="title:video_tracks" class="videotracksbtn" onclick="viewer.openVideoTracksMenu();">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0,0,199.227,199.227">
+            <g transform="translate(-140.3865,-80.3865)">
+              <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill="none" fill-rule="nonzero" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" style="mix-blend-mode: normal">
+                <path d="M140.3865,279.6135v-199.227h199.227v199.227z" stroke="none" stroke-width="0" stroke-linecap="butt"/>
+                <path d="M150.30402,118.97886v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                <path d="M187.28839,118.97709v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                <path d="M224.44222,118.97709v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                <path d="M261.87506,118.97533v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                <path d="M300.17616,119.2228v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                <path d="M150.7722,269.83238v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                <path d="M187.75657,269.83062v-29.05166h29.05166v29.05166z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                <path d="M224.9104,269.83062v-29.05166h29.05165v29.05166z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                <path d="M262.34324,269.82885v-29.05165h29.05166v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                <path d="M300.64434,270.07632v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                <path d="M326.53009,123.54825h-101.87699l-1.41873,106.40472l103.37851,0.08277" stroke="#000000" stroke-width="20" stroke-linecap="round"/>
+                <path d="M154.66079,125.54525h83.85898l-1.58427,106.40472l-82.35749,0.08277" data-paper-data="{&quot;index&quot;:null}" stroke="#000000" stroke-width="20" stroke-linecap="round"/>
+              </g>
+            </g>
+          </svg>
+          <span>˅</span>
+        </div>
         <div class="speed-menu">
-          <button poseas="button" onclick="toggleSpeedMenu()"><span class="speed">Speed</span>: <span id="selectedSpeed">1x</span></button>
+          <a href="javascript: showSpeedMenu();"><button poseas="button"><span class="speed">Speed</span>: <span id="selectedSpeed">1x</span></button></a>
           <div class="speed-dropdown hidden" id="speedDropdown">
               <button poseas="button" onclick="setSpeed(0.5)">0.5x</button>
               <button poseas="button" onclick="setSpeed(1)">1x</button>
@@ -129,6 +279,12 @@
               <button poseas="button" onclick="setSpeed('custom')">Custom speed</button>
               <!-- Add more speed options as needed -->
           </div>
+        </div>
+        <div class="cc-menu hidden">
+          <span t_id="subtitles">Subtitles :</span>
+          <label>
+            <input type="checkbox" class="visible" name="subtitles" checked onchange="document.querySelector('app#settings-app .ui .pages .video input.subtitlesvisible').checked = this.checked; settings.setData('subtitles_visible', this.checked);"><span t_id="enable_subtitles">Enable subtitles</span>
+          </label>
         </div>
         <div class="volume">
           <div onclick="viewer.toggleMute();">
@@ -150,6 +306,25 @@
         </div>
       </div>
     </div>
+
+    <div class="subtitles" align="left">
+      <span></span>
+    </div>
+
+    <div class="playlist hidden">
+      <table>
+        <thead>
+          <tr>
+            <th><ui t_id="file_name"></ui></th>
+            <th><ui t_id="duration"></ui></th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+
     <div class="context-menus">
       
     </div>
@@ -166,20 +341,29 @@
                 <h1><ui t_id="interface"></ui></h1>
                 <div class="color-scheme">
                   <h2><ui t_id="colorscheme"></ui> :</h2>
-                  <select title="Color scheme" onchange="color_scheme.change(document.querySelector('#settings-app .app .interface .color-scheme select').value);">
+                  <select name="color" title="Color scheme" onchange="color_scheme.change(document.querySelector('#settings-app .app .interface .color-scheme select').value);">
                     <option value="system">Use system theme</option>
                     <option value="basic_light">Light</option>
                     <option value="basic_dark">Dark</option>
+                    <option value="red">Red</option>
                     <option value="orange">Orange</option>
                   </select>
                 </div>
                 <div class="language">
                   <h2><ui t_id="language"></ui> : </h2>
-                  <select title="language" onchange="ui_translator.selectLanguage(this.value); loadDialogs();">
+                  <select title="language" name="language onchange="ui_translator.selectLanguage(this.value); loadDialogs();">
                     <option value="en">English</option>
                     <option value="fr">Français</option>
                   </select>
                 </div>
+              </div>
+              <div class="video">
+                <h2><span t_id="video"></span> :</h2>
+                <h3><span t_id="subtitles">Subtitles :</span></h3>
+                <br>
+                <label>
+                  <input type="checkbox" class="subtitlesvisible" name="subtitles" checked onchange="document.querySelector('.cc-menu input.visible').checked = this.checked; settings.setData('subtitles_visible', this.checked);"><span t_id="enable_subtitles">Enable subtitles</span>
+                </label>
               </div>
             </div>
           </div>
@@ -194,6 +378,8 @@
   <script src="./appwindow.js"></script>
   <script src="./colorscheme.js"></script>
   <script src="./contextmenu.js"></script>
+  <script src="./selectmenus.js"></script>
+  <script src="./settings.js"></script>
   <script src="./script.js"></script>
 </body>
 </html>

@@ -1,9 +1,6 @@
-/* Web Media Player by SamuelLouf (https://samuellouf.github.io/WebMediaPlayer) | v.1.0.0 */
-
-/* The page's basic style */
-
 body{
   font-family: Arial;
+  accent-color: var(--accent-color);
 }
 
 html, body {
@@ -16,8 +13,24 @@ html, body {
   width: 100%
 }
 
-.viewer video, .viewer img{
+input:focus, button:focus{
+  outline-color: var(--focus-outline);
+}
+
+caption {
+  caption-side: bottom;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.viewer iframe{
+  position: absolute;
+  z-index: 150;
+  top: 0;
+  left: 0;
   width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  border: none;
 }
 
 div.controls {
@@ -27,33 +40,35 @@ div.controls {
   transform: translate(-50%, -50%);
   z-index: 5;
   width: 95%;
+  transition-duration: 0.5s;
+  background-color: var(--controls);
 }
 
-div.controls div.options {
+div.controls.hidden{
+  transition-duration: 0.5s;
+  bottom: -25%;
+}
+
+div.controls div.options:not(.selectm) {
   display: inline-flex;
   align-items: center;
 }
 
-div.subtitles {
-  position: fixed;
-  bottom: -20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100;
-  width: 95%;
-  text-align: center;
-  color: white;
-  font-size: 400%;
-  font-style: italic;
+div.controls .time {
+  display: flex;
 }
 
-div.subtitles.up {
-  bottom: -5%;
+div.controls span.i{
+  width: calc(100% - 0px);
+}
+
+div.controls .time input[type="range"]{
+  width: -webkit-fill-available;
 }
 
 div.audio.fake {
-  background-color: black;
-  color: white;
+  background-color: var(--audio-background-color);
+  color: var(--audio-color);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -127,7 +142,7 @@ div.filename {
   width: 1rem;
   height: 1rem;
   padding: 1rem;
-  filter: drop-shadow(0 0 3.1rem rgba(255,255,255, 0.8));
+  /* filter: drop-shadow(0 0 3.1rem rgba(255,255,255, 0.8)); */
   margin-right: 1rem;
   margin-bottom: 1rem;
 }
@@ -188,11 +203,11 @@ div.volume div{
 
 .speed-dropdown {
   position: absolute;
-  top: -50px;
+  top: -145px;
   left: 0;
-  background-color: #f5f5f5;
+  background-color: var(--speed-dropdown-background-color);
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px var(--speed-dropdown-shadow);
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -204,7 +219,7 @@ div.volume div{
   text-align: left;
 }
 
-.hidden {
+.hidden:not(.controls) {
   display: none;
 }
 
@@ -227,6 +242,7 @@ div.volume div{
   cursor: move;
   z-index: 10;
   border-radius: 10px 10px 0px 0px;
+  color: var(--appwindow-header-color);
 }
 
 .appwindow section.ui{
@@ -239,6 +255,10 @@ div.volume div{
   height: 100%;
   width: 100%;
   overflow: auto;
+}
+
+.appwindow .resizer{
+  color: var(--appwindow-backgroud-color);
 }
 
 .appwindow .resizer.horizontal{
@@ -259,7 +279,7 @@ div.volume div{
   --select-arrow: var(--select-border);
 }
 
-.appwindow select {
+.appwindow select, .audiotracks select, .videotracks select{
   width: 100%;
   min-width: 15ch;
   max-width: 30ch;
@@ -269,11 +289,11 @@ div.volume div{
   font-size: 1.25rem;
   cursor: pointer;
   line-height: 1.1;
-  background-color: #fff;
-  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+  background-color: var(--select-background-color);
+  background-image: var(--select-background-image);
 }
 
-.appwindow select::after {
+.appwindow select::after, .audiotracks select::after, .videotracks select::after{
   content: "";
   width: 0.8em;
   height: 0.5em;
@@ -281,7 +301,7 @@ div.volume div{
   clip-path: polygon(100% 0%, 0 0%, 50% 100%);
 }
 
-.appwindow select[disabled] {
+.appwindow select[disabled], .audiotracks select[disabled], .videotracks select[disabled] {
   cursor: not-allowed;
 }
 
@@ -383,4 +403,345 @@ div.volume div{
 
 .cm_container li[disabled=""]:hover{
   background-color: inherit;
+}
+
+
+.subtitles{
+  position: absolute;
+  font-style: italic;
+  z-index: 100;
+}
+
+.subtitles:not([align=dragging]){
+  transition-duration: 0.5s;
+  cursor: grab;
+}
+
+.subtitles:not(.up):not([align=dragging]){
+  bottom: 20px;
+}
+
+.subtitles.up:not([align=dragging]){
+  bottom: 150px;
+}
+
+.subtitles[align=dragging]{
+  cursor: grabbing;
+}
+
+.subtitles span{
+  color: white;
+  background-color: #000000a4;
+  font-size: xx-large;
+}
+
+.subtitles[align=center] {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-style: italic;
+}
+
+.subtitles[align=right] {
+  position: fixed;
+  right: 10px;
+  text-align: center;
+  font-style: italic;
+}
+
+.cc-menu .switch {
+  position: absolute;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  bottom: 10px;
+}
+
+.cc-menu .switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.cc-menu .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--cc-menu-silder-bg);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.cc-menu .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--cc-menu-slider-before);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.cc-menu input:checked + .slider {
+  background-color: var(--cc-menu-input-slider);
+}
+
+.cc-menu input:focus + .slider {
+  box-shadow: 0 0 1px var(--cc-menu-input-slider);
+}
+
+.cc-menu input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.cc-menu .slider.round {
+  border-radius: 34px;
+}
+
+.cc-menu .slider.round:before {
+  border-radius: 50%;
+}
+
+.cc-menu{
+  position: absolute;
+  bottom: 60px;
+  left: 150px;
+  background-color: var(--cc-menu-bg);
+  border-radius: 5px;
+  box-shadow: 0 0 10px var(--cc-menu-shadow);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 150;
+}
+
+.vfc, .audiotracks, .videotracks{
+  background-color: var(--tracks-bg);
+  position: absolute;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  top: 0;
+  left: 0;
+  z-index: 200;
+}
+
+.vfc .popup, .audiotracks .popup, .videotracks .popup{
+  background-color: var(--tracks-popup-bg);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.vfc .popup .header .name, .audiotracks .popup .header .name, .videotracks .popup .header .name{
+  font-weight: bold;
+}
+
+.vfc .popup .header .close, .audiotracks .popup .header .close, .videotracks .popup .header .close{
+  padding-right: 10px;
+}
+
+.vfc .popup .header .close button, .audiotracks .popup .header .close button, .videotracks .popup .header .close button{
+  border: none;
+  background: none;
+  font-weight: bolder;
+  color: var(--close-button);
+  float: right;
+  cursor: pointer;
+}
+
+.vfc .popup .main button, .audiotracks .popup .main button, .videotracks .popup .main button{
+  background-color: var(--trackpopup-button-bg);
+  border: 0;
+  border-radius: 10px;
+  padding: 20px;
+  color: var(--trackpopup-button-color);
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.vfc .popup .main .buttons, .audiotracks .popup .main .buttons, .videotracks .popup .main .buttons{
+  display: flex;
+  justify-content: center;
+}
+
+.vfcbtn, .vfcbtn:hover, .audiotracksbtn, .audiotracksbtn:hover, .videotracksbtn, .videotracksbtn:hover{
+  display: flex;
+}
+
+.vfcbtn select{
+  border: none;
+  background: none;
+  width: 15px;
+}
+
+.audiotracksbtn span, .videotracksbtn span{
+  padding-top: 20%;
+  font-weight: bolder;
+}
+
+.playlist{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+}
+
+.viewer .exitfullscreenfloat{
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border-radius: 50%;
+  background-color: var(--exit-fullscreen-float-bg);
+  padding: 15px;
+  color: var(--exit-fullscreen-float-color);
+  font-weight: bolder;
+  top: 50px;
+}
+
+body{
+  background-color: var(--background-color);
+  color: var(--color);
+  transition-duration: 1s;
+}
+
+/* Context menu (right-click menu) */
+.cm_container ul{
+  background-color: var(--context-menu);
+  box-shadow: 0 0 5px var(--context-menu-shadow);
+}
+
+.cm_container li:hover{
+  background-color: var(--context-menu-hovered);
+}
+
+.cm_container li.cm_divider{
+  border-bottom: 1px solid var(--context-menu-divider);
+}
+
+.cm_container li[disabled=""]{
+  color: var(--context-menu-disabled);
+}
+
+div.controls {
+  background-color: var(--controls);
+}
+
+div.audio.fake h1{
+  background-color: var(--audio-background-color);
+  color: var(--audio-color);
+}
+
+div.loading {
+  background-color: var(--loading-background-color);
+  color: var(--loading-color);
+}
+
+div.loading div.content{
+  color: var(--loading-color);
+}
+
+div.filename {
+  color: var(--filename-color);
+}
+
+.speed-dropdown button:hover {
+  background-color: var(--speed-dropdown-background-color);
+}
+
+/* Apps Window */
+.appwindow {
+  background-color: var(--appwindow-backgroud-color);
+  border: 1px solid var(--appwindow-border);
+}
+
+.appwindowheader {
+  background-color: var(--appwindow-header-background-color);
+  color: var(--appwindow-color);
+}
+
+.appwindow select {
+  background-color: var(--select-background-color);
+  background-image: var(--select-background-image);
+}
+
+.appwindow select[disabled] {
+  background-color: var(--select-disabled-background-color);
+  background-image: var(--select-disabled-background-image);
+}
+
+.appwindow .resizer{
+  color: var(--appwindow-backgroud-color);
+}
+
+/* Player */
+path.w, text.w{
+  fill: var(--player-icons-colors);
+}
+
+path.ww, text.ww{
+  stroke: var(--player-icons-colors);
+}
+
+g.w{
+  stroke: var(--player-icons-colors);
+}
+
+/* Buttons */
+[poseas="button"]{
+  background-color: var(--button-bg);
+  border: var(--button-border) solid 2px;
+}
+
+[poseas="button"]:hover{
+  background-color: var(--hover-button-bg);
+  border: var(--hover-button-border) solid 2px;
+}
+
+[poseas="button"]:active{
+  background-color: var(--active-button-bg);
+  border: var(--active-button-border) solid 2px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid var(--table-border);
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+caption {
+  caption-side: bottom;
+  padding: 10px;
+  font-weight: bold;
+}
+
+thead,
+tfoot {
+  background-color: var(--thead-bg);
+}
+
+th,
+td {
+  border: 1px solid var(--td-border);
+  padding: 8px 10px;
+}
+
+td:last-of-type {
+  text-align: center;
 }

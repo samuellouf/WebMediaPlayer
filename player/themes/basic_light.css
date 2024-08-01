@@ -1,116 +1,56 @@
-/* Web Media Player by SamuelLouf (https://samuellouf.github.io/WebMediaPlayer) | v.1.0.0 */
-
-/* Basic Light */
-
-body{
-  background-color: #cecbcb;
-  color: black;
-  transition-duration: 1s;
-}
-
-/* Context menu (right-click menu) */
-.cm_container ul{
-  background-color: #dbdbdb;
-  box-shadow: 0 0 5px #626262;
-}
-
-.cm_container li:hover{
-  background-color: #b0b0b0;
-}
-
-.cm_container li.cm_divider{
-  border-bottom: 1px solid #aaa;
-}
-
-.cm_container li[disabled=""]{
-  color: #777;
-}
-
-div.controls {
-  background-color: #f5f5f580;
-}
-
-div.audio.fake h1{
-  background-color: #f0efef;
-  color: rgb(0, 60, 255);
-}
-
-div.loading {
-  background-color: black;
-  color: white;
-}
-
-div.loading div.content{
-  color: white;
-}
-
-div.filename {
-  color: white;
-}
-
-:root {
+:root{
+  --color: black;
+  --background-color: #cecbcb;
+  --context-menu: #dbdbdb;
+  --context-menu-shadow: #626262;
+  --context-menu-hovered: #b0b0b0;
+  --context-menu-divider: #aaa;
+  --context-menu-disabled: #777;
+  --controls: #f5f5f580;
+  --audio-background-color: #f0efef;
+  --audio-color: #003cff;
   --button-color: #ddd;
-}
-
-.speed-dropdown button:hover {
-  background-color: #d3e8ff;
-}
-
-:root {
   --select-border: #777;
   --select-focus: blue;
-}
-
-/* Apps windows */
-.appwindow {
-  background-color: #efefef;
-  border: 1px solid #d3d3d3;
-}
-
-.appwindowheader {
-  background-color: #dcdcdc;
-  color: #ffffff;
-}
-
-.appwindow .resizer{
-  color: #efefef;
-}
-
-.appwindow select {
-  background-color: #fff;
-  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
-}
-
-.appwindow select[disabled] {
-  background-color: #eee;
-  background-image: linear-gradient(to top, #ddd, #eee 33%);
-}
-
-/* Player */
-path.w, text.w{
-  fill: black;
-}
-
-path.ww, text.ww{
-  stroke: black;
-}
-
-g.w{
-  stroke: black;
-}
-
-/* Buttons */
-[poseas="button"]{
-  background-color: #f0f0f0;
-  border: #bcbcbc solid 2px;
-}
-
-[poseas="button"]:hover{
-  background-color: #d3e8ff;
-  border: #4a7db3 solid 2px;
-}
-
-[poseas="button"]:active{
-  background-color: #b5bfe7;
-  border: #2559b3 solid 2px;
+  --loading-background-color: black;
+  --loading-color: white;
+  --filename-color: white;
+  --speed-dropdown-background-color: #f5f5f5;
+  --appwindow-color: #fff;
+  --appwindow-backgroud-color: #efefef;
+  --appwindow-border: #d3d3d3;
+  --appwindow-header-background-color: #dcdcdc;
+  --appwindow-header-color: white;
+  --select-background-color: #fff;
+  --select-background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+  --select-disabled-background-color: #eee;
+  --select-disabled-background-image: linear-gradient(to top, #ddd, #eee 33%);
+  --player-icons-colors: black;
+  --button-bg: #f0f0f0;
+  --button-border: #bcbcbc;
+  --hover-button-bg: #d3e8ff;
+  --hover-button-border: #4a7db3;
+  --active-button-bg: #b5bfe7;
+  --active-button-border: #2559b3;
+  --exit-fullscreen-float-bg: #000000bc;
+  --exit-fullscreen-float-color: white;
+  --trackpopup-button-bg: cornflowerblue;
+  --trackpopup-button-color: white;
+  --speed-dropdown-shadow: rgba(0, 0, 0, 0.1);
+  --cc-menu-slider-bg: #ccc;
+  --cc-menu-slider-before: white;
+  --cc-menu-bg: #f5f5f5;
+  --cc-menu-input-slider: #2196F3;
+  --close-button: red;
+  --tracks-bg: #000000a4;
+  --cc-menu-shadow: rgba(0, 0, 0, 0.1);
+  --table-border: rgb(140 140 140);
+  --thead-bg: rgb(228 240 245);
+  --td-border: rgb(160 160 160);
+  --speed-dropdown-bg:#d3e8ff;
+  --button-color: #ddd;
+  --select-border: #777;
+  --select-focus: blue;
+  --focus-outline: black;
+  --accent-color: none;
 }

@@ -1,5 +1,3 @@
-// Web Media Player by SamuelLouf (https://samuellouf.github.io/WebMediaPlayer) | v.1.0.0
-
 function ContextMenu(menu, options){
 	var self = this;
 	var num = ContextMenu.count++;
@@ -270,8 +268,8 @@ const ContextUtil = {
 	}
 };
 
-
-var videoMenu = [ // translate
+function defineMenus(){
+  window.videoMenu = [ // translate
   {
     "text": '<ui t_id="play_pause"></ui>',
     "events": {
@@ -452,6 +450,37 @@ var videoMenu = [ // translate
     }
   },
   {
+    "text": '<ui t_id="import_subtitles"></ui>',
+    "events": {
+      "click": function(e){
+        viewer.importLyricsFile();
+      }
+    }
+  },
+  {
+    "text": '<ui t_id="vfc"></ui>',
+    "sub": [
+      {
+        "text": '<ui t_id="vfc_capture_current"></ui>',
+        "events": {
+          "click": function(e){
+            viewer.takeCaptureOfVideoElementAtTime();
+          }
+        }
+      },
+      {
+        "text": '<ui t_id="vfc_capture_custom"></ui>',
+        "events": {
+          "click": function(e){
+            viewer.takeCaptureOfVideoElementAtTime(Number(viewer.hms2s(prompt(ui_translator.getDialogInLanguage('vfc_custom')))));
+          }
+        }
+      }
+    ]
+  },
+  viewer.getAudioTracksMenu(),
+  viewer.getVideoTracksMenu(),
+  {
     "text": '<ui t_id="settings"></ui>',
     "events": {
       "click": function(e){
@@ -461,7 +490,7 @@ var videoMenu = [ // translate
   }
 ];
 
-var audioMenu = [ // translate
+window.audioMenu = [ // translate
   {
     "text": '<ui t_id="play_pause"></ui>',
     "events": {
@@ -626,7 +655,7 @@ var audioMenu = [ // translate
   }
 ];
 
-var imageMenu = [ // translate
+window.imageMenu = [ // translate
   {
     "text": '<ui t_id="play_pause"></ui>',
     "events": {
@@ -673,3 +702,5 @@ var imageMenu = [ // translate
     }
   }
 ];
+}
+defineMenus();
