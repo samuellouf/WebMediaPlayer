@@ -1,4 +1,4 @@
-<!DOCTYPE html> <!-- Version 0.2 -->
+<!DOCTYPE html> <!-- Version 0.3 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -236,38 +236,40 @@
             <option value="custom" t_id="vfc_capture_custom">PASS</option>
           </select>
         </div>
-        <div poseas="button" title="Audio Tracks" t_id="title:audio_tracks" class="audiotracksbtn" onclick="viewer.openAudioTracksMenu();">
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0,0,199.227,199.227">
-            <g transform="translate(-140.3865,-80.3865)">
-              <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill="none" fill-rule="nonzero" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" style="mix-blend-mode: normal">
-                <path d="M140.3865,279.6135v-199.227h199.227v199.227z" stroke="none" stroke-width="0" stroke-linecap="butt"/>
-                <path d="M146.61234,187.09646c0,0 8.62622,-61.29908 21.38868,-61.32017c4.67435,-0.00772 7.9408,90.15789 16.49048,92.50542c4.67889,1.28471 10.4771,-57.01005 16.00414,-57.19117c10.02502,-0.32852 16.81443,79.2303 28.29604,80.69267c5.5023,0.70081 36.91289,-123.51888 51.12832,-123.56937c8.19598,-0.02911 9.76651,92.31631 16.77596,100.13664c17.86127,19.92754 36.69169,-31.56264 36.69169,-31.56264" stroke="#000000" class="ww" stroke-width="10" stroke-linecap="round"/>
+        <div class="tracks-btns">
+          <div poseas="button" title="Audio Tracks" t_id="title:audio_tracks" class="audiotracksbtn" onclick="viewer.openAudioTracksMenu();">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0,0,199.227,199.227">
+              <g transform="translate(-140.3865,-80.3865)">
+                <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill="none" fill-rule="nonzero" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" style="mix-blend-mode: normal">
+                  <path d="M140.3865,279.6135v-199.227h199.227v199.227z" stroke="none" stroke-width="0" stroke-linecap="butt"/>
+                  <path d="M146.61234,187.09646c0,0 8.62622,-61.29908 21.38868,-61.32017c4.67435,-0.00772 7.9408,90.15789 16.49048,92.50542c4.67889,1.28471 10.4771,-57.01005 16.00414,-57.19117c10.02502,-0.32852 16.81443,79.2303 28.29604,80.69267c5.5023,0.70081 36.91289,-123.51888 51.12832,-123.56937c8.19598,-0.02911 9.76651,92.31631 16.77596,100.13664c17.86127,19.92754 36.69169,-31.56264 36.69169,-31.56264" stroke="#000000" class="ww" stroke-width="10" stroke-linecap="round"/>
+                </g>
               </g>
-            </g>
-          </svg>
-          <span>˅</span>
-        </div>
-        <div poseas="button" title="Video Tracks" t_id="title:video_tracks" class="videotracksbtn" onclick="viewer.openVideoTracksMenu();">
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0,0,199.227,199.227">
-            <g transform="translate(-140.3865,-80.3865)">
-              <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill="none" fill-rule="nonzero" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" style="mix-blend-mode: normal">
-                <path d="M140.3865,279.6135v-199.227h199.227v199.227z" stroke="none" stroke-width="0" stroke-linecap="butt"/>
-                <path d="M150.30402,118.97886v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                <path d="M187.28839,118.97709v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                <path d="M224.44222,118.97709v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                <path d="M261.87506,118.97533v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                <path d="M300.17616,119.2228v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                <path d="M150.7722,269.83238v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                <path d="M187.75657,269.83062v-29.05166h29.05166v29.05166z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                <path d="M224.9104,269.83062v-29.05166h29.05165v29.05166z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                <path d="M262.34324,269.82885v-29.05165h29.05166v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                <path d="M300.64434,270.07632v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                <path d="M326.53009,123.54825h-101.87699l-1.41873,106.40472l103.37851,0.08277" stroke="#000000" stroke-width="20" stroke-linecap="round"/>
-                <path d="M154.66079,125.54525h83.85898l-1.58427,106.40472l-82.35749,0.08277" data-paper-data="{&quot;index&quot;:null}" stroke="#000000" stroke-width="20" stroke-linecap="round"/>
+            </svg>
+            <span>˅</span>
+          </div>
+          <div poseas="button" title="Video Tracks" t_id="title:video_tracks" class="videotracksbtn" onclick="viewer.openVideoTracksMenu();">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0,0,199.227,199.227">
+              <g transform="translate(-140.3865,-80.3865)">
+                <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill="none" fill-rule="nonzero" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" style="mix-blend-mode: normal">
+                  <path d="M140.3865,279.6135v-199.227h199.227v199.227z" stroke="none" stroke-width="0" stroke-linecap="butt"/>
+                  <path d="M150.30402,118.97886v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                  <path d="M187.28839,118.97709v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                  <path d="M224.44222,118.97709v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                  <path d="M261.87506,118.97533v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                  <path d="M300.17616,119.2228v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                  <path d="M150.7722,269.83238v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                  <path d="M187.75657,269.83062v-29.05166h29.05166v29.05166z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                  <path d="M224.9104,269.83062v-29.05166h29.05165v29.05166z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                  <path d="M262.34324,269.82885v-29.05165h29.05166v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                  <path d="M300.64434,270.07632v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
+                  <path d="M326.53009,123.54825h-101.87699l-1.41873,106.40472l103.37851,0.08277" stroke="#000000" stroke-width="20" stroke-linecap="round"/>
+                  <path d="M154.66079,125.54525h83.85898l-1.58427,106.40472l-82.35749,0.08277" data-paper-data="{&quot;index&quot;:null}" stroke="#000000" stroke-width="20" stroke-linecap="round"/>
+                </g>
               </g>
-            </g>
-          </svg>
-          <span>˅</span>
+            </svg>
+            <span>˅</span>
+          </div>
         </div>
         <div class="speed-menu">
           <a href="javascript: showSpeedMenu();"><button poseas="button"><span class="speed">Speed</span>: <span id="selectedSpeed">1x</span></button></a>
@@ -334,38 +336,42 @@
         <section class="ui">
           <div class="resizer horizontal" onmousedown="new AppWindow().resizeHorizontal('#settings-app', 'left');">_</div>
           <div class="app">
-            <div class="nav">
-            </div>
-            <div class="pages">
-              <div class="interface">
-                <h1><ui t_id="interface"></ui></h1>
-                <div class="color-scheme">
-                  <h2><ui t_id="colorscheme"></ui> :</h2>
-                  <select name="color" title="Color scheme" onchange="color_scheme.change(document.querySelector('#settings-app .app .interface .color-scheme select').value);">
-                    <option value="system">Use system theme</option>
-                    <option value="basic_light">Light</option>
-                    <option value="basic_dark">Dark</option>
-                    <option value="red">Red</option>
-                    <option value="orange">Orange</option>
-                  </select>
+            <div class="tabs">
+              <div class="tab-header">
+                <div class="tab active" data-tab="interface"><ui t_id="interface"></ui><</div>
+                <div class="tab" data-tab="video"><span t_id="video"></span></div>
+              </div>
+              <div class="tab-content">
+                <div class="content active interface" target-id="interface">
+                  <h1><ui t_id="interface"></ui></h1>
+                  <div class="color-scheme">
+                    <h2><ui t_id="colorscheme"></ui> :</h2>
+                    <select name="color" title="Color scheme" t_id="title:colorscheme" onchange="color_scheme.change(document.querySelector('#settings-app .app .interface .color-scheme select').value);">
+                      <option value="system">Use system theme</option>
+                      <option value="basic_light">Light</option>
+                      <option value="basic_dark">Dark</option>
+                      <option value="red">Red</option>
+                      <option value="orange">Orange</option>
+                    </select>
+                  </div>
+                  <div class="language">
+                    <h2><ui t_id="language"></ui> : </h2>
+                    <select title="language" name="language" onchange="ui_translator.selectLanguage(this.value); loadDialogs();">
+                      <option value="en">English</option>
+                      <option value="fr">Français</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="language">
-                  <h2><ui t_id="language"></ui> : </h2>
-                  <select title="language" name="language onchange="ui_translator.selectLanguage(this.value); loadDialogs();">
-                    <option value="en">English</option>
-                    <option value="fr">Français</option>
-                  </select>
+                <div class="content video" target-id="video">
+                  <h2><span t_id="video"></span> :</h2>
+                  <h3><span t_id="subtitles">Subtitles :</span></h3>
+                  <br>
+                  <label>
+                    <input type="checkbox" class="subtitlesvisible" name="subtitles" checked onchange="document.querySelector('.cc-menu input.visible').checked = this.checked; settings.setData('subtitles_visible', this.checked);"><span t_id="enable_subtitles">Enable subtitles</span>
+                  </label>
                 </div>
               </div>
-              <div class="video">
-                <h2><span t_id="video"></span> :</h2>
-                <h3><span t_id="subtitles">Subtitles :</span></h3>
-                <br>
-                <label>
-                  <input type="checkbox" class="subtitlesvisible" name="subtitles" checked onchange="document.querySelector('.cc-menu input.visible').checked = this.checked; settings.setData('subtitles_visible', this.checked);"><span t_id="enable_subtitles">Enable subtitles</span>
-                </label>
-              </div>
-            </div>
+          </div>
           </div>
           <div class="resizer horizontal" onmousedown="new AppWindow().resizeHorizontal('#settings-app', 'right');">_</div>
         </section>
