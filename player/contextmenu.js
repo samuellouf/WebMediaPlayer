@@ -68,7 +68,7 @@ function ContextMenu(menu, options){
 		level.forEach(function(item){
 			var li = document.createElement("li");
 			li.menu = self;
-
+      try{
 			if(typeof item.type === "undefined"){
 				var icon_span = document.createElement("span");
 				icon_span.className = 'cm_icon_span';
@@ -136,7 +136,9 @@ function ContextMenu(menu, options){
 					li.className = "cm_divider";
 				}
 			}
-
+    }catch(e){
+      
+    }
 			ul_outer.appendChild(li);
 		});
 

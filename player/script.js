@@ -155,7 +155,7 @@ if (params.get('mode') != null){
   viewer.setMode(params.get('mode'));
 }
 
-document.querySelector('app#settings-app.appwindow section.ui div.app div.pages div.interface div.language select').value = ui_translator.getSelectedLanguage();
+document.querySelector('app#settings-app.appwindow section.ui div.app .interface div.language select').value = ui_translator.getSelectedLanguage();
 
 function reloadMenus(){
   defineMenus();
@@ -189,10 +189,34 @@ function reloadMenus(){
 
 reloadMenus();
 
-viewer.reloadMenus = reloadMenus;
-viewer.videoElement.audioTracks.onaddtrack = reloadMenus;
-viewer.videoElement.audioTracks.onremovetrack = reloadMenus;
-viewer.videoElement.audioTracks.onchange = reloadMenus;
+try{
+  viewer.reloadMenus = reloadMenus;
+  viewer.videoElement.audioTracks.onaddtrack = reloadMenus;
+  viewer.videoElement.audioTracks.onremovetrack = reloadMenus;
+  viewer.videoElement.audioTracks.onchange = reloadMenus;
+} catch (e) {}
 
 document.querySelector('.cc-menu input.visible').checked = settings.getData('subtitles_visible');
-document.querySelector('app#settings-app .ui .pages .video input.subtitlesvisible').checked = settings.getData('subtitles_visible');
+document.querySelector('app#settings-app .ui .video input.subtitlesvisible').checked = settings.getData('subtitles_visible');
+
+document.addEventListener("DOMContentLoaded", function() {
+  const tabs = document.querySelectorAll(".tab");
+  const contents = document.querySelectorAll(".content");
+
+  tabs.forEach(tab => {
+      tab.addEventListener("click", function() {
+          // Remove active class from all tabs and contents
+          tabs.forEach(tab => tab.classList.remove("active"));
+          contents.forEach(content => content.classList.remove("active"));
+
+          // Add active class to clicked tab and corresponding content
+          tab.classList.add("active");
+          const activeContent = document.querySelector('[target-id="' + tab.getAttribute("data-tab") + '"]');
+          activeContent.classList.add("active");
+      });
+  });
+
+  if (window.navigator.userAgent.includes('Mac OS X')){
+    document.querySelector('.viewer .controls .tracks-btns').style.display = 'none';
+  }
+});

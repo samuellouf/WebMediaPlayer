@@ -76,6 +76,11 @@ class Language{ // translate
         'duration': 'Duration',
         'subtitles': 'Subtitles',
         'enable_subtitles': 'Enable subtitles',
+        'system': 'System',
+        'basic_light': 'Light',
+        'basic_dark': 'Dark',
+        'red': 'Red',
+        'orange': 'Orange',
       },
       'fr': {
         'set_volume_to': 'Mettre le volume à :',
@@ -124,6 +129,11 @@ class Language{ // translate
         'duration': 'Durée',
         'subtitles': 'Sous-titres',
         'enable_subtitles': 'Activer les sous-titres',
+        'system': 'Système',
+        'basic_light': 'Lumineux',
+        'basic_dark': 'Sombre',
+        'red': 'Rouge',
+        'orange': 'Orange',
       }
     }
   }
@@ -136,8 +146,8 @@ class Language{ // translate
         e.innerText = ui_translator.getDialogInLanguage(e.getAttribute('t_id'));
       }
     });
-  }  
-
+  }
+  
   getDialogInLanguage(dialog, language = this.getSelectedLanguage()){
     return this.getLanguages()[language][dialog];
   }

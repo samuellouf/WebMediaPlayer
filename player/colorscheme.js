@@ -35,7 +35,7 @@ class ColorScheme{
 
   load(){
     this.change(localStorage.getItem('color_scheme'));
-    document.querySelector('#settings-app .app .interface .color-scheme select').value = localStorage.getItem('color_scheme');
+    document.querySelector('#settings-app .app .interface .color-scheme select').value = localStorage.getItem('color_scheme') || 'basic_light';
   }
 }
 

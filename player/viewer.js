@@ -1099,11 +1099,6 @@ class Viewer {
     return document.createElement('video').audioTracks != undefined
   }
 
-  getAudioTracks(){
-    if (!this.hasAudioTracks) return null
-    return this.videoElement.audioTracks;
-  }
-
   playAudioTrackId(id){
     if (!this.hasAudioTracks) return null
     for (var i=0; i < this.videoElement.audioTracks.length; i++) {
@@ -1122,11 +1117,15 @@ class Viewer {
 
   getAudioTracks(){
     if (!this.hasAudioTracks) return null
-    let tracks = [];
-    for (var i=0; i < this.videoElement.audioTracks.length; i++) {
-      tracks.push(this.videoElement.audioTracks[i])
+    try{
+      let tracks = [];
+      for (var i=0; i < this.videoElement.audioTracks.length; i++) {
+        tracks.push(this.videoElement.audioTracks[i])
+      }
+      return tracks
+    } catch(e) {
+      return null
     }
-    return tracks
   }
 
   getAudioTracksIDs(){
@@ -1178,21 +1177,25 @@ class Viewer {
   }
 
   getAudioTracksMenu(){
-    let tracks = [];
-    for (var i=0; i < this.getAudioTracks().length; i++) {
-      let track = this.getAudioTracks()[i];
-      tracks.push({
-        "text": (track.label || ui_translator.getDialogInLanguage('track') + ' ' + String(i + 1)) + ' [' + this.getAudioTracksFullLanguages()[i] + ']',
-        "events": {
-          "click": function(e){
-            viewer.playAudioTrackId(track.id);
+    try{
+      let tracks = [];
+      for (var i=0; i < this.getAudioTracks().length; i++) {
+        let track = this.getAudioTracks()[i];
+        tracks.push({
+          "text": (track.label || ui_translator.getDialogInLanguage('track') + ' ' + String(i + 1)) + ' [' + this.getAudioTracksFullLanguages()[i] + ']',
+          "events": {
+            "click": function(e){
+              viewer.playAudioTrackId(track.id);
+            }
           }
-        }
-      });
-    }
-    return {
-      "text": ui_translator.getDialogInLanguage('audio_tracks'),
-      "sub": tracks
+        });
+      }
+      return {
+        "text": ui_translator.getDialogInLanguage('audio_tracks'),
+        "sub": tracks
+      }
+    } catch(e) {
+      return null
     }
   }
 
@@ -1247,11 +1250,6 @@ class Viewer {
     return document.createElement('video').videoTracks != undefined
   }
 
-  getVideoTracks(){
-    if (!this.hasVideoTracks) return null
-    return this.videoElement.videoTracks;
-  }
-
   playVideoTrackId(id){
     if (!this.hasVideoTracks) return null
     for (var i=0; i < this.videoElement.videoTracks.length; i++) {
@@ -1270,11 +1268,15 @@ class Viewer {
 
   getVideoTracks(){
     if (!this.hasVideoTracks) return null
-    let tracks = [];
-    for (var i=0; i < this.videoElement.videoTracks.length; i++) {
-      tracks.push(this.videoElement.videoTracks[i])
+    try {
+      let tracks = [];
+      for (var i=0; i < this.videoElement.videoTracks.length; i++) {
+        tracks.push(this.videoElement.videoTracks[i])
+      }
+      return tracks
+    } catch (e) {
+      return null
     }
-    return tracks
   }
 
   getVideoTracksIDs(){
@@ -1326,21 +1328,25 @@ class Viewer {
   }
 
   getVideoTracksMenu(){
-    let tracks = [];
-    for (var i=0; i < this.getVideoTracks().length; i++) {
-      let track = this.getVideoTracks()[i];
-      tracks.push({
-        "text": (track.label || ui_translator.getDialogInLanguage('track') + ' ' + String(i + 1)) + ' [' + this.getVideoTracksFullLanguages()[i] + ']',
-        "events": {
-          "click": function(e){
-            viewer.playVideoTrackId(track.id);
+    try{
+      let tracks = [];
+      for (var i=0; i < this.getVideoTracks().length; i++) {
+        let track = this.getVideoTracks()[i];
+        tracks.push({
+          "text": (track.label || ui_translator.getDialogInLanguage('track') + ' ' + String(i + 1)) + ' [' + this.getVideoTracksFullLanguages()[i] + ']',
+          "events": {
+            "click": function(e){
+              viewer.playVideoTrackId(track.id);
+            }
           }
-        }
-      });
-    }
-    return {
-      "text": ui_translator.getDialogInLanguage('video_tracks'),
-      "sub": tracks
+        });
+      }
+      return {
+        "text": ui_translator.getDialogInLanguage('video_tracks'),
+        "sub": tracks
+      }
+    } catch (e) {
+      return null
     }
   }
 
