@@ -1,4 +1,4 @@
-# Web Media Player v.1.3
+# Web Media Player v.1.4
 My own little HTML/CSS/JS media player.
 
 [![@samuellouf](https://img.shields.io/badge/author-SamuelLouf-lightgray.svg)](https://github.com/samuellouf/WebMediaPlayer)

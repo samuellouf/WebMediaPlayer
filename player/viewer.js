@@ -27,7 +27,15 @@ class Viewer {
     this.controls_picture_in_picture = document.querySelector('div.viewer div.controls div.options div.pip');
     this.loop = 'noloop';
 
-    this.midiPlayer = null;
+    this.midiPlayer = {
+      loadMIDI: (midi) => {
+        if (midi instanceof Blob){
+          midi = URL.createObjectURL(midi);
+        }
+        MIDIjs.play(midi)
+        MIDIjs.pause()
+      }
+    };
 
     this.playlist_ = []
 
@@ -369,9 +377,10 @@ class Viewer {
       // await this.getPromiseFromEvent(this.audioElement, 'loadeddata');
       // document.querySelector('div.viewer div.loading').style.display = 'none';
     } else if (this.isMidi(file)){
-      if (this.midiPlayer == null){
+      if (this.midiPlayer.player == null){
         try{
-          this.installMidiPlayer();
+          await this.installMidiPlayer();
+          this.playMIDIAudio();
         } catch {
           alert("MIDIjs could not be imported.");
         }
@@ -383,6 +392,8 @@ class Viewer {
     if (this.playWhenLoaded){
       this.play();
       this.refreshTimeIndicators();
+      eval('viewer.toggleLecture();');
+      eval('viewer.toggleLecture();');
     }
     this.reloadMenus();
     this.showText(file.name);
@@ -401,19 +412,6 @@ class Viewer {
     this.fileName.classList.toggle('hidden');
     await delay(3);
     this.fileName.classList.toggle('hidden');
-  }
-
-  installMidiPlayer() {
-    try {
-      fetch('https://www.midijs.net/lib/midi.js');
-      this.midiPlayer.scriptElement = document.createElement('script');
-      this.midiPlayer.scriptElement.type = 'text/javascript';
-      this.midiPlayer.scriptElement.src = 'https://www.midijs.net/lib/midi.js';
-      document.body.appendChild(this.midiPlayer.scriptElement);
-      this.midiPlayer = MIDIjs;
-    } catch {
-      throw new Error('Could not access "https://www.midijs.net/lib/midi.js".');
-    }
   }
 
   // Video
@@ -445,6 +443,8 @@ class Viewer {
     if (this.playWhenLoaded){
       this.play();
       this.refreshTimeIndicators();
+      eval('viewer.toggleLecture();');
+      eval('viewer.toggleLecture();');
     }
     this.reloadMenus();
     this.showText(file.name);
