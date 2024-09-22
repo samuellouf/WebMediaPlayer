@@ -1,5 +1,5 @@
 ===========
-Web Media Player
+Web Media Player v.1.4
 ===========
 My own little HTML/CSS/JS media player.
 

@@ -49,4 +49,5 @@
   --select-focus: orange;
   --focus-outline: var(--accent-color);
   --accent-color: orange;
+  --tracks-popup-bg: #b25c00;
 }
