@@ -1,14 +1,17 @@
 :root{
   --color: black;
-  --background-color: #ff0000;
-  --context-menu: #ff0000;
+  --background-color: red;
+  --context-menu: red;
   --context-menu-shadow: #d40000;
   --context-menu-hovered: #be0000;
   --context-menu-divider: #a90000;
   --context-menu-disabled: #630202;
   --controls: #f5f5f580;
   --audio-background-color: #f0efef;
-  --audio-color: #ff0000;
+  --audio-color: red;
+  --button-color: #ddd;
+  --select-border: #777;
+  --select-focus: red;
   --loading-background-color: black;
   --loading-color: white;
   --filename-color: white;
@@ -17,8 +20,9 @@
   --appwindow-backgroud-color: #ed0000;
   --appwindow-border: #d40000;
   --appwindow-header-background-color: #dd0000;
-  --select-background-color: #ff0000;
-  --select-background-image: linear-gradient(to top, #ff0000, #d80000 33%);
+  --appwindow-header-color: white;
+  --select-background-color: red;
+  --select-background-image: linear-gradient(to top, red, #d80000 33%);
   --select-disabled-background-color: #eee;
   --select-disabled-background-image: linear-gradient(to top, #ddd, #eee 33%);
   --player-icons-colors: black;
@@ -43,7 +47,6 @@
   --table-border: rgb(140 140 140);
   --thead-bg: rgb(228 240 245);
   --td-border: rgb(160 160 160);
-  --speed-dropdown-bg:#d3e8ff;
   --button-color: #ddd;
   --select-border: #777;
   --select-focus: red;
