@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Web Media Player</title>
-  <link rel="stylesheet" href="./page.css">
+  <link rel="stylesheet" href="./styles/page.css">
   <link rel="stylesheet" href="./themes/basic_light.css" id="color_scheme">
+  <link rel="stylesheet" href="./stylized_popups/stylized_popups.css">
+  <link rel="icon" href="../favicon.ico">
 </head>
 <body>
   <noscript>
@@ -15,22 +17,23 @@
     </div>
   </noscript>
   <div class="viewer">
+    <button class="closefullscreenbtn hidden" onclick="exitFullscreen();"></button>
     <div class="vfc hidden">
       <div class="popup">
         <div class="header">
-          <span class="name"><ui t_id="vfc"></ui></span>
+          <span class="name"><ui t_id="vfc/vfc"></ui></span>
           <span class="close"><button onclick="document.querySelector('.vfc').classList.add('hidden');">X</button></span>
         </div>
         <div class="main">
           <div class="preview">
             <img height="250" class="preview" src="image.png"><br>
-            <b><ui t_id="vfc_congrats"></ui></b><br>
+            <b><ui t_id="vfc/vfc_congrats"></ui></b><br>
             <div class="buttons">
-              <button onclick="document.querySelector('.vfc .popup .main .preview img').requestFullscreen()"><ui t_id="vfc_bigger"></ui></button>
+              <button onclick="document.querySelector('.vfc .popup .main .preview img').requestFullscreen()"><ui t_id="vfc/vfc_bigger"></ui></button>
             </div>
             <br>
             <div class="buttons">
-              <button onclick="viewer.downloadVideoFrameCapture();"><ui t_id="vfc_download"></ui></button>
+              <button onclick="viewer.downloadVideoFrameCapture();"><ui t_id="vfc/vfc_download"></ui></button>
             </div>
           </div>
         </div>
@@ -39,12 +42,12 @@
     <div class="audiotracks hidden">
       <div class="popup">
         <div class="header">
-          <span class="name"><ui t_id="audio_tracks"></ui></span>
+          <span class="name"><ui t_id="tracks/audio_tracks"></ui></span>
           <span class="close"><button onclick="document.querySelector('.audiotracks').classList.add('hidden');">X</button></span>
         </div>
         <div class="main">
           <br>
-          <b><ui t_id="select_audio_track"></ui></b><br>
+          <b><ui t_id="tracks/select_audio_track"></ui></b><br>
           <br>
           <!-- Audio Tracks -->
           <select onchange="viewer.selectedAudioTrack(this.value);" name="track">
@@ -52,16 +55,16 @@
           <br>
           <br>
           <div>
-            <label class="label"><ui t_id="label"></ui><input type="text" readonly name="label"></label><br>
-            <label class="language"><ui t_id="language"></ui><input type="text" readonly name="language"></label><br>
-            <label class="id"><ui t_id="id"></ui><input type="text" readonly name="id"></label>
+            <label class="label"><ui t_id="tracks/label"></ui><input type="text" readonly name="label"></label><br>
+            <label class="language"><ui t_id="tracks/language"></ui><input type="text" readonly name="language"></label><br>
+            <label class="id"><ui t_id="tracks/id"></ui><input type="text" readonly name="id"></label>
           </div>
           <br>
           <br>
           <br>
           <br>
           <div class="buttons">
-            <button onclick="viewer.playSelectedAudioTrack();"><ui t_id="play_audio_track"></ui> "<span class="track"></span>"</button>
+            <button onclick="viewer.playSelectedAudioTrack();"><ui t_id="tracks/play_audio_track"></ui> "<span class="track"></span>"</button>
           </div>
         </div>
       </div>
@@ -69,12 +72,12 @@
     <div class="videotracks hidden">
       <div class="popup">
         <div class="header">
-          <span class="name"><ui t_id="video_tracks"></ui></span>
+          <span class="name"><ui t_id="tracks/video_tracks"></ui></span>
           <span class="close"><button onclick="document.querySelector('.videotracks').classList.add('hidden');">X</button></span>
         </div>
         <div class="main">
           <br>
-          <b><ui t_id="select_video_track"></ui></b><br>
+          <b><ui t_id="tracks/select_video_track"></ui></b><br>
           <br>
           <!-- Video Tracks -->
           <select onchange="viewer.selectedVideoTrack(this.value);" name="track">
@@ -82,16 +85,16 @@
           <br>
           <br>
           <div>
-            <label class="label"><ui t_id="label"></ui><input type="text" readonly name="label"></label><br>
-            <label class="language"><ui t_id="language"></ui><input type="text" readonly name="language"></label><br>
-            <label class="id"><ui t_id="id"></ui><input type="text" readonly name="id"></label>
+            <label class="label"><ui t_id="tracks/label"></ui><input type="text" readonly name="label"></label><br>
+            <label class="language"><ui t_id="tracks/language"></ui><input type="text" readonly name="language"></label><br>
+            <label class="id"><ui t_id="tracks/id"></ui><input type="text" readonly name="id"></label>
           </div>
           <br>
           <br>
           <br>
           <br>
           <div class="buttons">
-            <button onclick="viewer.playSelectedVideoTrack();"><ui t_id="play_video_track"></ui> "<span class="track"></span>"</button>
+            <button onclick="viewer.playSelectedVideoTrack();"><ui t_id="tracks/play_video_track"></ui> "<span class="track"></span>"</button>
           </div>
         </div>
       </div>
@@ -232,12 +235,12 @@
             </svg>
           </div>
           <select onchange="viewer.vfcSelected(this);" name="vfc">
-            <option value="current" t_id="vfc_capture_current">PASS</option>
-            <option value="custom" t_id="vfc_capture_custom">PASS</option>
+            <option value="current" t_id="vfc/vfc_capture_current">PASS</option>
+            <option value="custom" t_id="vfc/vfc_capture_custom">PASS</option>
           </select>
         </div>
         <div class="tracks-btns">
-          <div poseas="button" title="Audio Tracks" t_id="title:audio_tracks" class="audiotracksbtn" onclick="viewer.openAudioTracksMenu();">
+          <div poseas="button" title="Audio Tracks" t_id="title:tracks/audio_tracks" class="audiotracksbtn" onclick="viewer.openAudioTracksMenu();">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0,0,199.227,199.227">
               <g transform="translate(-140.3865,-80.3865)">
                 <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill="none" fill-rule="nonzero" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" style="mix-blend-mode: normal">
@@ -248,23 +251,23 @@
             </svg>
             <span>˅</span>
           </div>
-          <div poseas="button" title="Video Tracks" t_id="title:video_tracks" class="videotracksbtn" onclick="viewer.openVideoTracksMenu();">
+          <div poseas="button" title="Video Tracks" t_id="title:tracks/video_tracks" class="videotracksbtn" onclick="viewer.openVideoTracksMenu();">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0,0,199.227,199.227">
               <g transform="translate(-140.3865,-80.3865)">
                 <g data-paper-data="{&quot;isPaintingLayer&quot;:true}" fill="none" fill-rule="nonzero" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" style="mix-blend-mode: normal">
-                  <path d="M140.3865,279.6135v-199.227h199.227v199.227z" stroke="none" stroke-width="0" stroke-linecap="butt"/>
-                  <path d="M150.30402,118.97886v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                  <path d="M187.28839,118.97709v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                  <path d="M224.44222,118.97709v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                  <path d="M261.87506,118.97533v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                  <path d="M300.17616,119.2228v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                  <path d="M150.7722,269.83238v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                  <path d="M187.75657,269.83062v-29.05166h29.05166v29.05166z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                  <path d="M224.9104,269.83062v-29.05166h29.05165v29.05166z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                  <path d="M262.34324,269.82885v-29.05165h29.05166v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                  <path d="M300.64434,270.07632v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt"/>
-                  <path d="M326.53009,123.54825h-101.87699l-1.41873,106.40472l103.37851,0.08277" stroke="#000000" stroke-width="20" stroke-linecap="round"/>
-                  <path d="M154.66079,125.54525h83.85898l-1.58427,106.40472l-82.35749,0.08277" data-paper-data="{&quot;index&quot;:null}" stroke="#000000" stroke-width="20" stroke-linecap="round"/>
+                  <path d="M140.3865,279.6135v-199.227h199.227v199.227z" stroke="none" stroke-width="0" stroke-linecap="butt" class="ww"/>
+                  <path d="M150.30402,118.97886v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt" class="ww"/>
+                  <path d="M187.28839,118.97709v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt" class="ww"/>
+                  <path d="M224.44222,118.97709v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt" class="ww"/>
+                  <path d="M261.87506,118.97533v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt" class="ww"/>
+                  <path d="M300.17616,119.2228v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt" class="ww"/>
+                  <path d="M150.7722,269.83238v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt" class="ww"/>
+                  <path d="M187.75657,269.83062v-29.05166h29.05166v29.05166z" stroke="#000000" stroke-width="10" stroke-linecap="butt" class="ww"/>
+                  <path d="M224.9104,269.83062v-29.05166h29.05165v29.05166z" stroke="#000000" stroke-width="10" stroke-linecap="butt" class="ww"/>
+                  <path d="M262.34324,269.82885v-29.05165h29.05166v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt" class="ww"/>
+                  <path d="M300.64434,270.07632v-29.05165h29.05165v29.05165z" stroke="#000000" stroke-width="10" stroke-linecap="butt" class="ww"/>
+                  <path d="M326.53009,123.54825h-101.87699l-1.41873,106.40472l103.37851,0.08277" stroke="#000000" stroke-width="20" stroke-linecap="round" class="ww"/>
+                  <path d="M154.66079,125.54525h83.85898l-1.58427,106.40472l-82.35749,0.08277" data-paper-data="{&quot;index&quot;:null}" stroke="#000000" stroke-width="20" stroke-linecap="round" class="ww"/>
                 </g>
               </g>
             </svg>
@@ -285,7 +288,7 @@
         <div class="cc-menu hidden">
           <span t_id="subtitles">Subtitles :</span>
           <label>
-            <input type="checkbox" class="visible" name="subtitles" checked onchange="document.querySelector('app#settings-app .ui .pages .video input.subtitlesvisible').checked = this.checked; settings.setData('subtitles_visible', this.checked);"><span t_id="enable_subtitles">Enable subtitles</span>
+            <input type="checkbox" class="visible" name="subtitles" checked onchange="document.querySelector('app#settings-app .ui .pages .video input.subtitlesvisible').checked = this.checked; saves.setData('subtitles_visible', this.checked);"><span t_id="enable_subtitles">Enable subtitles</span>
           </label>
         </div>
         <div class="volume">
@@ -340,6 +343,7 @@
               <div class="tab-header">
                 <div class="tab active" data-tab="interface"><ui t_id="interface"></ui><</div>
                 <div class="tab" data-tab="video"><span t_id="video"></span></div>
+                <div class="tab" data-tab="advanced"><span t_id="advanced"></span></div>
               </div>
               <div class="tab-content">
                 <div class="content active interface" target-id="interface">
@@ -347,11 +351,11 @@
                   <div class="color-scheme">
                     <h2><ui t_id="colorscheme"></ui> :</h2>
                     <select name="color" title="Color scheme" t_id="title:colorscheme" onchange="color_scheme.change(document.querySelector('#settings-app .app .interface .color-scheme select').value);">
-                      <option value="system">Use system theme</option>
-                      <option value="basic_light">Light</option>
-                      <option value="basic_dark">Dark</option>
-                      <option value="red">Red</option>
-                      <option value="orange">Orange</option>
+                      <option value="system" t_id="system">Use system theme</option>
+                      <option value="basic_light" t_id="basic_light">Light</option>
+                      <option value="basic_dark" t_id="basic_dark">Dark</option>
+                      <option value="red" t_id="red">Red</option>
+                      <option value="orange" t_id="orange">Orange</option>
                     </select>
                   </div>
                   <div class="language">
@@ -367,8 +371,22 @@
                   <h3><span t_id="subtitles">Subtitles :</span></h3>
                   <br>
                   <label>
-                    <input type="checkbox" class="subtitlesvisible" name="subtitles" checked onchange="document.querySelector('.cc-menu input.visible').checked = this.checked; settings.setData('subtitles_visible', this.checked);"><span t_id="enable_subtitles">Enable subtitles</span>
+                    <input type="checkbox" class="subtitlesvisible" name="subtitles" checked onchange="document.querySelector('.cc-menu input.visible').checked = this.checked; saves.setData('subtitles_visible', this.checked);"><span t_id="enable_subtitles">Enable subtitles</span>
                   </label>
+                </div>
+                <div class="content advanced" target-id="advanced">
+                  <h2><span t_id="advanced"></span> :</h2>
+                  <!-- <label>
+                    <input type="checkbox" class="downloadincache" name="downloadincache" checked onchange="saves.setData('download_in_cache', this.checked); refreshServiceWorker();"><span t_id="download_in_cache"></span> (<span t_id="download_in_cache_explaination"></span>)
+                  </label> -->
+                  <div class="desert">
+                    <div class="tumbleweed"></div>
+                    <div class="tumbleweed"></div>
+                    <div class="tumbleweed"></div>
+                    <div class="tumbleweed"></div>
+                    <div class="tumbleweed"></div>
+                    <div class="tumbleweed"></div>
+                  </div>
                 </div>
               </div>
           </div>
@@ -377,16 +395,39 @@
         </section>
         <div class="resizer vertical" onmousedown="new AppWindow().resizeVertical('#settings-app');">|</div>
       </app>
+      <app class="appwindow" id="update-app" min-width="200" min-height="300">
+        <div class="appwindowheader"><span class="app-title"><ui t_id="update"></ui></span> | <span class="fullscreenbtn btn" onclick="windows.toggleAppFullscreen('#update-app')" title="Toggle app fullscreen...">🟢</span><span class="minimizebtn btn" onclick="windows.closeApp('#update-app')" title="Minimize app...">🟡</span><span class="exitbtn btn" onclick="windows.closeApp('#update-app')" title="Close app...">🔴</span></div>
+        <section class="ui">
+          <div class="resizer horizontal" onmousedown="new AppWindow().resizeHorizontal('#update-app', 'left');">_</div>
+          <div class="app">
+            <h1 t_id="update" align="center"></h1>
+            <p class="text"></p>
+            <svg class="loading-spinner hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" style="width: 100px;">
+              <circle cx="25" cy="25" r="20" fill="none" stroke="#3498db" stroke-width="4" stroke-dasharray="90,150" stroke-dashoffset="0">
+                <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite" />
+                <animate attributeName="stroke-dasharray" values="1,200;90,150;90,150" dur="1.5s" repeatCount="indefinite" />
+                <animate attributeName="stroke-dashoffset" values="0;-30;-120" dur="1.5s" repeatCount="indefinite" />
+              </circle>
+            </svg>
+            <br>
+            <button class="update" t_id="update"></button>
+          </div>
+          <div class="resizer horizontal" onmousedown="new AppWindow().resizeHorizontal('#update-app', 'right');">_</div>
+        </section>
+        <div class="resizer vertical" onmousedown="new AppWindow().resizeVertical('#update-app');">|</div>
+      </app>
     </div>
   </div>
-  <script src="./midi.js"></script>
-  <script src="./viewer.js"></script>
-  <script src="./ui_translator.js"></script>
-  <script src="./appwindow.js"></script>
-  <script src="./colorscheme.js"></script>
-  <script src="./contextmenu.js"></script>
-  <script src="./selectmenus.js"></script>
-  <script src="./settings.js"></script>
-  <script src="./script.js"></script>
+  <script src="./scripts/watchFunction.js"></script>
+  <script src="./stylized_popups/stylized_popups.js"></script>
+  <script src="./scripts/saves.js"></script>
+  <script src="./scripts/viewer.js"></script>
+  <script src="./scripts/ui_translator.js"></script>
+  <script src="./scripts/appwindow.js"></script>
+  <script src="./scripts/colorscheme.js"></script>
+  <script src="./scripts/contextmenu.js"></script>
+  <script src="./scripts/selectmenus.js"></script>
+  <script src="./scripts/script.js"></script>
+  <script src="./scripts/update.js"></script>
 </body>
 </html>

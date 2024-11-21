@@ -1,6 +1,6 @@
-class Settings{
+class Saves{
   constructor(autosave = true){
-    this.data = JSON.parse(localStorage.settings || '{}');
+    this.data = JSON.parse(localStorage.WebMediaPlayer_saves || '{}');
     this.autosave = autosave;
   }
 
@@ -23,7 +23,7 @@ class Settings{
   }
 
   saveData(){
-    localStorage.settings = JSON.stringify(this.data);
+    localStorage.WebMediaPlayer_saves = JSON.stringify(this.data);
   }
 
   resetAll(){
@@ -34,4 +34,4 @@ class Settings{
   }
 }
 
-let settings = new Settings();
+let saves = new Saves();
