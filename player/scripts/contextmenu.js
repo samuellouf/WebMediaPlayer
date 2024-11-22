@@ -493,15 +493,16 @@ function defineMenus(){
 if (!navigator.userAgent.includes('Mozilla')){
   window.videoMenu.push(viewer.getAudioTracksMenu())
   window.videoMenu.push(viewer.getVideoTracksMenu())
-  window.videoMenu.push({
-    "text": '<ui t_id="settings"></ui>',
-    "events": {
-      "click": function(e){
-        windows.openApp("#settings-app");
-      }
-    }
-  })
 }
+
+window.videoMenu.push({
+  "text": '<ui t_id="settings"></ui>',
+  "events": {
+    "click": function(e){
+      windows.openApp("#settings-app");
+    }
+  }
+})
 
 window.audioMenu = [ // translate
   {
@@ -673,6 +674,14 @@ window.audioMenu = [ // translate
         viewer.openNetworkFluxPopup();
       }
     }
+  },
+  {
+    "text": '<ui t_id="settings"></ui>',
+    "events": {
+      "click": function(e){
+        windows.openApp("#settings-app");
+      }
+    }
   }
 ];
 
@@ -735,6 +744,14 @@ window.imageMenu = [ // translate
     "events": {
       "click": function(e){
         viewer.openNetworkFluxPopup();
+      }
+    }
+  },
+  {
+    "text": '<ui t_id="settings"></ui>',
+    "events": {
+      "click": function(e){
+        windows.openApp("#settings-app");
       }
     }
   }
