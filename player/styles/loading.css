@@ -1,0 +1,17 @@
+.loading-page {
+  width: -webkit-fill-available;
+  width: -moz-available;
+  height: -webkit-fill-available;
+  height: -moz-available;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--background-color);
+  z-index: 20;
+}
+
+.loading-page .spinner {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+}

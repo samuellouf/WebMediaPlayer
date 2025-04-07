@@ -4,9 +4,11 @@
   align-items: center;
   position: absolute;
   width: -webkit-fill-available;
+  width: -moz-available;
   height: -webkit-fill-available;
+  height: -moz-available;
   background-color: #000000a1;
-  z-index: 100000;
+  z-index: 9;
   top: 0;
   left: 0;
 }
@@ -15,7 +17,7 @@
   display: none;
 }
 
-#stylized_popups .popup{
+#stylized_popups .popup {
   position: absolute;
   min-width: 450px;
   color: var(--stylized-popups-color);
@@ -24,12 +26,13 @@
   padding: 15px;
 }
 
-#stylized_popups .popup.hidden{
+#stylized_popups .popup.hidden {
   display: none;
 }
 
-#stylized_popups input{
+#stylized_popups input {
   width: -webkit-fill-available;
+  width: -moz-available;
   margin: 20px 0;
   height: 24px;
   font-size: 24px;
@@ -38,16 +41,16 @@
   outline: none;
 }
 
-#stylized_popups input::placeholder{
+#stylized_popups input::placeholder {
   color: var(--stylized-popups-input-placeholder-color);
 }
 
-#stylized_popups .popup .buttons{
+#stylized_popups .popup .buttons {
   display: flex;
   justify-content: flex-end;
 }
 
-#stylized_popups .popup .buttons button{
+#stylized_popups .popup .buttons button {
   border-radius: 30%;
   border: none;
   padding: 10px 20px;
@@ -55,11 +58,11 @@
   cursor: pointer;
 }
 
-#stylized_popups .popup .buttons button.confirm{
+#stylized_popups .popup .buttons button.confirm {
   background-color: var(--stylized-popups-highlight);
 }
 
-#stylized_popups .popup .buttons button.cancel{
+#stylized_popups .popup .buttons button.cancel {
   border: 2.5px var(--stylized-popups-secondary-highlight) solid;
   background-color: var(--stylized-popups-background-color);
 }

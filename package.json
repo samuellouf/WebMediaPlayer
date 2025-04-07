@@ -1,0 +1,42 @@
+{
+  "name": "webmediaplayer",
+  "version": "2.0.0",
+  "description": "My own little HTML/CSS/JS media player.",
+  "main": "",
+  "scripts": {
+    "start": "node server/server.js --player",
+    "player": "node server/server.js --player",
+    "update": "node update.js",
+    "reinstall": "node update.js --reinstall",
+    "format": "prettier . --write",
+    "check-format": "prettier . --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuellouf/WebMediaPlayer.git"
+  },
+  "keywords": [
+    "WebMediaPlayer",
+    "Web",
+    "Media",
+    "Player"
+  ],
+  "author": "SamuelLouf",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samuellouf/WebMediaPlayer/issues"
+  },
+  "homepage": "https://github.com/samuellouf/WebMediaPlayer#readme",
+  "dependencies": {
+    "@samuellouf/dialogs": "^1.1.0",
+    "archiver": "^7.0.1",
+    "body-parser": "^1.20.3",
+    "decompress": "^4.2.1",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.14.0",
+    "prettier": "^3.5.1"
+  }
+}

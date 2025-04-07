@@ -1,0 +1,93 @@
+/* App Window */
+
+.appwindow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 720px;
+  height: 500px;
+  z-index: 3;
+  text-align: center;
+  border-radius: 10px;
+  background-color: var(--appwindow-backgroud-color);
+  border: 1px solid var(--appwindow-border);
+}
+
+.appwindow .appwindowheader {
+  padding: 10px;
+  cursor: move;
+  z-index: 2;
+  border-radius: 10px 10px 0px 0px;
+  color: var(--appwindow-header-color);
+  background-color: var(--appwindow-header-background-color);
+}
+
+.appwindow section.ui {
+  display: inline-flex;
+  height: 92%;
+  width: 100%;
+}
+
+.appwindow section.ui div.app {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.appwindow .resizer {
+  color: var(--appwindow-backgroud-color);
+}
+
+.appwindow .resizer.horizontal {
+  cursor: e-resize;
+}
+
+.appwindow .resizer.vertical {
+  cursor: n-resize;
+}
+
+.appwindow .appwindowheader .btn {
+  cursor: pointer;
+}
+
+.appwindow select,
+.audiotracks select,
+.videotracks select {
+  width: 100%;
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid var(--select-border);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: var(--select-background-color);
+  background-image: var(--select-background-image);
+}
+
+.appwindow select::after,
+.audiotracks select::after,
+.videotracks select::after {
+  content: "";
+  width: 0.8em;
+  height: 0.5em;
+  background-color: var(--select-arrow);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+}
+
+.appwindow select[disabled],
+.audiotracks select[disabled],
+.videotracks select[disabled] {
+  cursor: not-allowed;
+}
+
+.appwindow select[disabled] {
+  background-color: var(--select-disabled-background-color);
+  background-image: var(--select-disabled-background-image);
+}
+
+.appwindow .resizer {
+  color: var(--appwindow-backgroud-color);
+}

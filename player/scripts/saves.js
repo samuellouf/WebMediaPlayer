@@ -1,32 +1,32 @@
-class Saves{
-  constructor(autosave = true){
-    this.data = JSON.parse(localStorage.WebMediaPlayer_saves || '{}');
+class Saves {
+  constructor(autosave = true) {
+    this.data = JSON.parse(localStorage.WebMediaPlayer_saves || "{}");
     this.autosave = autosave;
   }
 
-  setData(data, value){
+  setData(data, value) {
     this.data[data] = value;
     if (this.autosave) {
       this.saveData();
     }
   }
 
-  getData(data){
+  getData(data) {
     return this.data[data];
   }
 
-  removeData(data){
+  removeData(data) {
     delete this.data[data];
     if (this.autosave) {
       this.saveData();
     }
   }
 
-  saveData(){
+  saveData() {
     localStorage.WebMediaPlayer_saves = JSON.stringify(this.data);
   }
 
-  resetAll(){
+  resetAll() {
     this.data = {};
     if (this.autosave) {
       this.saveData();

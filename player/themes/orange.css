@@ -1,4 +1,4 @@
-:root{
+:root {
   --color: black;
   --background-color: #ff6a00;
   --context-menu: #ff8400;
@@ -53,4 +53,5 @@
   --focus-outline: var(--accent-color);
   --accent-color: orange;
   --tracks-popup-bg: #b25c00;
+  --loading-spinner-color: orange;
 }

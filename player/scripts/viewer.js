@@ -1,107 +1,636 @@
 class Viewer {
+  #mode = "video";
+  #pictureInPicture = false;
+  #speed = 1;
   constructor(keyboardShortcuts = false, playWhenLoaded = false) {
-    this.viewer = document.querySelector('div.viewer');
-    this.playlist = document.querySelector('div.playlist');
-    this.mode = 'video';
-    this.full_languages_name = {"abk":{"full":"Abkhazian"},"ace":{"full":"Achinese"},"ach":{"full":"Acoli"},"ada":{"full":"Adangme"},"ady":{"full":"Adyghe; Adygei"},"aar":{"full":"Afar"},"afh":{"full":"Afrihili"},"afr":{"full":"Afrikaans"},"afa":{"full":"Afro-Asiatic"},"aka":{"full":"Akan"},"akk":{"full":"Akkadian"},"alb":{"full":"Albanian","speak":{"speakerGenderRestriction":"Male"}},"sqi":{"full":"Albanian"},"ale":{"full":"Aleut"},"alg":{"full":"Algonquian"},"amh":{"full":"Amharic","speak":{"isExist":false}},"apa":{"full":"Apache"},"ara":{"full":"Arabic"},"arg":{"full":"Aragonese"},"arc":{"full":"Aramaic"},"arp":{"full":"Arapaho"},"arn":{"full":"Araucanian"},"arw":{"full":"Arawak"},"arm":{"full":"Armenian","speak":{"speakerGenderRestriction":"Male"}},"hye":{"full":"Armenian","speak":{"isExist":false}},"asm":{"full":"Assamese"},"ast":{"full":"Asturian; Bable"},"ath":{"full":"Athapascan"},"aus":{"full":"Australian"},"map":{"full":"Austronesian"},"ava":{"full":"Avaric"},"ave":{"full":"Avestan"},"awa":{"full":"Awadhi"},"aym":{"full":"Aymara"},"aze":{"full":"Azerbaijani","speak":{"isExist":false}},"ban":{"full":"Balinese"},"bal":{"full":"Baluchi"},"bam":{"full":"Bambara"},"bai":{"full":"Bamileke"},"bad":{"full":"Banda"},"bar":{"full":"Bavarian","speak":{"optional":"deu"}},"bnt":{"full":"Bantu"},"bas":{"full":"Basa"},"bak":{"full":"Bashkir"},"baq":{"full":"Basque"},"eus":{"full":"Basque"},"btk":{"full":"Batak"},"bej":{"full":"Beja"},"bel":{"full":"Belarusian","speak":{"optional":"rus"}},"bem":{"full":"Bemba"},"ben":{"full":"Bengali","speak":{"isExist":false}},"ber":{"full":"Berber"},"bho":{"full":"Bhojpuri"},"bih":{"full":"Bihari"},"bik":{"full":"Bikol"},"bin":{"full":"Bini"},"bis":{"full":"Bislama"},"bjz":{"full":"Baruga","speak":{"optional":"eng"}},"byn":{"full":"Blin"},"nob":{"full":"Norwegian"},"bos":{"full":"Bosnian","speak":{"speakerGenderRestriction":"Male"}},"bra":{"full":"Braj"},"bre":{"full":"Breton"},"bug":{"full":"Buginese"},"bul":{"full":"Bulgarian","speak":{"isExist":false}},"bua":{"full":"Buriat"},"bur":{"full":"Burmese"},"mya":{"full":"Burmese"},"cad":{"full":"Caddo"},"car":{"full":"Carib"},"spa":{"full":"Spanish"},"cat":{"full":"Valencian","speak":{"optional":"eng"}},"ceb":{"full":"Cebuano"},"cel":{"full":"Celtic"},"cai":{"full":"Central American Indian"},"chg":{"full":"Chagatai"},"cmc":{"full":"Chamic"},"cha":{"full":"Chamorro"},"che":{"full":"Chechen"},"chr":{"full":"Cherokee"},"chy":{"full":"Cheyenne"},"chb":{"full":"Chibcha"},"nya":{"full":"Nyanja; Chichewa; Chewa"},"chi":{"full":"Chinese"},"zho":{"full":"Chinese"},"chn":{"full":"Chinook jargon"},"chp":{"full":"Chipewyan"},"cho":{"full":"Choctaw"},"zha":{"full":"Zhuang; Chuang"},"chk":{"full":"Chuukese"},"chv":{"full":"Chuvash"},"nwc":{"full":"Old Newari; Classical Newari; Classical Nepal Bhasa"},"cmn":{"full":"Mandarin Chinese","speak":{"optional":"chi"}},"cop":{"full":"Coptic"},"cor":{"full":"Cornish"},"cos":{"full":"Corsican"},"cre":{"full":"Cree"},"mus":{"full":"Creek"},"crp":{"full":"Creoles and pidgins"},"cpe":{"full":"Creoles and pidgins, English-based"},"cpf":{"full":"Creoles and pidgins, French-based"},"cpp":{"full":"Creoles and pidgins, Portuguese-based"},"crh":{"full":"Crimean Tatar; Crimean Turkish"},"scr":{"full":"Croatian"},"hrv":{"full":"Croatian","speak":{"speakerGenderRestriction":"Male"}},"cus":{"full":"Cushitic"},"cze":{"full":"Czech"},"ces":{"full":"Czech"},"dak":{"full":"Dakota"},"dan":{"full":"Danish"},"dar":{"full":"Dargwa"},"day":{"full":"Dayak"},"del":{"full":"Delaware"},"din":{"full":"Dinka"},"div":{"full":"Divehi"},"doi":{"full":"Dogri"},"dgr":{"full":"Dogrib"},"dra":{"full":"Dravidian"},"dua":{"full":"Duala"},"dut":{"full":"Flemish; Dutch"},"nld":{"full":"Flemish; Dutch","speak":{"isExist":false}},"dum":{"full":"Dutch"},"dyu":{"full":"Dyula"},"dzo":{"full":"Dzongkha","speak":{"isExist":false}},"efi":{"full":"Efik"},"egy":{"full":"Egyptian"},"eka":{"full":"Ekajuk"},"elx":{"full":"Elamite"},"eng":{"full":"US English"},"enm":{"full":"English"},"ang":{"full":"English"},"myv":{"full":"Erzya"},"epo":{"full":"Esperanto"},"est":{"full":"Estonian","speak":{"isExist":false}},"ewe":{"full":"Ewe"},"ewo":{"full":"Ewondo"},"fan":{"full":"Fang"},"fat":{"full":"Fanti"},"fao":{"full":"Faroese"},"fij":{"full":"Fijian"},"fil":{"full":"Pilipino; Filipino"},"fin":{"full":"Finnish"},"fiu":{"full":"Finno-Ugrian"},"fon":{"full":"Fon"},"fre":{"full":"French"},"fra":{"full":"French"},"frm":{"full":"French"},"fro":{"full":"French"},"fry":{"full":"Frisian"},"fur":{"full":"Friulian"},"ful":{"full":"Fulah"},"gaa":{"full":"Ga"},"gla":{"full":"Scottish Gaelic; Gaelic"},"glg":{"full":"Gallegan"},"lug":{"full":"Ganda"},"gay":{"full":"Gayo"},"gba":{"full":"Gbaya"},"gez":{"full":"Geez"},"geo":{"full":"Georgian"},"kat":{"full":"Georgian","speak":{"isExist":false}},"ger":{"full":"German"},"deu":{"full":"Deutsch"},"nds":{"full":"Saxon, Low; German, Low; Low Saxon; Low German"},"gmh":{"full":"German"},"goh":{"full":"German"},"gem":{"full":"Germanic"},"kik":{"full":"Kikuyu; Gikuyu"},"gil":{"full":"Gilbertese"},"gon":{"full":"Gondi"},"gor":{"full":"Gorontalo"},"got":{"full":"Gothic"},"grb":{"full":"Grebo"},"grc":{"full":"Greek"},"gre":{"full":"Greek"},"ell":{"full":"Greek"},"kal":{"full":"Kalaallisut; Greenlandic","speak":{"optional":"dan"}},"grn":{"full":"Guarani","speak":{"optional":"spa"}},"guj":{"full":"Gujarati"},"gwi":{"full":"Gwich’in"},"hai":{"full":"Haida"},"hat":{"full":"Haitian Creole; Haitian"},"hau":{"full":"Hausa"},"haw":{"full":"Hawaiian"},"heb":{"full":"Hebrew","speak":{"isExist":false}},"her":{"full":"Herero"},"hil":{"full":"Hiligaynon"},"him":{"full":"Himachali"},"hin":{"full":"Hindi"},"hmo":{"full":"Hiri Motu"},"hit":{"full":"Hittite"},"hmn":{"full":"Hmong"},"hun":{"full":"Hungarian"},"hup":{"full":"Hupa"},"iba":{"full":"Iban"},"ice":{"full":"Icelandic"},"isl":{"full":"Icelandic"},"ido":{"full":"Ido"},"ibo":{"full":"Igbo"},"ijo":{"full":"Ijo"},"ilo":{"full":"Iloko"},"smn":{"full":"Inari Sami"},"inc":{"full":"Indic"},"ine":{"full":"Indo-European"},"ind":{"full":"Indonesian"},"inh":{"full":"Ingush"},"ina":{"full":"Interlingua"},"ile":{"full":"Interlingue"},"iku":{"full":"Inuktitut"},"ipk":{"full":"Inupiaq"},"ira":{"full":"Iranian","speak":{"optional":"ara"}},"gle":{"full":"Irish"},"mga":{"full":"Irish"},"sga":{"full":"Irish"},"iro":{"full":"Iroquoian"},"ita":{"full":"Italian"},"jpn":{"full":"Japanese"},"jav":{"full":"Javanese"},"jrb":{"full":"Judeo-Arabic"},"jpr":{"full":"Judeo-Persian"},"kbd":{"full":"Kabardian"},"kab":{"full":"Kabyle"},"kac":{"full":"Kachin"},"xal":{"full":"Kalmyk"},"kam":{"full":"Kamba"},"kan":{"full":"Kannada"},"kau":{"full":"Kanuri"},"krc":{"full":"Karachay-Balkar"},"kaa":{"full":"Kara-Kalpak"},"kar":{"full":"Karen"},"kas":{"full":"Kashmiri"},"csb":{"full":"Kashubian"},"kaw":{"full":"Kawi"},"kaz":{"full":"Kazakh"},"kha":{"full":"Khasi"},"khm":{"full":"Khmer"},"khi":{"full":"Khoisan"},"kho":{"full":"Khotanese"},"kmb":{"full":"Kimbundu"},"kin":{"full":"Kinyarwanda"},"kir":{"full":"Kirghiz"},"tlh":{"full":"Klingon"},"kom":{"full":"Komi"},"kon":{"full":"Kongo"},"kok":{"full":"Konkani"},"kor":{"full":"Korean"},"kos":{"full":"Kosraean"},"kpe":{"full":"Kpelle"},"kri":{"full":"Krio"},"kro":{"full":"Kru"},"kum":{"full":"Kumyk"},"kur":{"full":"Kurdish"},"kru":{"full":"Kurukh"},"kut":{"full":"Kutenai"},"kua":{"full":"Kwanyama, Kuanyama"},"lad":{"full":"Ladino"},"lah":{"full":"Lahnda"},"lam":{"full":"Lamba"},"lao":{"full":"Lao"},"lat":{"full":"Latin"},"lav":{"full":"Latvian"},"lez":{"full":"Lezghian"},"lim":{"full":"Limburgan; Limburger; Limburgish"},"lin":{"full":"Lingala"},"lit":{"full":"Lithuanian"},"jbo":{"full":"Lojban"},"dsb":{"full":"Lower Sorbian"},"loz":{"full":"Lozi"},"lub":{"full":"Luba-Katanga"},"lua":{"full":"Luba-Lulua"},"lui":{"full":"Luiseno"},"smj":{"full":"Lule Sami"},"lun":{"full":"Lunda"},"luo":{"full":"Luo"},"lus":{"full":"Lushai"},"ltz":{"full":"Luxembourgish; Letzeburgesch"},"mac":{"full":"Macedonian"},"mkd":{"full":"Macedonian"},"mad":{"full":"Madurese"},"mag":{"full":"Magahi"},"mai":{"full":"Maithili"},"mak":{"full":"Makasar"},"mlg":{"full":"Malagasy"},"may":{"full":"Malay"},"msa":{"full":"Malay","speak":{"optional":"eng"}},"mal":{"full":"Malayalam"},"mlt":{"full":"Maltese"},"mnc":{"full":"Manchu"},"mdr":{"full":"Mandar"},"man":{"full":"Mandingo"},"mni":{"full":"Manipuri "},"mno":{"full":"Manobo"},"glv":{"full":"Manx"},"mao":{"full":"Maori"},"mri":{"full":"Maori"},"mar":{"full":"Marathi"},"chm":{"full":"Mari"},"mah":{"full":"Marshallese"},"mwr":{"full":"Marwari"},"mas":{"full":"Masai"},"myn":{"full":"Mayan"},"mey":{"full":"Hassaniyya","speak":{"optional":"ara"}},"men":{"full":"Mende"},"mic":{"full":"Micmac; Mi'kmaq"},"min":{"full":"Minangkabau"},"mwl":{"full":"Mirandese"},"moh":{"full":"Mohawk"},"mdf":{"full":"Moksha"},"mol":{"full":"Moldavian"},"mkh":{"full":"Mon-Khmer"},"lol":{"full":"Mongo"},"mon":{"full":"Mongolian"},"mos":{"full":"Mossi"},"mul":{"full":"Multiple"},"mun":{"full":"Munda"},"nah":{"full":"Nahuatl"},"nau":{"full":"Nauru"},"nav":{"full":"Navajo; Navaho"},"nde":{"full":"North Ndebele"},"nbl":{"full":"South Ndebele"},"ndo":{"full":"Ndonga"},"nap":{"full":"Neapolitan"},"new":{"full":"Nepal Bhasa; Newari"},"nep":{"full":"Nepali"},"nia":{"full":"Nias"},"nic":{"full":"Niger-Kordofanian"},"ssa":{"full":"Nilo-Saharan"},"niu":{"full":"Niuean"},"nog":{"full":"Nogai"},"non":{"full":"Norse"},"nai":{"full":"North American Indian"},"sme":{"full":"Northern Sami"},"nso":{"full":"Sotho, Northern; Pedi; Sepedi"},"nor":{"full":"Norwegian"},"nub":{"full":"Nubian"},"nym":{"full":"Nyamwezi"},"nyn":{"full":"Nyankole"},"nno":{"full":"Nynorsk, Norwegian; Norwegian Nynorsk"},"nyo":{"full":"Nyoro"},"nzi":{"full":"Nzima"},"oci":{"full":"Provençal; Occitan (post 1500) "},"oji":{"full":"Ojibwa"},"chu":{"full":"Old Slavonic; Church Slavonic; Old Bulgarian; Church Slavic; Old Church Slavonic "},"ori":{"full":"Oriya"},"orm":{"full":"Oromo"},"osa":{"full":"Osage"},"oss":{"full":"Ossetic; Ossetian"},"oto":{"full":"Otomian"},"pal":{"full":"Pahlavi"},"pau":{"full":"Palauan"},"pli":{"full":"Pali"},"pam":{"full":"Pampanga"},"pag":{"full":"Pangasinan"},"pan":{"full":"Punjabi; Panjabi"},"pap":{"full":"Papiamento"},"paa":{"full":"Papuan"},"per":{"full":"Persian"},"fas":{"full":"Persian"},"peo":{"full":"Persian"},"phn":{"full":"Phoenician"},"pon":{"full":"Pohnpeian"},"pol":{"full":"Polish"},"por":{"full":"Portuguese"},"pra":{"full":"Prakrit"},"pro":{"full":"Provençal"},"pus":{"full":"Pushto","speak":{"optional":"ara"}},"que":{"full":"Quechua"},"roh":{"full":"Raeto-Romance"},"raj":{"full":"Rajasthani"},"rap":{"full":"Rapanui"},"rar":{"full":"Rarotongan"},"roa":{"full":"Romance"},"rum":{"full":"Romanian"},"ron":{"full":"Romanian"},"rom":{"full":"Romany"},"run":{"full":"Rundi"},"rus":{"full":"Russian"},"sal":{"full":"Salishan"},"sam":{"full":"Samaritan Aramaic"},"smi":{"full":"Sami"},"smo":{"full":"Samoan"},"sad":{"full":"Sandawe"},"sag":{"full":"Sango"},"san":{"full":"Sanskrit"},"sat":{"full":"Santali"},"srd":{"full":"Sardinian"},"sas":{"full":"Sasak"},"sco":{"full":"Scots"},"sel":{"full":"Selkup"},"sem":{"full":"Semitic"},"scc":{"full":"Serbian"},"srp":{"full":"Serbian"},"srr":{"full":"Serer"},"shn":{"full":"Shan"},"sna":{"full":"Shona"},"iii":{"full":"Sichuan Yi"},"scn":{"full":"Sicilian"},"sid":{"full":"Sidamo"},"sgn":{"full":"Sign"},"bla":{"full":"Siksika"},"snd":{"full":"Sindhi"},"sin":{"full":"Sinhalese; Sinhala"},"sit":{"full":"Sino-Tibetan"},"sio":{"full":"Siouan"},"sms":{"full":"Skolt Sami"},"den":{"full":"Slave"},"sla":{"full":"Slavic"},"slo":{"full":"Slovak"},"slk":{"full":"Slovak"},"slv":{"full":"Slovenian"},"sog":{"full":"Sogdian"},"som":{"full":"Somali"},"son":{"full":"Songhai"},"snk":{"full":"Soninke"},"wen":{"full":"Sorbian"},"sot":{"full":"Sotho, Southern"},"sai":{"full":"South American Indian"},"sma":{"full":"Southern Sami"},"suk":{"full":"Sukuma"},"sux":{"full":"Sumerian"},"sun":{"full":"Sundanese"},"sus":{"full":"Susu"},"swa":{"full":"Swahili"},"ssw":{"full":"Swati"},"swe":{"full":"Swedish"},"syr":{"full":"Syriac"},"tgl":{"full":"Tagalog"},"tah":{"full":"Tahitian"},"tai":{"full":"Tai"},"tgk":{"full":"Tajik"},"tmh":{"full":"Tamashek"},"tam":{"full":"Tamil"},"tat":{"full":"Tatar"},"tel":{"full":"Telugu"},"ter":{"full":"Tereno"},"tet":{"full":"Tetum"},"tha":{"full":"Thai"},"tib":{"full":"Tibetan"},"bod":{"full":"Tibetan"},"tig":{"full":"Tigre"},"tir":{"full":"Tigrinya"},"tem":{"full":"Timne"},"tiv":{"full":"Tiv"},"tli":{"full":"Tlingit"},"tpi":{"full":"Tok Pisin"},"tkl":{"full":"Tokelau"},"tog":{"full":"Tonga"},"ton":{"full":"Tonga"},"tsi":{"full":"Tsimshian"},"tso":{"full":"Tsonga"},"tsn":{"full":"Tswana"},"tum":{"full":"Tumbuka"},"tup":{"full":"Tupi"},"tur":{"full":"Turkish"},"ota":{"full":"Turkish"},"tuk":{"full":"Turkmen"},"tvl":{"full":"Tuvalu"},"tyv":{"full":"Tuvinian"},"twi":{"full":"Twi"},"udm":{"full":"Udmurt"},"uga":{"full":"Ugaritic"},"uig":{"full":"Uyghur; Uighur"},"ukr":{"full":"Ukrainian"},"umb":{"full":"Umbundu"},"hsb":{"full":"Upper Sorbian"},"urd":{"full":"Urdu"},"uzb":{"full":"Uzbek"},"vai":{"full":"Vai"},"ven":{"full":"Venda"},"vie":{"full":"Vietnamese"},"vol":{"full":"Volapük"},"vot":{"full":"Votic"},"wak":{"full":"Wakashan"},"wal":{"full":"Walamo"},"wln":{"full":"Walloon"},"war":{"full":"Waray"},"was":{"full":"Washo"},"wel":{"full":"Welsh"},"cym":{"full":"Welsh"},"wol":{"full":"Wolof"},"xho":{"full":"Xhosa"},"sah":{"full":"Yakut"},"yao":{"full":"Yao"},"yap":{"full":"Yapese"},"yid":{"full":"Yiddish"},"yor":{"full":"Yoruba"},"ypk":{"full":"Yupik"},"znd":{"full":"Zande"},"zap":{"full":"Zapotec"},"zen":{"full":"Zenaga"},"zul":{"full":"Zulu"},"zun":{"full":"Zuni"}};
-    this.lyrics = null;
+    var viewer_ = this;
+    this.initialized = false;
+    this.viewer = document.querySelector("div.viewer");
+    this.waitforclick = this.viewer.querySelector("div.waitforclick");
+    this.full_languages_name = {
+      abk: "Abkhazian",
+      ace: "Achinese",
+      ach: "Acoli",
+      ada: "Adangme",
+      ady: "Adyghe; Adygei",
+      aar: "Afar",
+      afh: "Afrihili",
+      afr: "Afrikaans",
+      afa: "Afro-Asiatic",
+      aka: "Akan",
+      akk: "Akkadian",
+      alb: "Albanian",
+      sqi: "Albanian",
+      ale: "Aleut",
+      alg: "Algonquian",
+      amh: "Amharic",
+      apa: "Apache",
+      ara: "Arabic",
+      arg: "Aragonese",
+      arc: "Aramaic",
+      arp: "Arapaho",
+      arn: "Araucanian",
+      arw: "Arawak",
+      arm: "Armenian",
+      hye: "Armenian",
+      asm: "Assamese",
+      ast: "Asturian; Bable",
+      ath: "Athapascan",
+      aus: "Australian",
+      map: "Austronesian",
+      ava: "Avaric",
+      ave: "Avestan",
+      awa: "Awadhi",
+      aym: "Aymara",
+      aze: "Azerbaijani",
+      ban: "Balinese",
+      bal: "Baluchi",
+      bam: "Bambara",
+      bai: "Bamileke",
+      bad: "Banda",
+      bar: "Bavarian",
+      bnt: "Bantu",
+      bas: "Basa",
+      bak: "Bashkir",
+      baq: "Basque",
+      eus: "Basque",
+      btk: "Batak",
+      bej: "Beja",
+      bel: "Belarusian",
+      bem: "Bemba",
+      ben: "Bengali",
+      ber: "Berber",
+      bho: "Bhojpuri",
+      bih: "Bihari",
+      bik: "Bikol",
+      bin: "Bini",
+      bis: "Bislama",
+      bjz: "Baruga",
+      byn: "Blin",
+      nob: "Norwegian",
+      bos: "Bosnian",
+      bra: "Braj",
+      bre: "Breton",
+      bug: "Buginese",
+      bul: "Bulgarian",
+      bua: "Buriat",
+      bur: "Burmese",
+      mya: "Burmese",
+      cad: "Caddo",
+      car: "Carib",
+      spa: "Spanish",
+      cat: "Valencian",
+      ceb: "Cebuano",
+      cel: "Celtic",
+      cai: "Central American Indian",
+      chg: "Chagatai",
+      cmc: "Chamic",
+      cha: "Chamorro",
+      che: "Chechen",
+      chr: "Cherokee",
+      chy: "Cheyenne",
+      chb: "Chibcha",
+      nya: "Nyanja; Chichewa; Chewa",
+      chi: "Chinese",
+      zho: "Chinese",
+      chn: "Chinook jargon",
+      chp: "Chipewyan",
+      cho: "Choctaw",
+      zha: "Zhuang; Chuang",
+      chk: "Chuukese",
+      chv: "Chuvash",
+      nwc: "Old Newari; Classical Newari; Classical Nepal Bhasa",
+      cmn: "Mandarin Chinese",
+      cop: "Coptic",
+      cor: "Cornish",
+      cos: "Corsican",
+      cre: "Cree",
+      mus: "Creek",
+      crp: "Creoles and pidgins",
+      cpe: "Creoles and pidgins, English-based",
+      cpf: "Creoles and pidgins, French-based",
+      cpp: "Creoles and pidgins, Portuguese-based",
+      crh: "Crimean Tatar; Crimean Turkish",
+      scr: "Croatian",
+      hrv: "Croatian",
+      cus: "Cushitic",
+      cze: "Czech",
+      ces: "Czech",
+      dak: "Dakota",
+      dan: "Danish",
+      dar: "Dargwa",
+      day: "Dayak",
+      del: "Delaware",
+      din: "Dinka",
+      div: "Divehi",
+      doi: "Dogri",
+      dgr: "Dogrib",
+      dra: "Dravidian",
+      dua: "Duala",
+      dut: "Flemish; Dutch",
+      nld: "Flemish; Dutch",
+      dum: "Dutch",
+      dyu: "Dyula",
+      dzo: "Dzongkha",
+      efi: "Efik",
+      egy: "Egyptian",
+      eka: "Ekajuk",
+      elx: "Elamite",
+      eng: "US English",
+      enm: "English",
+      ang: "English",
+      myv: "Erzya",
+      epo: "Esperanto",
+      est: "Estonian",
+      ewe: "Ewe",
+      ewo: "Ewondo",
+      fan: "Fang",
+      fat: "Fanti",
+      fao: "Faroese",
+      fij: "Fijian",
+      fil: "Pilipino; Filipino",
+      fin: "Finnish",
+      fiu: "Finno-Ugrian",
+      fon: "Fon",
+      fre: "French",
+      fra: "French",
+      frm: "French",
+      fro: "French",
+      fry: "Frisian",
+      fur: "Friulian",
+      ful: "Fulah",
+      gaa: "Ga",
+      gla: "Scottish Gaelic; Gaelic",
+      glg: "Gallegan",
+      lug: "Ganda",
+      gay: "Gayo",
+      gba: "Gbaya",
+      gez: "Geez",
+      geo: "Georgian",
+      kat: "Georgian",
+      ger: "German",
+      deu: "Deutsch",
+      nds: "Saxon, Low; German, Low; Low Saxon; Low German",
+      gmh: "German",
+      goh: "German",
+      gem: "Germanic",
+      kik: "Kikuyu; Gikuyu",
+      gil: "Gilbertese",
+      gon: "Gondi",
+      gor: "Gorontalo",
+      got: "Gothic",
+      grb: "Grebo",
+      grc: "Greek",
+      gre: "Greek",
+      ell: "Greek",
+      kal: "Kalaallisut; Greenlandic",
+      grn: "Guarani",
+      guj: "Gujarati",
+      gwi: "Gwich’in",
+      hai: "Haida",
+      hat: "Haitian Creole; Haitian",
+      hau: "Hausa",
+      haw: "Hawaiian",
+      heb: "Hebrew",
+      her: "Herero",
+      hil: "Hiligaynon",
+      him: "Himachali",
+      hin: "Hindi",
+      hmo: "Hiri Motu",
+      hit: "Hittite",
+      hmn: "Hmong",
+      hun: "Hungarian",
+      hup: "Hupa",
+      iba: "Iban",
+      ice: "Icelandic",
+      isl: "Icelandic",
+      ido: "Ido",
+      ibo: "Igbo",
+      ijo: "Ijo",
+      ilo: "Iloko",
+      smn: "Inari Sami",
+      inc: "Indic",
+      ine: "Indo-European",
+      ind: "Indonesian",
+      inh: "Ingush",
+      ina: "Interlingua",
+      ile: "Interlingue",
+      iku: "Inuktitut",
+      ipk: "Inupiaq",
+      ira: "Iranian",
+      gle: "Irish",
+      mga: "Irish",
+      sga: "Irish",
+      iro: "Iroquoian",
+      ita: "Italian",
+      jpn: "Japanese",
+      jav: "Javanese",
+      jrb: "Judeo-Arabic",
+      jpr: "Judeo-Persian",
+      kbd: "Kabardian",
+      kab: "Kabyle",
+      kac: "Kachin",
+      xal: "Kalmyk",
+      kam: "Kamba",
+      kan: "Kannada",
+      kau: "Kanuri",
+      krc: "Karachay-Balkar",
+      kaa: "Kara-Kalpak",
+      kar: "Karen",
+      kas: "Kashmiri",
+      csb: "Kashubian",
+      kaw: "Kawi",
+      kaz: "Kazakh",
+      kha: "Khasi",
+      khm: "Khmer",
+      khi: "Khoisan",
+      kho: "Khotanese",
+      kmb: "Kimbundu",
+      kin: "Kinyarwanda",
+      kir: "Kirghiz",
+      tlh: "Klingon",
+      kom: "Komi",
+      kon: "Kongo",
+      kok: "Konkani",
+      kor: "Korean",
+      kos: "Kosraean",
+      kpe: "Kpelle",
+      kri: "Krio",
+      kro: "Kru",
+      kum: "Kumyk",
+      kur: "Kurdish",
+      kru: "Kurukh",
+      kut: "Kutenai",
+      kua: "Kwanyama, Kuanyama",
+      lad: "Ladino",
+      lah: "Lahnda",
+      lam: "Lamba",
+      lao: "Lao",
+      lat: "Latin",
+      lav: "Latvian",
+      lez: "Lezghian",
+      lim: "Limburgan; Limburger; Limburgish",
+      lin: "Lingala",
+      lit: "Lithuanian",
+      jbo: "Lojban",
+      dsb: "Lower Sorbian",
+      loz: "Lozi",
+      lub: "Luba-Katanga",
+      lua: "Luba-Lulua",
+      lui: "Luiseno",
+      smj: "Lule Sami",
+      lun: "Lunda",
+      luo: "Luo",
+      lus: "Lushai",
+      ltz: "Luxembourgish; Letzeburgesch",
+      mac: "Macedonian",
+      mkd: "Macedonian",
+      mad: "Madurese",
+      mag: "Magahi",
+      mai: "Maithili",
+      mak: "Makasar",
+      mlg: "Malagasy",
+      may: "Malay",
+      msa: "Malay",
+      mal: "Malayalam",
+      mlt: "Maltese",
+      mnc: "Manchu",
+      mdr: "Mandar",
+      man: "Mandingo",
+      mni: "Manipuri ",
+      mno: "Manobo",
+      glv: "Manx",
+      mao: "Maori",
+      mri: "Maori",
+      mar: "Marathi",
+      chm: "Mari",
+      mah: "Marshallese",
+      mwr: "Marwari",
+      mas: "Masai",
+      myn: "Mayan",
+      mey: "Hassaniyya",
+      men: "Mende",
+      mic: "Micmac; Mi'kmaq",
+      min: "Minangkabau",
+      mwl: "Mirandese",
+      moh: "Mohawk",
+      mdf: "Moksha",
+      mol: "Moldavian",
+      mkh: "Mon-Khmer",
+      lol: "Mongo",
+      mon: "Mongolian",
+      mos: "Mossi",
+      mul: "Multiple",
+      mun: "Munda",
+      nah: "Nahuatl",
+      nau: "Nauru",
+      nav: "Navajo; Navaho",
+      nde: "North Ndebele",
+      nbl: "South Ndebele",
+      ndo: "Ndonga",
+      nap: "Neapolitan",
+      new: "Nepal Bhasa; Newari",
+      nep: "Nepali",
+      nia: "Nias",
+      nic: "Niger-Kordofanian",
+      ssa: "Nilo-Saharan",
+      niu: "Niuean",
+      nog: "Nogai",
+      non: "Norse",
+      nai: "North American Indian",
+      sme: "Northern Sami",
+      nso: "Sotho, Northern; Pedi; Sepedi",
+      nor: "Norwegian",
+      nub: "Nubian",
+      nym: "Nyamwezi",
+      nyn: "Nyankole",
+      nno: "Nynorsk, Norwegian; Norwegian Nynorsk",
+      nyo: "Nyoro",
+      nzi: "Nzima",
+      oci: "Provençal; Occitan (post 1500) ",
+      oji: "Ojibwa",
+      chu: "Old Slavonic; Church Slavonic; Old Bulgarian; Church Slavic; Old Church Slavonic ",
+      ori: "Oriya",
+      orm: "Oromo",
+      osa: "Osage",
+      oss: "Ossetic; Ossetian",
+      oto: "Otomian",
+      pal: "Pahlavi",
+      pau: "Palauan",
+      pli: "Pali",
+      pam: "Pampanga",
+      pag: "Pangasinan",
+      pan: "Punjabi; Panjabi",
+      pap: "Papiamento",
+      paa: "Papuan",
+      per: "Persian",
+      fas: "Persian",
+      peo: "Persian",
+      phn: "Phoenician",
+      pon: "Pohnpeian",
+      pol: "Polish",
+      por: "Portuguese",
+      pra: "Prakrit",
+      pro: "Provençal",
+      pus: "Pushto",
+      que: "Quechua",
+      roh: "Raeto-Romance",
+      raj: "Rajasthani",
+      rap: "Rapanui",
+      rar: "Rarotongan",
+      roa: "Romance",
+      rum: "Romanian",
+      ron: "Romanian",
+      rom: "Romany",
+      run: "Rundi",
+      rus: "Russian",
+      sal: "Salishan",
+      sam: "Samaritan Aramaic",
+      smi: "Sami",
+      smo: "Samoan",
+      sad: "Sandawe",
+      sag: "Sango",
+      san: "Sanskrit",
+      sat: "Santali",
+      srd: "Sardinian",
+      sas: "Sasak",
+      sco: "Scots",
+      sel: "Selkup",
+      sem: "Semitic",
+      scc: "Serbian",
+      srp: "Serbian",
+      srr: "Serer",
+      shn: "Shan",
+      sna: "Shona",
+      iii: "Sichuan Yi",
+      scn: "Sicilian",
+      sid: "Sidamo",
+      sgn: "Sign",
+      bla: "Siksika",
+      snd: "Sindhi",
+      sin: "Sinhalese; Sinhala",
+      sit: "Sino-Tibetan",
+      sio: "Siouan",
+      sms: "Skolt Sami",
+      den: "Slave",
+      sla: "Slavic",
+      slo: "Slovak",
+      slk: "Slovak",
+      slv: "Slovenian",
+      sog: "Sogdian",
+      som: "Somali",
+      son: "Songhai",
+      snk: "Soninke",
+      wen: "Sorbian",
+      sot: "Sotho, Southern",
+      sai: "South American Indian",
+      sma: "Southern Sami",
+      suk: "Sukuma",
+      sux: "Sumerian",
+      sun: "Sundanese",
+      sus: "Susu",
+      swa: "Swahili",
+      ssw: "Swati",
+      swe: "Swedish",
+      syr: "Syriac",
+      tgl: "Tagalog",
+      tah: "Tahitian",
+      tai: "Tai",
+      tgk: "Tajik",
+      tmh: "Tamashek",
+      tam: "Tamil",
+      tat: "Tatar",
+      tel: "Telugu",
+      ter: "Tereno",
+      tet: "Tetum",
+      tha: "Thai",
+      tib: "Tibetan",
+      bod: "Tibetan",
+      tig: "Tigre",
+      tir: "Tigrinya",
+      tem: "Timne",
+      tiv: "Tiv",
+      tli: "Tlingit",
+      tpi: "Tok Pisin",
+      tkl: "Tokelau",
+      tog: "Tonga",
+      ton: "Tonga",
+      tsi: "Tsimshian",
+      tso: "Tsonga",
+      tsn: "Tswana",
+      tum: "Tumbuka",
+      tup: "Tupi",
+      tur: "Turkish",
+      ota: "Turkish",
+      tuk: "Turkmen",
+      tvl: "Tuvalu",
+      tyv: "Tuvinian",
+      twi: "Twi",
+      udm: "Udmurt",
+      uga: "Ugaritic",
+      uig: "Uyghur; Uighur",
+      ukr: "Ukrainian",
+      umb: "Umbundu",
+      hsb: "Upper Sorbian",
+      urd: "Urdu",
+      uzb: "Uzbek",
+      vai: "Vai",
+      ven: "Venda",
+      vie: "Vietnamese",
+      vol: "Volapük",
+      vot: "Votic",
+      wak: "Wakashan",
+      wal: "Walamo",
+      wln: "Walloon",
+      war: "Waray",
+      was: "Washo",
+      wel: "Welsh",
+      cym: "Welsh",
+      wol: "Wolof",
+      xho: "Xhosa",
+      sah: "Yakut",
+      yao: "Yao",
+      yap: "Yapese",
+      yid: "Yiddish",
+      yor: "Yoruba",
+      ypk: "Yupik",
+      znd: "Zande",
+      zap: "Zapotec",
+      zen: "Zenaga",
+      zul: "Zulu",
+      zun: "Zuni",
+    };
     this.reloadMenus = () => null;
+    this.lyrics = null;
 
-    this.videoElement = document.querySelector('div.viewer div.players video');
-    this.audioElement = document.querySelector('div.viewer div.players div.audio audio');
-    this.audioDiv = document.querySelector('div.viewer div.players div.audio');
-    this.fileName = document.querySelector('div.viewer div.filename');
-    this.imageElement = document.querySelector('div.viewer div.players img');
-    this.imageFakeVideo = document.createElement('video');
-    this.iframeElement = document.querySelector('div.viewer div.players iframe');
+    this.videoElement = this.viewer.querySelector("div.players video");
+    this.audioElement = this.viewer.querySelector(
+      "div.players div.audio audio",
+    );
+    this.audioDiv = this.viewer.querySelector("div.players div.audio");
+    this.fileName = this.viewer.querySelector("div.filename");
+    this.imageElement = this.viewer.querySelector("div.players img");
+    this.imageFakeVideo = document.createElement("video");
+    this.iframeElement = this.viewer.querySelector("div.players iframe");
 
-    this.players = document.querySelector('div.viewer div.players').children;
-    this.timeInput = document.querySelector('div.controls div.time input');
-    this.volumeInput = document.querySelector('div.controls div.options div.volume input');
+    if (window.location.host !== "") {
+      this.iframeElement.setAttribute(
+        "allow",
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share",
+      );
+    }
+
+    this.players = this.viewer.querySelector("div.players").children;
+    this.timeInput = this.viewer.querySelector("div.controls div.time input");
+    this.timeInputPreview = {
+      div: this.viewer.querySelector("div.controls div.time .preview"),
+      span: this.viewer.querySelector("div.controls div.time .preview span"),
+      video: this.viewer.querySelector("div.controls div.time .preview video"),
+    };
+    this.volumeInput = this.viewer.querySelector(
+      "div.controls div.options div.volume input",
+    );
     this.timeIndicators = {
-      time: document.querySelector('div.controls div.time span.time'),
-      total_time: document.querySelector('div.controls div.time span.total-time'),
+      time: this.viewer.querySelector("div.controls div.time span.time"),
+      total_time: this.viewer.querySelector(
+        "div.controls div.time span.total-time",
+      ),
     };
 
-    this.controls = document.querySelector('div.viewer div.controls');
-    this.controls_picture_in_picture = document.querySelector('div.viewer div.controls div.options div.pip');
-    this.loop = 'noloop';
+    this.controls = this.viewer.querySelector("div.controls");
+    this.controls_picture_in_picture = this.viewer.querySelector(
+      "div.controls div.options div.pip",
+    );
+    this.loop = "noloop";
 
-    this.subtitles = document.querySelector('.subtitles');
+    this.subtitles = document.querySelector(".subtitles");
 
     this.midiPlayer = {};
 
-    this.playlist_ = []
-
     this.playWhenLoaded = playWhenLoaded;
 
-    this.videoElement.addEventListener("ended", function (){
-      document.querySelector('div.viewer div.controls div.playpause .play').classList.remove('hidden');
-      document.querySelector('div.viewer div.controls div.playpause .pause').classList.remove('hidden');
-      document.querySelector('div.viewer div.controls div.playpause .pause').classList.add('hidden');
+    this.videoElement.addEventListener("ended", function () {
+      this.viewer
+        .querySelector("div.controls div.playpause .play")
+        .classList.remove("hidden");
+      this.viewer
+        .querySelector("div.controls div.playpause .pause")
+        .classList.remove("hidden");
+      this.viewer
+        .querySelector("div.controls div.playpause .pause")
+        .classList.add("hidden");
     });
 
-    this.audioElement.addEventListener("ended", function (){
-      document.querySelector('div.viewer div.controls div.playpause .play').classList.remove('hidden');
-      document.querySelector('div.viewer div.controls div.playpause .pause').classList.remove('hidden');
-      document.querySelector('div.viewer div.controls div.playpause .pause').classList.add('hidden');
+    this.audioElement.addEventListener("ended", function () {
+      this.viewer
+        .querySelector("div.controls div.playpause .play")
+        .classList.remove("hidden");
+      this.viewer
+        .querySelector("div.controls div.playpause .pause")
+        .classList.remove("hidden");
+      this.viewer
+        .querySelector("div.controls div.playpause .pause")
+        .classList.add("hidden");
     });
 
     this.loopOff();
 
     const addTBodyLine = (element, line) => {
-      let tr = document.createElement('tr');
+      let tr = document.createElement("tr");
       var th = null;
       var i = 0;
       var j = 0;
-      for (i=0; i < line.length; i++){
-        th = document.createElement('th');
+      for (i = 0; i < line.length; i++) {
+        th = document.createElement("th");
         th.innerHTML = line[i].content;
-        for (j=0; j < Object.keys(line[i]).length; j++){
-          if (Object.keys(line[i])[j] != 'content'){
+        for (j = 0; j < Object.keys(line[i]).length; j++) {
+          if (Object.keys(line[i])[j] != "content") {
             th[Object.keys(line[i])[j]] = line[i][Object.keys(line[i])[j]];
           }
         }
         tr.appendChild(th);
       }
       element.appendChild(tr);
-    }
+    };
 
     const setTBodyContent = (element, content) => {
       var i = 0;
-      for (i=0; i < content.length; i++){
+      for (i = 0; i < content.length; i++) {
         addTBodyLine(element, content[i]);
       }
-    }
+    };
 
-    this.table = {addLine: addTBodyLine, setContent: setTBodyContent};
+    this.table = { addLine: addTBodyLine, setContent: setTBodyContent };
 
-    function autoToggleControls(e){
+    function autoToggleControls(e) {
       const isDraggingSubtitles = () => {
-        return (document.querySelector('.subtitles').getAttribute('align') == 'dragging')
-      }
+        return (
+          document.querySelector(".subtitles").getAttribute("align") ==
+          "dragging"
+        );
+      };
 
       const isOverSubElement = (e) => {
-        try{
-          return getQueryOfElement(e.target).includes('.controls');
+        try {
+          return getQueryOfElement(e.target).includes(".controls");
         } catch {
-          return false
+          return false;
         }
-      }
+      };
 
-      if (!isDraggingSubtitles() && !isOverSubElement(e)){
+      if (!isDraggingSubtitles() && !isOverSubElement(e)) {
         var fullscreen = 0;
-  
-        if (document.webkitIsFullScreen){
+
+        if (viewer_.fullscreen) {
           fullscreen = 100;
         }
-  
-        if (window.outerHeight - e.clientY <= (300 - fullscreen)){
-          document.querySelector('div.controls').classList.remove('hidden');
-          document.querySelector('div.subtitles').classList.add('up');
+
+        if (window.outerHeight - e.clientY <= 300 - fullscreen) {
+          document.querySelector("div.controls").classList.remove("hidden");
+          document.querySelector("div.subtitles").classList.add("up");
         } else {
-          document.querySelector('div.controls').classList.add('hidden');
-          document.querySelector('div.subtitles').classList.remove('up');
+          document.querySelector("div.controls").classList.add("hidden");
+          document.querySelector("div.subtitles").classList.remove("up");
         }
       } else {
         /* document.querySelector('div.controls').classList.add('hidden');
@@ -109,229 +638,371 @@ class Viewer {
       }
     }
 
-    document.addEventListener('mousemove', autoToggleControls);
-    document.addEventListener('mousedown', autoToggleControls);
-    document.addEventListener('mouseup', autoToggleControls);
+    document.addEventListener("mousemove", autoToggleControls);
+    document.addEventListener("mousedown", autoToggleControls);
+    document.addEventListener("mouseup", autoToggleControls);
 
-    if (keyboardShortcuts){
+    if (keyboardShortcuts) {
       this.addKeyboardShortcuts();
     }
 
-    this.setMode('video');
+    this.dragElement(".subtitles");
 
-    this.dragElement('.subtitles');
+    this.downloadVideoFrameCapture = () => {};
 
-    this.downloadVideoFrameCapture = () => {
-    }
+    this.tracks = {
+      menus: {
+        audio: document.querySelector(".audiotracks .popup .main select"),
+        video: document.querySelector(".videotracks .popup .main select"),
+      },
+      buttons: {
+        audio: this.controls.querySelector(".tracks-btns .audiotracksbtn"),
+        video: this.controls.querySelector(".tracks-btns .videotracksbtn"),
+      },
+    };
 
-    document.addEventListener('load', function (){
+    document.addEventListener("load", function () {
       const rm = () => {
-        try{
+        try {
           reloadMenus();
         } catch {}
       };
-  
+
       this.videoElement.videoElement.onloadeddata = rm;
-    })
-  }
-
-  // Background functions
-  blobToBase64(blob) {
-    return new Promise((resolve, _) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.readAsDataURL(blob);
     });
-  }
 
-  getPromiseFromEvent(item, event) {
-    return new Promise((resolve) => {
-      const listener = (e) => {
-        item.removeEventListener(event, listener);
-        resolve(e);
+    this.volumeInput.addEventListener("input", (event) => {
+      viewer_.volume = Number(event.target.value) / 100;
+    });
+
+    this.controls.addEventListener("mousemove", (event) => {
+      if (
+        this.getQueryOfElement(event.target).includes(
+          "div.controls div.time span.i",
+        ) ||
+        this.getQueryOfElement(event.target).includes(
+          "div.controls div.time div.preview span.time",
+        )
+      ) {
+        this.timeInputPreview.div.classList.remove("hidden");
+      } else {
+        this.timeInputPreview.div.classList.add("hidden");
       }
-      item.addEventListener(event, listener);
-    })
+    });
+
+    this.controls.addEventListener("mouseleave", (event) => {
+      this.timeInputPreview.div.classList.add("hidden");
+    });
+
+    this.timeInput.isMouseDown = false;
+
+    const round = (n, r = 1) => Math.round(n * (1 / r)) / (1 / r);
+
+    this.timeInput.addEventListener("mousemove", (event) => {
+      const fixCalculations = (n) => (n < 0 ? 0 : n);
+      var input_rect = this.timeInput.getBoundingClientRect();
+      var time_s = this.isMouseDown
+        ? this.timeInput.value / this.timeInput.max
+        : (fixCalculations(event.clientX - input_rect.x) / input_rect.width) *
+          this.getElementOfMode().duration;
+      this.timeInputPreview.video.currentTime = round(
+        time_s,
+        this.getElementOfMode().duration /
+          (this.getElementOfMode().duration >= 3600
+            ? 100
+            : this.getElementOfMode().duration >= 1800
+              ? 50
+              : 20),
+      );
+      this.timeInputPreview.span.classList.add("hidden");
+      this.timeInputPreview.div.style.left = event.clientX + "px";
+    });
+
+    this.timeInput.addEventListener("input", (event) => {
+      var time_s =
+        (this.timeInput.value / this.timeInput.max) *
+        this.getElementOfMode().duration;
+      var current_time = utils.s2hms(time_s);
+      var time_str =
+        this.getElementOfMode().duration >= 3600
+          ? current_time
+          : current_time.replace("00:", "");
+      this.timeInputPreview.span.innerText = `${time_str}`;
+      this.timeInputPreview.span.classList.remove("hidden");
+      this.timeInputPreview.div.style.left = event.clientX + "px";
+      this.timeInputPreview.video.currentTime = time_s;
+    });
+
+    this.timeInput.addEventListener("mousedown", (event) => {
+      this.isMouseDown = true;
+    });
+
+    this.timeInput.addEventListener("mouseup", (event) => {
+      this.isMouseDown = false;
+    });
+
+    this.volumeInput.addEventListener("change", (event) => {
+      viewer_.volume = Number(event.target.value) / 100;
+    });
+
+    this.videoElement.addEventListener("play", async function () {
+      while (!viewer_.isPaused()) {
+        if (!viewer_.timeInput.matches(":active")) {
+          viewer_.refreshTimeInput();
+        }
+        viewer_.refreshTimeIndicators();
+        await utils.delay(0.00005);
+      }
+    });
+
+    this.audioElement.addEventListener("play", async function () {
+      while (!viewer_.isPaused()) {
+        if (!viewer_.timeInput.matches(":active")) {
+          viewer_.refreshTimeInput();
+        }
+        viewer_.refreshTimeIndicators();
+        await utils.delay(0.00005);
+      }
+    });
+
+    this.timeInput.addEventListener("change", function () {
+      viewer_.refreshTimeIndicators();
+    });
+
+    this.initialized = true;
+    this.onInitialization();
   }
 
-  if_then_else(condition, then_, else_){
-    if (condition){
-      return then_
-    } else {
-      return else_
+  onInitialization() {
+    if (new URLSearchParams(window.location.search).get("mode") === null) {
+      this.mode = "video";
     }
-  }
-  
-  s2hms = (s, responseType = 'string') => {
-    var hms = '';
-    var h, m, s_ = 0;
-  
-    if (s / 3600 >= 1){
-      h = String(s / 3600)
-      if (h.includes('.')) h = h.split('.')[0]
-      h = Number(h);
-    }
-  
-    if ((s - (h*3600)) / 60 >= 1){
-      m = String((s - (h*3600)) / 60)
-      if (m.includes('.')) m = m.split('.')[0]
-      m = Number(m);
-    }
-  
-    if ((s - h*3600 - m*60) > 0){
-      s_ = s - (h*3600 + m*60)
-    }
-  
-    if (responseType == 'string'){
-      return if_then_else(String(h).length == 0, '00', if_then_else(String(h).length == 1, '0', '')) + String(h) + ':' + if_then_else(String(m).length == 0, '00', if_then_else(String(m).length == 1, '0', '')) + String(m) + ':' + if_then_else(String(s_).includes('.'), if_then_else(String(s_).split('.')[0].length == 1, '0'), if_then_else(String(s_).length == 1, '0')) + String(s_);
-    } else if (responseType == 'json'){
-      return {h: h, m:m, s: s_}
-    } else {
-      throw Error('Invalid response type');
+
+    if (this.playWhenLoaded) {
+      this.waitforclick.classList.remove("hidden");
+      var viewer_ = this;
+      function wfc(e) {
+        e.preventDefault();
+        if (viewer_.playWhenLoaded) viewer_.play();
+        if (viewer_.isPaused()) return;
+        viewer_.waitforclick.classList.add("hidden");
+        document.removeEventListener("click", wfc);
+        document.removeEventListener("mousemove", wfc);
+        document.removeEventListener("keydown", wfc);
+      }
+      document.addEventListener("click", wfc);
+      document.addEventListener("mousemove", wfc);
+      document.addEventListener("keydown", wfc);
     }
   }
 
   // Keyboard shortcuts
-  isKeyboardEventAltered(event){
-    return (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey);
+  isKeyboardEventAltered(event) {
+    return event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
   }
 
-  keyboardShortcuts(e) {
-    const eval_code = (code) => {
-      var script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.innerText = code;
-      document.body.appendChild(script);
-      document.body.removeChild(script);
-      script.remove();
-    }
-
-    const isKeyboardEventAltered = (event) =>{
-      return (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey);
-    }
+  keyboardShortcuts(e, viewer) {
+    const isKeyboardEventAltered = (event) => {
+      return event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
+    };
 
     const isSelectedElementAFeild = () => {
-      return (document.activeElement.tagName == 'INPUT' || document.activeElement.tagName == 'TEXTAREA')
-    }
-    
-    if (e.key === 'f' & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()) {
+      return (
+        document.activeElement.tagName == "INPUT" ||
+        document.activeElement.tagName == "TEXTAREA"
+      );
+    };
+
+    if (
+      (e.key === "t") &
+      !isKeyboardEventAltered(e) &
+      !isSelectedElementAFeild()
+    ) {
       e.preventDefault();
-      eval_code('viewer.toggleFullscreen();');
-    } else if (e.key === 't' & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()) {
+      viewer.openAudioTracksMenu();
+    } else if ((e.key === "t") & e.shiftKey & !isSelectedElementAFeild()) {
       e.preventDefault();
-      eval_code('viewer.openAudioTracksMenu();');
-    } else if (e.key === 't' & e.shiftKey & !isSelectedElementAFeild()) {
+      viewer.openVideoTracksMenu();
+    } else if (
+      (e.key === "i") &
+      !isKeyboardEventAltered(e) &
+      !isSelectedElementAFeild()
+    ) {
       e.preventDefault();
-      eval_code('viewer.openVideoTracksMenu();');
-    } else if (e.key === 'i' & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()) {
+      viewer.importFile();
+    } else if (
+      (e.key === "c") &
+      !isKeyboardEventAltered(e) &
+      !isSelectedElementAFeild()
+    ) {
       e.preventDefault();
-      eval_code('viewer.importFile();');
-    } else if (e.key === 'c' & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()) {
+      viewer.takeCaptureOfVideoElementAtTime();
+    } else if (e.key === "C" && e.shiftKey & !isSelectedElementAFeild()) {
       e.preventDefault();
-      eval_code('viewer.takeCaptureOfVideoElementAtTime();');
-    } else if (e.key === 'C' && e.shiftKey & !isSelectedElementAFeild()) {
+      viewer.takeCaptureOfVideoElementAtTime(
+        Number(
+          viewer.hms2s(prompt(ui_translator.getDialogInLanguage("vfc_custom"))),
+        ),
+      );
+    } else if (
+      (e.key === "F11") &
+        !isKeyboardEventAltered(e) &
+        !isSelectedElementAFeild() ||
+      (e.key === "f") & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()
+    ) {
       e.preventDefault();
-      eval_code('viewer.takeCaptureOfVideoElementAtTime(Number(viewer.hms2s(prompt(ui_translator.getDialogInLanguage("vfc_custom")))));');
-    } else if (e.key === 'F11' & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()) {
+      viewer.toggleFullscreen();
+    } else if (
+      (e.key === "m") &
+      !isKeyboardEventAltered(e) &
+      !isSelectedElementAFeild()
+    ) {
       e.preventDefault();
-      eval_code('viewer.toggleFullscreen();');
-    } else if (e.key === 'm' & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()) {
+      viewer.toggleMute();
+    } else if (
+      (e.key === "l") &
+      !isKeyboardEventAltered(e) &
+      !isSelectedElementAFeild()
+    ) {
       e.preventDefault();
-      eval_code('viewer.toggleMute();');
-    } else if (e.key === 'l' & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()) {
+      viewer.toggleLoop();
+    } else if (
+      (e.key === " ") &
+      !isKeyboardEventAltered(e) &
+      !isSelectedElementAFeild()
+    ) {
       e.preventDefault();
-      eval_code('viewer.toggleLoop();');
-    } else if (e.key === ' ' & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()) {
-      e.preventDefault();
-      eval_code('viewer.toggleLecture();');
-    } else if (e.key === 'ArrowLeft' & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()) {
-      if (e.repeat){
+      viewer.toggleLecture();
+    } else if (
+      (e.key === "ArrowLeft") &
+      !isKeyboardEventAltered(e) &
+      !isSelectedElementAFeild()
+    ) {
+      if (e.repeat) {
         e.preventDefault();
-        eval_code('viewer.goBackward2();');
+        viewer.goBackward2();
       } else {
         e.preventDefault();
-        eval_code('viewer.goBackward();');
+        viewer.goBackward();
       }
-    } else if (e.key === 'ArrowRight' & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()) {
-      if (e.repeat){
+    } else if (
+      (e.key === "ArrowRight") &
+      !isKeyboardEventAltered(e) &
+      !isSelectedElementAFeild()
+    ) {
+      if (e.repeat) {
         e.preventDefault();
-        eval_code('viewer.goForeward2();');
+        viewer.goForeward2();
       } else {
         e.preventDefault();
-        eval_code('viewer.goForeward();');
+        viewer.goForeward();
       }
-    } else if (e.key === 'ArrowUp' & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()) {
-      if (e.repeat){
+    } else if (
+      (e.key === "ArrowUp") &
+      !isKeyboardEventAltered(e) &
+      !isSelectedElementAFeild()
+    ) {
+      if (e.repeat) {
         e.preventDefault();
-        eval_code('viewer.volumeUp2();');
+        viewer.volumeUp2();
       } else {
         e.preventDefault();
-        eval_code('viewer.volumeUp();');
+        viewer.volumeUp();
       }
-    } else if (e.key === 'ArrowDown' & !isKeyboardEventAltered(e) & !isSelectedElementAFeild()) {
-      if (e.repeat){
+    } else if (
+      (e.key === "ArrowDown") &
+      !isKeyboardEventAltered(e) &
+      !isSelectedElementAFeild()
+    ) {
+      if (e.repeat) {
         e.preventDefault();
-        eval_code('viewer.volumeDown2();');
+        viewer.volumeDown2();
       } else {
         e.preventDefault();
-        eval_code('viewer.volumeDown();');
+        viewer.volumeDown();
       }
-    } else if ((e.keyCode === 219) & e.ctrlKey & e.shiftKey & !isSelectedElementAFeild()) {
+    } else if (
+      (e.keyCode === 219) &
+      e.ctrlKey &
+      e.shiftKey &
+      !isSelectedElementAFeild()
+    ) {
       e.preventDefault();
-      eval_code('viewer.togglePictureInPicture();'); // new AppWindow().turnIntoApp("#settings-app");
-    } else if ((e.key === 's') & e.ctrlKey & !isSelectedElementAFeild()) {
+      viewer.togglePictureInPicture(); // new AppWindow().turnIntoApp("#settings-app");
+    } else if ((e.key === "s") & e.ctrlKey & !isSelectedElementAFeild()) {
       e.preventDefault();
-      eval_code('windows.toggleAppVisibility("#settings-app")');
-    } else if ((e.key === 'l') & e.ctrlKey & !isSelectedElementAFeild()) {
+      windows.toggleAppVisibility("#settings-app");
+    } else if ((e.key === "l") & e.ctrlKey & !isSelectedElementAFeild()) {
       e.preventDefault();
     }
   }
 
   addKeyboardShortcuts() {
-    document.addEventListener("keydown", this.keyboardShortcuts);
+    let viewer = this;
+    document.addEventListener("keydown", (e) => {
+      viewer.keyboardShortcuts(e, viewer);
+    });
+    this.timeInput.addEventListener("keydown", (e) => {
+      viewer.keyboardShortcuts(e, viewer);
+    });
   }
 
   removeKeyboardShortcuts() {
-    document.removeEventListener("keydown", this.keyboardShortcuts);
+    let viewer = this;
+    document.removeEventListener("keydown", (e) => {
+      viewer.keyboardShortcuts(e, viewer);
+    });
   }
 
-  setOrientation(orientation){
-    if (orientation == 'vertical'){
-      this.videoElement.style.height = '-webkit-fill-available';
-      this.videoElement.style.width = '';
-      this.imageElement.style.height = '-webkit-fill-available';
-      this.imageElement.style.width = '';
-    } else if (orientation == 'horizontal') {
-      this.videoElement.style.height = '';
-      this.videoElement.style.width = '-webkit-fill-available';
-      this.imageElement.style.height = '';
-      this.imageElement.style.width = '-webkit-fill-available';
+  setOrientation(orientation) {
+    if (orientation == "vertical") {
+      this.videoElement.style.height =
+        utils.getBrowserName() === "firefox"
+          ? "-moz-available"
+          : "-webkit-fill-available";
+      this.videoElement.style.width = "";
+      this.imageElement.style.height =
+        utils.getBrowserName() === "firefox"
+          ? "-moz-available"
+          : "-webkit-fill-available";
+      this.imageElement.style.width = "";
+    } else if (orientation == "horizontal") {
+      this.videoElement.style.height = "";
+      this.videoElement.style.width =
+        utils.getBrowserName() === "firefox"
+          ? "-moz-available"
+          : "-webkit-fill-available";
+      this.imageElement.style.height = "";
+      this.imageElement.style.width =
+        utils.getBrowserName() === "firefox"
+          ? "-moz-available"
+          : "-webkit-fill-available";
     }
   }
 
-  getSource(){
-    switch (this.mode){
-      case 'video':
+  getSource() {
+    switch (this.mode) {
+      case "video":
         return this.videoElement.children[0].src;
-        break
-      case 'image':
+        break;
+      case "image":
         return this.imageElement.src;
-        break
-      case 'audio':
+        break;
+      case "audio":
         return this.audioElement.src;
-        break
+        break;
       default:
-        return null
-        break
+        return null;
+        break;
     }
   }
 
-  async refreshMediaView(url = this.getSource()){
+  async refreshMediaView(url = this.getSource()) {
     var infos = await this.getPlayingMediaInfos();
-    if (infos.height >= infos.width){
-      this.setOrientation('vertical');
-    } else if (infos.height < infos.width){
-      this.setOrientation('horizontal');
+    if (infos.height >= infos.width) {
+      this.setOrientation("vertical");
+    } else if (infos.height < infos.width) {
+      this.setOrientation("horizontal");
     }
   }
 
@@ -339,40 +1010,37 @@ class Viewer {
   setAudioSource(url) {
     this.audioElement.src = url;
     this.audioElement.load();
-    if (this.playWhenLoaded) this.play()
   }
 
   isPlayableByAudioElement(file) {
-    if (file.type.split('/')[0] == 'audio'){
-      var acceptedAudioFormats = ['flac', 'm4a', 'wav', 'weba', 'webm', 'mp3', 'ogg'];
-      return acceptedAudioFormats.includes(file.name.split('.').pop());
+    if (file.type.split("/")[0] == "audio") {
+      var acceptedAudioFormats = [
+        "flac",
+        "m4a",
+        "wav",
+        "weba",
+        "webm",
+        "mp3",
+        "ogg",
+      ];
+      return acceptedAudioFormats.includes(file.name.split(".").pop());
     } else {
       return false;
     }
   }
 
-  isMidi(file) {
-    return file.type == 'audio/mid';
-  }
-
-  async importAudioFile() {
-    const delay = s => new Promise(res => setTimeout(res, s*1000));
-    var input = document.createElement('input');
-    input.type = "file";
-    input.accept = "audio/*";
-    input.click();
-    await this.getPromiseFromEvent(input, 'change');
+  async loadAudioFileFromBlob(blob) {
     // document.querySelector('div.viewer div.loading').style.display = '';
-    var file = input.files[0];
     // document.querySelector('div.viewer div.loading div.content h3 span').innerText = file.name;
-    var b64 = URL.createObjectURL(file);
-    if (this.isPlayableByAudioElement(file)){
+    var b64 = URL.createObjectURL(blob);
+    if (this.isPlayableByAudioElement(blob)) {
       this.setAudioSource(b64);
-      // await this.getPromiseFromEvent(this.audioElement, 'loadeddata');
+      // await utils.getPromiseFromEvent(this.audioElement, 'loadeddata');
       // document.querySelector('div.viewer div.loading').style.display = 'none';
-    } else if (this.isMidi(file)){
-      if (this.midiPlayer.player == null){
-        try{
+      return file;
+    } else if (blob.type == "audio/mid") {
+      if (this.midiPlayer.player == null) {
+        try {
           await this.installMidiPlayer();
           this.playMIDIAudio();
         } catch {
@@ -382,121 +1050,178 @@ class Viewer {
 
       // document.querySelector('div.viewer div.loading').style.display = 'none';
     }
-    await delay(0.2);
-    if (this.playWhenLoaded){
-      this.play();
-      this.refreshTimeIndicators();
-      eval('viewer.toggleLecture();');
-      eval('viewer.toggleLecture();');
-    }
+    await utils.delay(0.2);
+    if (this.playWhenLoaded) viewer.play();
     this.reloadMenus();
-    this.showText(file.name);
-    while (!this.isPaused()){
-      if (!this.timeInput.matches(':active')){
-        this.refreshTimeInput();
-      }
-      this.refreshTimeIndicators();
-      await delay(0.00005);
-    }
+    this.refreshTracksMenus();
+    this.showText(blob.name);
   }
 
-  async showText(text){
-    const delay = s => new Promise(res => setTimeout(res, s*1000));
+  async importAudioFile() {
+    const pickerOpts = {
+      types: [
+        {
+          description: ui_translator.getDialogInLanguage("file_uploads/audios"),
+          accept: {
+            "audio/*": [".mp3", ".wav", ".ogg", ".webm", ".weba"],
+          },
+        },
+      ],
+      excludeAcceptAllOption: true,
+      multiple: false,
+    };
+    var [file] = await (window.showOpenFilePicker || this.showOpenFilePicker)(
+      pickerOpts,
+    );
+    file = await file.getFile();
+    await this.loadAudioFileFromBlob(file);
+
+    this.reloadMenus();
+    this.refreshTracksMenus();
+  }
+
+  async showText(text) {
     this.fileName.children[0].innerText = text;
-    this.fileName.classList.toggle('hidden');
-    await delay(3);
-    this.fileName.classList.toggle('hidden');
+    this.fileName.classList.toggle("hidden");
+    await utils.delay(3);
+    this.fileName.classList.toggle("hidden");
   }
 
   // Video
   async setVideoSource(url) {
-    const delay = s => new Promise(res => setTimeout(res, s*1000));
     this.videoElement.children[0].src = url;
+    this.timeInputPreview.video.children[0].src = url;
     this.refreshMediaView();
     this.videoElement.load();
-    await delay(1);
+    this.timeInputPreview.video.load();
+    await utils.delay(1);
     reloadMenus();
-    if (this.playWhenLoaded) this.play()
+    this.refreshTracksMenus();
+  }
+
+  async loadVideoFileFromBlob(blob) {
+    // document.querySelector('div.viewer div.loading').style.display = '';
+    // document.querySelector('div.viewer div.loading div.content h3 span').innerText = file.name;
+    var b64 = URL.createObjectURL(blob);
+    this.setVideoSource(b64);
+    await utils.getPromiseFromEvent(this.videoElement, "loadstart");
+    this.reloadMenus();
+    this.refreshTracksMenus();
+    // document.querySelector('div.viewer div.loading').style.display = 'none';
+    if (this.playWhenLoaded) viewer.play();
+    this.reloadMenus();
+    this.refreshTracksMenus();
+    this.showText(blob.name);
+  }
+
+  async loadLyricsFileFromBlob(blob) {
+    this.lyrics = this.readLyrics(await blob.text());
+    this.fileName.children[0].innerText = "Loaded lyrics";
+    this.fileName.classList.toggle("hidden");
+    await utils.delay(3);
+    this.fileName.classList.toggle("hidden");
+  }
+
+  async loadLyricsFileFromURL(url) {
+    var blob = await fetch(url).then((r) => r.blob());
+    this.loadLyricsFileFromBlob(blob);
   }
 
   async importVideoFile() {
-    const delay = s => new Promise(res => setTimeout(res, s*1000));
-    var input = document.createElement('input');
-    input.type = "file";
-    input.accept = "video/*";
-    input.click();
-    await this.getPromiseFromEvent(input, 'change');
-    var file = input.files[0];
-    // document.querySelector('div.viewer div.loading').style.display = '';
-    // document.querySelector('div.viewer div.loading div.content h3 span').innerText = file.name;
-    var b64 = URL.createObjectURL(file);
-    this.setVideoSource(b64);
-    await this.getPromiseFromEvent(this.videoElement, 'loadstart');
+    const pickerOpts = {
+      types: [
+        {
+          description: ui_translator.getDialogInLanguage("file_uploads/videos"),
+          accept: {
+            "video/*": [".mp4", ".webm", ".webv", ".ogv", ".mpeg", ".mpg"],
+          },
+        },
+      ],
+      excludeAcceptAllOption: true,
+      multiple: false,
+    };
+    var [file] = await (window.showOpenFilePicker || this.showOpenFilePicker)(
+      pickerOpts,
+    );
+    file = await file.getFile();
+    await this.loadVideoFileFromBlob(file);
+
     this.reloadMenus();
-    // document.querySelector('div.viewer div.loading').style.display = 'none';
-    if (this.playWhenLoaded){
-      this.play();
-      this.refreshTimeIndicators();
-      eval('viewer.toggleLecture();');
-      eval('viewer.toggleLecture();');
-    }
-    this.reloadMenus();
-    this.showText(file.name);
-    while (!this.isPaused()){
-      if (!this.timeInput.matches(':active')){
-        this.refreshTimeInput();
-      }
-      this.refreshTimeIndicators();
-      await delay(0.00005);
-    }
+    this.refreshTracksMenus();
   }
 
   async importLyricsFile() {
-    const delay = s => new Promise(res => setTimeout(res, s*1000));
-    var input = document.createElement('input');
-    input.type = "file";
-    input.click();
-    await this.getPromiseFromEvent(input, 'change');
-    var file = input.files[0];
-    this.lyrics = this.readLRCLyrics(await file.text());
-    this.fileName.children[0].innerText = 'Loaded lyrics';
-    this.fileName.classList.toggle('hidden');
-    await delay(3);
-    this.fileName.classList.toggle('hidden');
+    const pickerOpts = {
+      types: [
+        {
+          description: ui_translator.getDialogInLanguage("file_uploads/lyrics"),
+          accept: {
+            "*/lrc": [".lrc"],
+            "*/vtt": [".vtt"],
+            "*/srt": [".srt"],
+          },
+        },
+      ],
+      excludeAcceptAllOption: true,
+      multiple: false,
+    };
+    var [file] = await (window.showOpenFilePicker || this.showOpenFilePicker)(
+      pickerOpts,
+    );
+    file = await file.getFile();
+    await this.loadLyricsFileFromBlob(file);
+
+    this.reloadMenus();
   }
 
-  switchVideoToPC(){
-    this.videoElement.style.width = '-webkit-fill-available';
-    this.videoElement.style.height = '';
+  switchVideoToPC() {
+    this.videoElement.style.width =
+      utils.getBrowserName() === "firefox"
+        ? "-moz-available"
+        : "-webkit-fill-available";
+    this.videoElement.style.height = "";
   }
 
-  switchVideoToPhone(){
-    this.videoElement.style.width = '';
-    this.videoElement.style.height = window.outerHeight + 'px';
+  switchVideoToPhone() {
+    this.videoElement.style.width = "";
+    this.videoElement.style.height = window.outerHeight + "px";
   }
 
   //// YouTube
-  isYouTubeVideoURL(url){
-    return url.includes('youtube.com/embed') || url.includes('youtu.be') || url.includes('youtube.com/watch?') || url.includes('youtube.com/shorts');
+  isYouTubeVideoURL(url) {
+    return (
+      url.includes("youtube.com/embed") ||
+      url.includes("youtu.be") ||
+      url.includes("youtube.com/watch?") ||
+      url.includes("youtube.com/shorts")
+    );
   }
 
-  getIdOfYouTubeVideoURL(url){
+  getIdOfYouTubeVideoURL(url) {
     const itemOfFromString = (item, from, splitby) => {
-      return String(from).split(String(splitby))[(Number(item) - 1)] || '';
-    }
-    
-    if (url.includes('youtube.com/embed')){ // YouTube Embed Video
-      return itemOfFromString(2, itemOfFromString(1, url, '?'), 'youtube.com/embed/');
-    } else if (url.includes('youtu.be')){ // youtu.be short link
-      return itemOfFromString(2, itemOfFromString(1, url, '?'), 'youtu.be/');
-    } else if (url.includes('youtube.com/watch?')){ // youtube.com/watch?v={ID} - Basic YouTube url
-      const queryString = '?' + itemOfFromString(2, url, '?');
+      return String(from).split(String(splitby))[Number(item) - 1] || "";
+    };
+
+    if (url.includes("youtube.com/embed")) {
+      // YouTube Embed Video
+      return itemOfFromString(
+        2,
+        itemOfFromString(1, url, "?"),
+        "youtube.com/embed/",
+      );
+    } else if (url.includes("youtu.be")) {
+      // youtu.be short link
+      return itemOfFromString(2, itemOfFromString(1, url, "?"), "youtu.be/");
+    } else if (url.includes("youtube.com/watch?")) {
+      // youtube.com/watch?v={ID} - Basic YouTube url
+      const queryString = "?" + itemOfFromString(2, url, "?");
       const urlParams = new URLSearchParams(queryString);
-      return urlParams.get('v');
-    } else if (url.includes('youtube.com/shorts')){ // YouTube Shorts
-      return url.replace('youtube.com/shorts/', '');
+      return urlParams.get("v");
+    } else if (url.includes("youtube.com/shorts")) {
+      // YouTube Shorts
+      return url.replace("youtube.com/shorts/", "");
     } else {
-      return null
+      return null;
     }
   }
 
@@ -504,61 +1229,194 @@ class Viewer {
   setImageSource(url) {
     this.imageElement.src = url;
     this.refreshMediaView();
-    if (this.playWhenLoaded) this.play()
+  }
+
+  async loadImageFileFromBlob(blob) {
+    var b64 = URL.createObjectURL(blob);
+    this.setImageSource(b64);
+    if (this.playWhenLoaded) viewer.play();
+    this.reloadMenus();
+    this.refreshTracksMenus();
+    this.fileName.children[0].innerText = blob.name;
+    await utils.delay(0.2);
+    this.fileName.classList.toggle("hidden");
+    await utils.delay(3);
+    this.fileName.classList.toggle("hidden");
   }
 
   async importImageFile() {
-    const delay = s => new Promise(res => setTimeout(res, s*1000));
-    var input = document.createElement('input');
-    input.type = "file";
-    input.accept = "image/*";
-    input.click();
-    await this.getPromiseFromEvent(input, 'change');
-    var file = input.files[0];
-    var b64 = URL.createObjectURL(file);
-    this.setImageSource(b64);
-    if (this.playWhenLoaded){
-      this.play();
-    }
+    const pickerOpts = {
+      types: [
+        {
+          description: ui_translator.getDialogInLanguage("file_uploads/images"),
+          accept: {
+            "image/*": [".webm", ".webp", ".gif", ".png", ".jpg"],
+          },
+        },
+      ],
+      excludeAcceptAllOption: true,
+      multiple: false,
+    };
+    var [file] = await (window.showOpenFilePicker || this.showOpenFilePicker)(
+      pickerOpts,
+    );
+    file = await file.getFile();
+    await this.loadImageFileFromBlob(file);
+
     this.reloadMenus();
-    this.fileName.children[0].innerText = file.name;
-    await delay(0.2);
-    while (!this.isPaused()){
-      if (!this.timeInput.matches(':active')){
-        this.refreshTimeInput();
-      }
-      this.refreshTimeIndicators();
-      await delay(0.00005);
-    }
-    this.fileName.classList.toggle('hidden');
-    await delay(3);
-    this.fileName.classList.toggle('hidden');
+    this.refreshTracksMenus();
   }
 
-  // Both
-  importFile(){
-    if (this.getMode() == 'video'){
-      this.importVideoFile();
-    } else if (this.getMode() == 'audio'){
-      this.importAudioFile();
-    } else if (this.getMode() == 'image'){
-      this.importImageFile();
+  async showOpenFilePicker(options = {}) {
+    function getPromiseFromEvent(item, event) {
+      return new Promise((resolve) => {
+        const listener = (e) => {
+          item.removeEventListener(event, listener);
+          resolve(e);
+        };
+        item.addEventListener(event, listener);
+      });
     }
+
+    class FakeFileSystemHandle {
+      constructor(blob) {
+        this.blob = blob;
+        this.name = blob.name;
+        this.kind = "file";
+      }
+
+      getFile() {
+        return this.blob;
+      }
+    }
+
+    let input = document.createElement("input");
+    input.type = "file";
+    if (options.multiple) input.setAttribute("multiple", "");
+    var opt_types = options.types.map((e) => e.accept[Object.keys(e.accept)]);
+    if (options.types) {
+      var types = [];
+      for (var type of opt_types) {
+        for (var type_ of type) {
+          if (!types.includes(type_)) {
+            types.push(type_);
+          }
+        }
+      }
+      input.accept = types.join(", ");
+    }
+    input.click();
+    await getPromiseFromEvent(input, "change");
+    let files = [];
+    for (var file of input.files) {
+      files.push(new FakeFileSystemHandle(file));
+    }
+    if (files.length == 0) {
+      throw Error("User aborted");
+    }
+    return files;
+  }
+
+  _importFile() {
+    const pickerOpts = {
+      types: [],
+      excludeAcceptAllOption: true,
+      multiple: false,
+    };
+
+    const video = {
+      description: ui_translator.getDialogInLanguage("file_uploads/videos"),
+      accept: {
+        "*/*": [".mp4", ".webm", ".webv", ".ogv", ".mpeg", ".mpg"],
+      },
+    };
+    const audio = {
+      description: ui_translator.getDialogInLanguage("file_uploads/audios"),
+      accept: {
+        "*/*": [".mp3", ".wav", ".ogg", ".webm", ".weba"],
+      },
+    };
+    const image = {
+      description: ui_translator.getDialogInLanguage("file_uploads/images"),
+      accept: {
+        "*/*": [".webm", ".webp", ".gif", ".png", ".jpg"],
+      },
+    };
+
+    switch (this.mode) {
+      case "video":
+        pickerOpts.types = [video, audio, image];
+        break;
+      case "audio":
+        pickerOpts.types = [audio, video, image];
+        break;
+      case "image":
+        pickerOpts.types = [image, audio, video];
+        break;
+      default:
+        break;
+    }
+
+    return (window.showOpenFilePicker || this.showOpenFilePicker)(pickerOpts);
+  }
+
+  async importFile() {
+    var [file] = await this._importFile();
+    file = await file.getFile();
+
+    switch (file.type.split("/")[0]) {
+      case "video":
+        this.mode = "video";
+        await this.loadVideoFileFromBlob(file);
+        break;
+      case "audio":
+        this.mode = "audio";
+        await this.loadAudioFileFromBlob(file);
+        break;
+      case "image":
+        this.mode = "image";
+        await this.loadImageFileFromBlob(file);
+        break;
+      default:
+        break;
+    }
+
     this.reloadMenus();
+    this.refreshTracksMenus();
+  }
+
+  async importFileInNewTab() {
+    var [file] = await this._importFile();
+    file = await file.getFile();
+    var url = URL.createObjectURL(file);
+    open(`.?url=${encodeURIComponent(url)}&filename=${file.name}`, "_blank");
   }
 
   play() {
     this.getElementOfMode().play();
-    document.querySelector('div.viewer div.controls div.playpause .play').classList.remove('hidden');
-    document.querySelector('div.viewer div.controls div.playpause .pause').classList.remove('hidden');
-    document.querySelector('div.viewer div.controls div.playpause .play').classList.add('hidden');
+    document
+      .querySelector("div.viewer div.controls div.playpause .play")
+      .classList.remove("hidden");
+    document
+      .querySelector("div.viewer div.controls div.playpause .pause")
+      .classList.remove("hidden");
+    document
+      .querySelector("div.viewer div.controls div.playpause .play")
+      .classList.add("hidden");
+    this.refreshTime();
   }
 
   pause() {
     this.getElementOfMode().pause();
-    document.querySelector('div.viewer div.controls div.playpause .play').classList.remove('hidden');
-    document.querySelector('div.viewer div.controls div.playpause .pause').classList.remove('hidden');
-    document.querySelector('div.viewer div.controls div.playpause .pause').classList.add('hidden');
+    document
+      .querySelector("div.viewer div.controls div.playpause .play")
+      .classList.remove("hidden");
+    document
+      .querySelector("div.viewer div.controls div.playpause .pause")
+      .classList.remove("hidden");
+    document
+      .querySelector("div.viewer div.controls div.playpause .pause")
+      .classList.add("hidden");
   }
 
   isPaused() {
@@ -566,244 +1424,332 @@ class Viewer {
   }
 
   goBackward(x = 5) {
-    x = x * this.getSpeed();
-    this.getElementOfMode().currentTime = (this.getElementOfMode().currentTime - x);
-    this.refreshTimeInput();
-    this.refreshTimeIndicators();
+    x = x * this.speed;
+    this.getElementOfMode().currentTime =
+      this.getElementOfMode().currentTime - x;
+    this.refreshTime();
   }
 
   goBackward2(x = 10) {
-    x = x * this.getSpeed();
-    this.getElementOfMode().currentTime = (this.getElementOfMode().currentTime - x);
-    this.refreshTimeInput();
-    this.refreshTimeIndicators();
+    x = x * this.speed;
+    this.getElementOfMode().currentTime =
+      this.getElementOfMode().currentTime - x;
+    this.refreshTime();
   }
 
   goForeward(x = 5) {
-    x = x * this.getSpeed();
-    this.getElementOfMode().currentTime = (this.getElementOfMode().currentTime + x);
-    this.refreshTimeInput();
-    this.refreshTimeIndicators();
+    x = x * this.speed;
+    this.getElementOfMode().currentTime =
+      this.getElementOfMode().currentTime + x;
+    this.refreshTime();
   }
 
   goForeward2(x = 10) {
-    x = x * this.getSpeed();
-    this.getElementOfMode().currentTime = (this.getElementOfMode().currentTime + x);
-    this.refreshTimeInput();
-    this.refreshTimeIndicators();
+    x = x * this.speed;
+    this.getElementOfMode().currentTime =
+      this.getElementOfMode().currentTime + x;
+    this.refreshTime();
   }
 
   toggleLecture() {
-    if (this.isPaused()){
+    if (this.isPaused()) {
       this.play();
     } else {
       this.pause();
     }
   }
 
-  refreshSound() {
-    this.getElementOfMode().volume = Number(this.volumeInput.value) / 100;
-    if (Number(this.volumeInput.value) >= 75){
-      document.querySelector('div.controls div.options div.volume svg g g path.c').style.display = '';
+  refreshVolumeIcon() {
+    if (this.muted) {
+      document.querySelector(
+        "div.controls div.options div.volume svg g g.vol",
+      ).style.display = "none";
+      return;
+    }
+    document.querySelector(
+      "div.controls div.options div.volume svg g g.vol",
+    ).style.display = "";
+    if (Number(this.volumeInput.value) >= 75) {
+      document.querySelector(
+        "div.controls div.options div.volume svg g g path.c",
+      ).style.display = "";
     } else {
-      document.querySelector('div.controls div.options div.volume svg g g path.c').style.display = 'none';
+      document.querySelector(
+        "div.controls div.options div.volume svg g g path.c",
+      ).style.display = "none";
     }
 
-    if (Number(this.volumeInput.value) >= 25){
-      document.querySelector('div.controls div.options div.volume svg g g path.b').style.display = '';
+    if (Number(this.volumeInput.value) >= 25) {
+      document.querySelector(
+        "div.controls div.options div.volume svg g g path.b",
+      ).style.display = "";
     } else {
-      document.querySelector('div.controls div.options div.volume svg g g path.b').style.display = 'none';
+      document.querySelector(
+        "div.controls div.options div.volume svg g g path.b",
+      ).style.display = "none";
+    }
+
+    if (Number(this.volumeInput.value) > 0) {
+      document.querySelector(
+        "div.controls div.options div.volume svg g g path.a",
+      ).style.display = "";
+    } else {
+      document.querySelector(
+        "div.controls div.options div.volume svg g g path.a",
+      ).style.display = "none";
     }
   }
 
-  getMode() {
-    return this.mode;
+  get mode() {
+    return this.#mode;
   }
 
-  setMode(mode) {
-    this.mode = mode;
-    this.videoElement.pause();
-    this.audioElement.pause();
+  set mode(mode) {
+    this.#mode = mode;
+    if (!this.initialized) return;
+    if (mode !== "video") this.videoElement.pause();
+    if (mode !== "audio") this.audioElement.pause();
+    if (mode !== "iframe") this.iframeElement.src = "";
 
-    this.videoElement.style.display = 'none';
-    this.audioDiv.style.display = 'none';
-    this.imageElement.style.display = 'none';
-    this.controls_picture_in_picture.style.display = 'none';
-    this.iframeElement.style.display = 'none';
+    this.videoElement.style.display = "none";
+    this.audioDiv.style.display = "none";
+    this.imageElement.style.display = "none";
+    this.controls_picture_in_picture.style.display = "none";
+    this.iframeElement.style.display = "none";
 
-    document.querySelector('.viewer .closefullscreenbtn').classList.add('hidden');
+    document
+      .querySelector(".viewer .closefullscreenbtn")
+      .classList.add("hidden");
 
-    if (mode == 'video'){
-      this.videoElement.style.display = '';
-      this.controls_picture_in_picture.style.display = '';
-    } else if (mode == 'image'){
-      this.imageElement.style.display = '';
-    } else if (mode == 'audio'){
-      this.audioDiv.style.display = '';
-    } else if (mode == 'iframe'){
-      this.iframeElement.style.display = '';
-      document.querySelector('.viewer .closefullscreenbtn').classList.remove('hidden');
+    switch (mode) {
+      case "video":
+        this.videoElement.style.display = "";
+        this.controls_picture_in_picture.style.display = "";
+        break;
+      case "image":
+        this.imageElement.style.display = "";
+        break;
+      case "audio":
+        this.audioDiv.style.display = "";
+        break;
+      case "iframe":
+        this.iframeElement.style.display = "";
+        document
+          .querySelector(".viewer .closefullscreenbtn")
+          .classList.remove("hidden");
+        break;
+      default:
+        break;
     }
   }
 
-  getElementOfMode(mode=this.getMode()) {
-    if (mode == 'video'){
+  getElementOfMode(mode = this.mode) {
+    if (mode == "video") {
       return this.videoElement;
-    } else if (mode == 'image'){
+    } else if (mode == "image") {
       return this.imageFakeVideo;
-    } else if (mode == 'audio'){
+    } else if (mode == "audio") {
       return this.audioElement;
     }
   }
 
-  async getTypeOfURL(url){
-    if (this.isYouTubeVideoURL(url)){
-      return 'youtube'
+  async getTypeOfURL(url) {
+    if (this.isYouTubeVideoURL(url)) {
+      return "youtube";
     }
 
     var blob = await fetch(url).then((r) => r.blob());
-    if (blob.type == ''){
-      if (url.split('/')[(url.split('/').length - 1)].includes('.')){
-        return url.split('.').pop();
+    if (blob.type == "") {
+      if (url.split("/")[url.split("/").length - 1].includes(".")) {
+        return url.split(".").pop();
       }
-      return url.split('/')[(url.split('/').length - 1)];
+      return url.split("/")[url.split("/").length - 1];
     }
-    return blob.type.split('/')[0];
+    return blob.type.split("/")[0];
   }
 
-  setIframeSource(url){
+  setIframeSource(url) {
     this.iframeElement.src = url;
   }
 
-  exitFullscreen(){
-    this.setMode('video');
-    this.setIframeSource('');
+  exitFullscreen() {
+    this.mode = "video";
+    this.setIframeSource("");
   }
-
 
   async openNetworkFlux(url) {
+    const getFileNameFrom = (url) => {
+      url = url.replaceAll("\\", "/");
+      if (
+        !url.includes("/") ||
+        [/^blob:/, /^data:/].map((regexp) => !!url.match(regexp)).includes(true)
+      )
+        return null;
+      return url.split("/")[url.split("/").length - 1];
+    };
+
+    const deleteSearchParam = (...ids) => {
+      let search = new URLSearchParams(window.location.search);
+      for (var id of ids) {
+        search.delete(id);
+        window.history.replaceState("", "", "?" + search.toString());
+      }
+    };
+
+    loader.show();
+    loader.html = ui_translator
+      .getDialogInLanguage("loading_file/from")
+      .replace(
+        "[FILE]",
+        getFileNameFrom(url) ||
+          new URLSearchParams(window.location.search).get("filename"),
+      )
+      .replaceAll("[ORIGIN]", url);
+    deleteSearchParam("filename", "url");
     var type = await this.getTypeOfURL(url);
     this.pause();
-    this.setMode(type);
-    switch (type){
-      case 'image':
+    this.mode = type;
+    switch (type) {
+      case "image":
         this.setImageSource(url);
         break;
-      case 'video':
+      case "video":
         this.setVideoSource(url);
         break;
-      case 'audio':
+      case "audio":
         this.setAudioSource(url);
         break;
-      case 'youtube':
-        url = 'https://www.youtube.com/embed/' + this.getIdOfYouTubeVideoURL(url);
+      case "youtube":
+        url =
+          "https://www.youtube.com/embed/" + this.getIdOfYouTubeVideoURL(url);
       default:
         this.setIframeSource(url);
-        this.setMode('iframe');
+        this.mode = "iframe";
         break;
     }
+    loader.hide();
   }
 
-  async openNetworkFluxPopup(){
-    let url = await popups.prompt(ui_translator.getDialogInLanguage('open_network_flux'), '', 'URL', '', 'url')
+  async openNetworkFluxPopup() {
+    let url = await popups.prompt(
+      ui_translator.getDialogInLanguage("controls/open_network_flux"),
+      "",
+      "URL",
+      "",
+      "url",
+    );
     this.openNetworkFlux(url);
   }
 
-  fullscreenOn() {
-    try{
-      this.viewer.webkitRequestFullScreen();
-      document.querySelectorAll('div.controls div.options div.fullscreen svg').forEach(element => {element.classList.toggle('hidden')});
-    } catch {
-      // Guess we could't enter to fullscreen
-    }
-  }
-
-  fullscreenOff() {
-    document.querySelectorAll('div.controls div.options div.fullscreen svg').forEach(element => {element.classList.toggle('hidden')})
-    try {
-      document.webkitExitFullscreen();
-    } catch {
+  set fullscreen(on) {
+    if (on) {
       try {
-        document.webkitCancelFullScreen();
+        this.viewer.webkitRequestFullScreen();
+        document
+          .querySelectorAll("div.controls div.options div.fullscreen svg")
+          .forEach((element) => {
+            element.classList.toggle("hidden");
+          });
+      } catch (err) {
+        try {
+          this.viewer.requestFullscreen();
+        } catch (err) {
+          // Guess we could't enter to fullscreen
+        }
+      }
+      return;
+    }
+    document
+      .querySelectorAll("div.controls div.options div.fullscreen svg")
+      .forEach((element) => {
+        element.classList.toggle("hidden");
+      });
+
+    try {
+      document.exitFullscreen();
+    } catch (err) {
+      try {
+        document.webkitExitFullscreen();
       } catch {
         try {
-          document.exitFullscreen();
+          document.webkitCancelFullScreen();
         } catch {
           // Guess we could't exit fullscreen
-          document.querySelectorAll('div.controls div.options div.fullscreen svg').forEach(element => {element.classList.toggle('hidden')})
+          document
+            .querySelectorAll("div.controls div.options div.fullscreen svg")
+            .forEach((element) => {
+              element.classList.toggle("hidden");
+            });
         }
       }
     }
   }
 
-  isFullscreen() {
-    return document.webkitIsFullScreen;
+  get fullscreen() {
+    return document.fullscreenElement;
   }
 
   toggleFullscreen() {
-    if (this.isFullscreen()){
-      this.fullscreenOff();
-    } else {
-      this.fullscreenOn();
-    }
-  }
-
-  setFullscreen(value) {
-    if (value){
-      this.fullscreenOn();
-    } else {
-      this.fullscreenOff();
-    }
+    this.fullscreen = !this.fullscreen;
   }
 
   pictureInPictureEnabled() {
     return document.pictureInPictureEnabled;
   }
 
-  enablePictureInPicture() {
-    document.pictureInPictureEnabled = true;
+  get pictureInPicture() {
+    return document.pictureInPictureElement !== null;
   }
 
-  disablePictureInPicture() {
-    document.pictureInPictureEnabled = false;
-  }
-
-  pictureInPictureOn() {
-    if ((this.getMode() == 'video') & (this.pictureInPictureEnabled())){
-      try {
-        this.getElementOfMode().requestPictureInPicture();
-      } catch {
-        // Guess PIP mode is not available
+  set pictureInPicture(on) {
+    if (this.mode == "video" && this.pictureInPictureEnabled()) {
+      if (on) {
+        try {
+          this.getElementOfMode().requestPictureInPicture();
+        } catch {
+          // Guess PIP mode is not available
+        }
+      } else {
+        try {
+          document.exitPictureInPicture();
+        } catch {
+          // Guess we could not exit PIP
+        }
       }
     }
   }
+
+  togglePictureInPicture() {
+    this.pictureInPicture = !this.pictureInPicture;
+  }
+
+  set speed(speed) {
+    viewer = this;
+    (async () => {
+      if (speed == "custom") {
+        speed = Number(
+          await popups.prompt(
+            ui_translator.getDialogInLanguage("controls/enter_custom_speed"),
+          ),
+        );
+        viewer.speed = speed;
+      }
+    })();
+    
+    this.videoElement.playbackRate = speed;
+    this.audioElement.playbackRate = speed;
   
-  pictureInPictureOff() {
-    try {
-      document.exitPictureInPicture();
-    } catch {
-      // Guess we could not exit PIP
-    }
+    // Update the displayed speed in the menu
+    const selectedSpeed = document.getElementById("selectedSpeed");
+    selectedSpeed.innerText = speed + "x";
+  
+    // Hide the speed dropdown
+    const speedDropdown = document.getElementById("speedDropdown");
+    speedDropdown.classList.add("hidden");
   }
 
-  isPictureInPicture() {
-    return document.pictureInPictureElement != null;
-  }
-
-  togglePictureInPicture(){
-    if (this.isPictureInPicture()){
-      this.pictureInPictureOff();
-    } else {
-      this.pictureInPictureOn();
-    }
-  }
-
-  setSpeed(speed) {
-    this.getElementOfMode().playbackRate = speed;
-  }
-
-  getSpeed() {
-    return this.getElementOfMode().playbackRate;
+  get speed() {
+    return this.videoElement.playbackRate;
   }
 
   getLoop() {
@@ -812,16 +1758,24 @@ class Viewer {
 
   loopThis() {
     this.getElementOfMode().loop = true;
-    this.setLoop('loopone');
-    document.querySelector('div.controls div.options div.loop svg g g text tspan').style.display = '';
-    document.querySelector('div.controls div.options div.loop svg g g g.arrow').setAttribute("stroke-width", 24);
+    this.setLoop("loopone");
+    document.querySelector(
+      "div.controls div.options div.loop svg g g text tspan",
+    ).style.display = "";
+    document
+      .querySelector("div.controls div.options div.loop svg g g g.arrow")
+      .setAttribute("stroke-width", 24);
   }
 
   loopOff() {
     this.getElementOfMode().loop = false;
-    this.setLoop('noloop');
-    document.querySelector('div.controls div.options div.loop svg g g text tspan').style.display = 'none';
-    document.querySelector('div.controls div.options div.loop svg g g g.arrow').setAttribute("stroke-width", 12);
+    this.setLoop("noloop");
+    document.querySelector(
+      "div.controls div.options div.loop svg g g text tspan",
+    ).style.display = "none";
+    document
+      .querySelector("div.controls div.options div.loop svg g g g.arrow")
+      .setAttribute("stroke-width", 12);
   }
 
   setLoop(loop) {
@@ -829,189 +1783,261 @@ class Viewer {
   }
 
   toggleLoop() {
-    if (this.getLoop() == 'noloop'){
+    if (this.getLoop() == "noloop") {
       this.loopThis();
     } else {
       this.loopOff();
     }
   }
 
-  muteOn() {
-    this.getElementOfMode().muted = true;
-    this.volumeInput.disabled = true;
-    document.querySelector('div.controls div.options div.volume svg g g g.vol').style.display = 'none';
+  set muted(on) {
+    this.videoElement.muted = on;
+    this.audioElement.muted = on;
+    this.volumeInput.disabled = on;
+    document.querySelector(
+      "div.controls div.options div.volume svg g g g.vol",
+    ).style.display = on ? "none" : "";
   }
 
-  muteOff() {
-    this.getElementOfMode().muted = false;
-    this.volumeInput.disabled = false;
-    document.querySelector('div.controls div.options div.volume svg g g g.vol').style.display = '';
-  }
-
-  isMute() {
-    return this.getElementOfMode().muted;
+  get muted() {
+    return this.videoElement.muted;
   }
 
   toggleMute() {
-    if (this.isMute()){
-      this.muteOff();
-    } else {
-      this.muteOn();
+    this.muted = !this.muted;
+  }
+
+  set volume(volume) {
+    if (volume == "custom") {
+      volume = Number(
+        popups.prompt(
+          ui_translator.getDialogInLanguage("controls/set_volume_to"),
+        ),
+      ); // translate
     }
+
+    this.videoElement.volume = volume;
+    this.audioElement.volume = volume;
+    this.volumeInput.value = volume * 100;
+
+    if (this.muted) {
+      this.volumeInput.disabled = false;
+      this.volumeInput.disabled = true;
+    }
+    this.refreshVolumeIcon();
+  }
+
+  get volume() {
+    return this.videoElement.volume;
   }
 
   volumeUp() {
-    this.setVolume(Number(this.getVolume()) + 5);
+    this.volume += 5;
   }
 
   volumeUp2() {
-    this.setVolume(Number(this.getVolume()) + 10);
+    this.volume += 10;
   }
 
   volumeDown() {
-    this.setVolume(Number(this.getVolume()) - 5);
+    this.volume -= 5;
   }
 
   volumeDown2() {
-    this.setVolume(Number(this.getVolume()) - 10);
-  }
-
-  setVolume(value){
-    if (value == 'custom'){
-      value = Number(popups.prompt(ui_translator.getDialogInLanguage('set_volume_to'))); // translate
-    }
-
-    if (this.isMute()){
-      this.volumeInput.disabled = false;
-      this.volumeInput.value = value;
-      this.volumeInput.disabled = true;
-    } else {
-      this.volumeInput.value = value;
-      this.refreshSound();
-    }
-  }
-
-  getVolume(){
-    return this.volumeInput.value;
+    this.volume -= 10;
   }
 
   refreshElementTime() {
-    try{
-      this.getElementOfMode().currentTime = Number(this.timeInput.value) * this.getElementOfMode().duration / 100000;
+    try {
+      this.getElementOfMode().currentTime =
+        (Number(this.timeInput.value) * this.getElementOfMode().duration) /
+        100000;
     } catch {}
   }
 
   refreshTimeInput() {
     this.refreshMediaView();
-    this.timeInput.value = this.getElementOfMode().currentTime / this.getElementOfMode().duration * 100000;
+    this.timeInput.value =
+      (this.getElementOfMode().currentTime / this.getElementOfMode().duration) *
+      100000;
   }
 
   refreshTimeIndicators() {
-    const seconds_to_hms = (seconds) => {
-      var hms = new Date(seconds * 1000).toISOString().slice(11, 19);
-      return {h: hms.split(':')[0], m: hms.split(':')[1], s: hms.split(':')[2]}
-    }
+    var current_time = utils.s2hms(
+      this.getElementOfMode().currentTime,
+      "string",
+      true,
+    );
+    var duration = utils.s2hms(
+      this.getElementOfMode().duration,
+      "string",
+      true,
+    );
+    this.timeIndicators.time.innerText =
+      this.getElementOfMode().duration >= 3600
+        ? current_time
+        : current_time.replace("00:", "");
+    this.timeIndicators.total_time.innerText =
+      this.getElementOfMode().duration >= 3600
+        ? duration
+        : duration.replace("00:", "");
 
-    if (this.getElementOfMode().duration < 3600){
-      var hms = seconds_to_hms(this.getElementOfMode().duration);
-      this.timeIndicators.total_time.innerText = hms.m + ':' + hms.s;
+    if (
+      this.lyrics != null &&
+      document.querySelector(".cc-menu input.visible").checked
+    ) {
+      document.querySelector(".subtitles span").innerHTML =
+        this.lyrics.getLyricsForTimecode(this.getElementOfMode().currentTime) ||
+        "";
     } else {
-      var hms = seconds_to_hms(this.getElementOfMode().duration);
-      this.timeIndicators.total_time.innerText = hms.h + ':' + hms.m + ':' + hms.s;
-    }
-
-    if (this.getElementOfMode().duration < 3600){
-      var hms = seconds_to_hms(this.getElementOfMode().currentTime);
-      this.timeIndicators.time.innerText = hms.m + ':' + hms.s;
-    } else {
-      var hms = seconds_to_hms(this.getElementOfMode().currentTime);
-      if (this.getElementOfMode().currentTime < 3600){
-        this.timeIndicators.time.innerText = '00:' + hms.m + ':' + hms.s;
-      } else {
-        this.timeIndicators.time.innerText = hms.h + ':' + hms.m + ':' + hms.s;
-      }
-    }
-
-    if ((this.lyrics != null) && (document.querySelector('.cc-menu input.visible').checked)){
-      document.querySelector('.subtitles span').innerText = (this.lyrics.getLyricsForTimecode(this.getElementOfMode().currentTime) || '');
-    } else {
-      document.querySelector('.subtitles span').innerText = '';
+      document.querySelector(".subtitles span").innerText = "";
     }
   }
 
-  hms2s(hms){
-    const last = (list) => list[list.length - 1]
+  refreshTime() {
+    this.refreshTimeInput();
+    this.refreshTimeIndicators();
+  }
+
+  hms2s(hms) {
+    const last = (list) => list[list.length - 1];
     var r = 0;
-    if (hms.includes(':')){
-      if (hms.split(':').length == 3){
-        r += Number(hms.split(':')[0])*3600;
-        r += Number(hms.split(':')[1])*60;
-      } else if (hms.split(':').length == 2){
-        r += Number(hms.split(':')[0])*60;
+    if (hms.includes(":")) {
+      if (hms.split(":").length == 3) {
+        r += Number(hms.split(":")[0]) * 3600;
+        r += Number(hms.split(":")[1]) * 60;
+      } else if (hms.split(":").length == 2) {
+        r += Number(hms.split(":")[0]) * 60;
       }
-      r += Number(last(hms.split(':')));
+      r += Number(last(hms.split(":")));
     } else {
-      r += Number(hms)
+      r += Number(hms);
     }
     return r;
   }
 
-  readLRCLyrics(lrc){
+  vttToLrc(vttText) {
+    // Split the WebVTT text into lines
+    const lines = vttText.split("\n");
+    const lrcLines = [];
+    const timestampRegex =
+      /^([0-9][0-9]*):([0-9][0-9]):([0-9][0-9])[,.]([0-9][0-9][0-9]) --> ([0-9][0-9]):([0-9][0-9]):([0-9][0-9])[,.]([0-9][0-9][0-9])/;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      const matches = line.match(timestampRegex);
+      if (matches) {
+        const [
+          timestamp,
+          startHours,
+          startMinutes,
+          startSeconds,
+          startMilliseconds,
+          endHours,
+          endMinutes,
+          endSeconds,
+          endMilliseconds,
+        ] = matches;
+        var lrcStartTimestamp = `[${startHours * 60 + startMinutes}:${startSeconds}.${startMilliseconds}]`;
+        const lrcEndTimestamp = `[${endHours * 60 + endMinutes}:${endSeconds}.${endMilliseconds}]`;
+        var text = lines[i + 1] ? lines[i + 1].trim() : "";
+        var j = 2;
+        while ((lines[i + j + 3] || "").match(timestampRegex)) {
+          text += "\n" + lines[i + j].trim();
+          j += 1;
+        }
+        if (text) {
+          lrcStartTimestamp += text;
+        }
+        lrcLines.push(lrcStartTimestamp);
+        lrcLines.push(lrcEndTimestamp);
+      }
+    }
+    return lrcLines.join("\n");
+  }
+
+  readLRCLyrics(lrcText) {
     var result = {
       lyrics: {},
     };
 
-    var lines = lrc.split('\n');
-    
+    var lines = lrcText.split("\n");
+    const timestampRegex = new RegExp(
+      `^\\[(${"[0-9]".repeat(3)}${"[0-9]?".repeat(10)}):(${"[0-9]".repeat(2)}).(${"[0-9]".repeat(3)})\\]`,
+    );
+
     var i = 0;
-    
-    for (i in lines){
-      var selected_line = lines[i];
-      if (typeof selected_line == 'string'){
-        var selected_line_split_brackets = selected_line.split(']');
-        if (selected_line_split_brackets[selected_line_split_brackets.length - 1] == ''){
-          var selected_line_split = selected_line.split(':');
-          result[selected_line_split[0].replace('[', '').replace(']', '')] = selected_line.split(selected_line_split[0].replace('[', '').replace(']', '') + ':')[1].replace('[', '').replace(']', '');
+    var last = null;
+
+    for (i in lines) {
+      if (typeof lines[i] == "string") {
+        if (lines[i].match(timestampRegex)) {
+          var [match, minutes, seconds, milliseconds] =
+            lines[i].match(timestampRegex)[0];
+          last = lines[i]
+            .match(timestampRegex)[0]
+            .substring(1)
+            .replace("]", "");
+          result[last] = lines[i].replace(
+            lines[i].match(timestampRegex)[0],
+            "",
+          );
         } else {
-          result.lyrics[selected_line_split_brackets[0].replace('[', '')] = selected_line_split_brackets[1];
+          result[last] += "<br>" + lines[i];
         }
       }
     }
 
     result.getLyricsForTimecode = (s) => {
-      var timecode = '';
-      var timecodes = Object.keys(result.lyrics).map((key) => key);
-      for (var i in timecodes){
-        if (timecode == ''){
-          if (this.hms2s(timecodes[(timecodes.length - 1 - i)]) <= s){
-            timecode = timecodes[(timecodes.length - 1 - i)];
+      var timecode = "";
+      var timecodes = Object.keys(this.lyrics);
+      for (var i in timecodes) {
+        if (timecode == "") {
+          if (this.hms2s(timecodes[timecodes.length - 1 - i]) <= s) {
+            timecode = timecodes[timecodes.length - 1 - i];
           }
         }
       }
-      return result.lyrics[timecode];
-    }
-    
+      return this.lyrics[timecode];
+    };
+
     return result;
   }
 
-  async importLyricsURI(uri){
+  readLyrics(lyrics) {
+    if (
+      lyrics.replace(" ", "").replace("\n", "").startsWith("WEBVTT") ||
+      (/^[0-9]/.test(lyrics.split("\n")[0]) &&
+        /^([0-9][0-9][0-9]*):([0-9][0-9]):([0-9][0-9])[,.]([0-9][0-9][0-9]) --> ([0-9][0-9]):([0-9][0-9]):([0-9][0-9])[,.]([0-9][0-9][0-9])/.test(
+          lyrics.split("\n")[1],
+        ))
+    ) {
+      lyrics = this.vttToLrc(lyrics);
+    }
+    return this.readLRCLyrics(lyrics);
+  }
+
+  async importLyricsURI(uri) {
     let lyrics = await fetch(uri).then((r) => r.text());
-    let parsed_lyrics = this.readLRCLyrics(lyrics);
+    let parsed_lyrics = this.readLyrics(lyrics);
     this.lyrics = parsed_lyrics;
   }
 
   dragElement(elmnt) {
     var elmnt_query = elmnt;
     elmnt = document.querySelector(elmnt);
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    elmnt.setAttribute('origin-width', elmnt.style.width);
-    elmnt.setAttribute('origin-height', elmnt.style.height);
+    var pos1 = 0,
+      pos2 = 0,
+      pos3 = 0,
+      pos4 = 0;
+    elmnt.setAttribute("origin-width", elmnt.style.width);
+    elmnt.setAttribute("origin-height", elmnt.style.height);
     elmnt.onmousedown = dragMouseDown;
-  
+
     function dragMouseDown(e) {
       e = e || window.event;
       e.preventDefault();
-      elmnt.setAttribute('align', 'dragging');
+      elmnt.setAttribute("align", "dragging");
       // get the mouse cursor position at startup:
       pos3 = e.clientX;
       pos4 = e.clientY;
@@ -1029,23 +2055,23 @@ class Viewer {
       pos3 = e.clientX;
       pos4 = e.clientY;
       // set the element's new position:
-      if (elmnt.style.width == "100%"){
-        elmnt.style.width = elmnt.getAttribute('origin-width');
-        elmnt.style.height = elmnt.getAttribute('origin-height');
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      if (elmnt.style.width == "100%") {
+        elmnt.style.width = elmnt.getAttribute("origin-width");
+        elmnt.style.height = elmnt.getAttribute("origin-height");
+        elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+        elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
       } else {
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+        elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
       }
-        
-      elmnt.setAttribute('previous-top', elmnt.style.top);
-      elmnt.setAttribute('previous-left', elmnt.style.left);
+
+      elmnt.setAttribute("previous-top", elmnt.style.top);
+      elmnt.setAttribute("previous-left", elmnt.style.left);
     }
-  
+
     function closeDragElement() {
       /* stop moving when mouse button is released:*/
-      elmnt.setAttribute('align', 'drag');
+      elmnt.setAttribute("align", "drag");
       document.onmouseup = null;
       document.onmousemove = null;
     }
@@ -1054,7 +2080,7 @@ class Viewer {
   captureFrameVideoElement(element) {
     const canvasToBlob = (canvas) => {
       return new Promise((resolve) => canvas.toBlob(resolve));
-    }
+    };
     var canvas = document.createElement("canvas");
     var video = element;
     canvas.width = video.videoWidth;
@@ -1065,51 +2091,58 @@ class Viewer {
     return canvasToBlob(canvas);
   }
 
-  showCapturePopup(blob){
+  showCapturePopup(blob) {
     let blob_url = URL.createObjectURL(blob);
-    console.log('Captured frame : ' + blob_url);
-    document.querySelector('.vfc .popup .main .preview img').src = blob_url;
+    console.log("Captured frame : " + blob_url);
+    document.querySelector(".vfc .popup .main .preview img").src = blob_url;
     this.downloadVideoFrameCapture = () => {
-      let a = document.createElement('a');
+      let a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = 'WebMediaPlayer Video Capture.png';
+      a.download = "WebMediaPlayer Video Capture.png";
       a.click();
-    }
-    document.querySelector('.vfc').classList.remove('hidden');
+    };
+    document.querySelector(".vfc").classList.remove("hidden");
   }
 
-  vfcSelected(element){
-    if (element.value == 'custom'){
-      this.takeCaptureOfVideoElementAtTime(Number(this.hms2s(prompt(ui_translator.getDialogInLanguage('vfc_custom')))));
+  vfcSelected(element) {
+    if (element.value == "custom") {
+      this.takeCaptureOfVideoElementAtTime(
+        Number(
+          this.hms2s(prompt(ui_translator.getDialogInLanguage("vfc_custom"))),
+        ),
+      );
     } else {
       this.takeCaptureOfVideoElementAtTime();
     }
-    element.value = '';
+    element.value = "";
   }
 
-  async takeCaptureOfVideoElementAtTime(time = 'current'){
-    const delay = s => new Promise(res => setTimeout(res, s*1000));
-    if (time == 'current'){
-      this.showCapturePopup(await this.captureFrameVideoElement(this.videoElement));
+  async takeCaptureOfVideoElementAtTime(time = "current") {
+    if (time == "current") {
+      this.showCapturePopup(
+        await this.captureFrameVideoElement(this.videoElement),
+      );
     } else {
       var currentTime = this.getElementOfMode().currentTime;
       this.getElementOfMode().currentTime = time;
-      await delay(0.2);
-      this.showCapturePopup(await this.captureFrameVideoElement(this.videoElement));
-      await delay(0.2);
+      await utils.delay(0.2);
+      this.showCapturePopup(
+        await this.captureFrameVideoElement(this.videoElement),
+      );
+      await utils.delay(0.2);
       this.getElementOfMode().currentTime = currentTime;
     }
   }
 
   // Audio Tracks
 
-  hasAudioTracks(){
-    return document.createElement('video').audioTracks != undefined
+  hasAudioTracks() {
+    return document.createElement("video").audioTracks !== undefined;
   }
 
-  playAudioTrackId(id){
-    if (!this.hasAudioTracks) return null
-    for (var i=0; i < this.videoElement.audioTracks.length; i++) {
+  playAudioTrackId(id) {
+    if (!this.hasAudioTracks) return null;
+    for (var i = 0; i < this.videoElement.audioTracks.length; i++) {
       this.videoElement.audioTracks[i].enabled = false;
     }
     this.videoElement.audioTracks.getTrackById(id).enabled = true;
@@ -1118,149 +2151,176 @@ class Viewer {
     this.goBackward(0.0000000000000000000000000000000000001);
   }
 
-  playAudioTrackNo(no){
-    if (!this.hasAudioTracks) return null
+  playAudioTrackNo(no) {
+    if (!this.hasAudioTracks) return null;
     this.playAudioTrackId(this.videoElement.audioTracks[no].id);
   }
 
-  getAudioTracks(){
-    if (!this.hasAudioTracks) return null
-    try{
+  getAudioTracks() {
+    if (!this.hasAudioTracks) return null;
+    try {
       let tracks = [];
-      for (var i=0; i < this.videoElement.audioTracks.length; i++) {
-        tracks.push(this.videoElement.audioTracks[i])
+      for (var i = 0; i < this.videoElement.audioTracks.length; i++) {
+        tracks.push(this.videoElement.audioTracks[i]);
       }
-      return tracks
-    } catch(e) {
-      return null
+      return tracks;
+    } catch (e) {
+      return null;
     }
   }
 
-  getAudioTracksIDs(){
-    if (!this.hasAudioTracks) return null
+  getAudioTracksIDs() {
+    if (!this.hasAudioTracks) return null;
     return this.getAudioTracks().map((x) => {
-      return x['id'] || null;
+      return x["id"] || null;
     });
   }
 
-  getAudioTracksLanguages(){
-    if (!this.hasAudioTracks) return null
+  getAudioTracksLanguages() {
+    if (!this.hasAudioTracks) return null;
     return this.getAudioTracks().map((x) => {
-      return x['language'] || null
+      return x["language"] || null;
     });
   }
 
-  getAudioTracksFullLanguages(){
+  getAudioTracksFullLanguages() {
     let languages = this.getAudioTracksLanguages();
-    for (var i=0; i < languages.length; i++) {
+    for (var i = 0; i < languages.length; i++) {
       // console.log(languages[i]);
-      if (['und', 'zxx', 'mul', 'qaa', 'mis'].includes(languages[i])){
-        languages[i] = ui_translator.getDialogInLanguage('track_language_' + languages[i])
+      if (["und", "zxx", "mul", "qaa", "mis"].includes(languages[i])) {
+        languages[i] = ui_translator.getDialogInLanguage(
+          "tracks/track_language_" + languages[i],
+        );
       } else {
-        languages[i] = this.full_languages_name[languages[i]].full;
+        languages[i] = this.full_languages_name[languages[i]] || languages[i];
       }
       // console.log(languages[i]);
     }
-    return languages
+    return languages;
   }
 
-  getAudioTracksAbbreviatedLanguages(){
+  getAudioTracksAbbreviatedLanguages() {
     let languages = this.getAudioTracksLanguages();
-    for (var i=0; i < languages.length; i++) {
+    for (var i = 0; i < languages.length; i++) {
       languages[i] = languages[i].substring(0, 2);
     }
-    return languages
+    return languages;
   }
 
-  getAudioTracksLabels(){
-    if (!this.hasAudioTracks) return null
+  getAudioTracksLabels() {
+    if (!this.hasAudioTracks) return null;
     return this.getAudioTracks().map((x) => {
-      return x['label'] || null;
+      return x["label"] || null;
     });
   }
 
-  getAudioTracksNumber(){
-    if (!this.hasAudioTracks) return null
+  getAudioTracksNumber() {
+    if (!this.hasAudioTracks) return null;
     return this.videoElement.audioTracks.length;
   }
 
-  getAudioTracksMenu(){
-    try{
+  getAudioTracksMenu() {
+    try {
       let tracks = [];
-      for (var i=0; i < this.getAudioTracks().length; i++) {
+      for (var i = 0; i < this.getAudioTracks().length; i++) {
         let track = this.getAudioTracks()[i];
         tracks.push({
-          "text": (track.label || ui_translator.getDialogInLanguage('track') + ' ' + String(i + 1)) + ' [' + this.getAudioTracksFullLanguages()[i] + ']',
-          "events": {
-            "click": function(e){
+          text:
+            (track.label ||
+              ui_translator.getDialogInLanguage("track") +
+                " " +
+                String(i + 1)) +
+            " [" +
+            this.getAudioTracksFullLanguages()[i] +
+            "]",
+          events: {
+            click: function (e) {
               viewer.playAudioTrackId(track.id);
-            }
-          }
+            },
+          },
         });
       }
       return {
-        "text": ui_translator.getDialogInLanguage('tracks/audio_tracks'),
-        "sub": tracks
-      }
-    } catch(e) {
-      return null
+        text: ui_translator.getDialogInLanguage("tracks/audio_tracks"),
+        sub: tracks,
+      };
+    } catch (e) {
+      return null;
     }
   }
 
-  addOptionInSelectMenu(element = document.createElement('select'), option){
-    let opt = document.createElement('option');
+  addOptionInSelectMenu(element = document.createElement("select"), option) {
+    let opt = document.createElement("option");
     opt.value = option.value;
     opt.innerText = option.text;
     element.appendChild(opt);
   }
 
-  setSelectMenuOptions(element = document.createElement('select'), options){
-    element.innerHTML = '';
-    for (var i=0; i < options.length; i++){
+  setSelectMenuOptions(element = document.createElement("select"), options) {
+    element.innerHTML = "";
+    for (var i = 0; i < options.length; i++) {
       this.addOptionInSelectMenu(element, options[i]);
     }
-    return element
+    return element;
   }
 
-  refreshAudioTracksMenu(){
+  refreshAudioTracksMenu() {
+    if (!this.hasAudioTracks() || this.getAudioTracks().length == 0) {
+      this.tracks.buttons.audio.classList.add("hidden");
+      return;
+    }
+    this.tracks.buttons.audio.classList.remove("hidden");
     let tracks = this.getAudioTracks();
     let opts = [];
-    for (var i=0; i < tracks.length; i++){
+    for (var i = 0; i < tracks.length; i++) {
       opts.push({
-        text: (tracks[i].label || ui_translator.getDialogInLanguage('track') + ' ' + String(i + 1)) + ' [' + this.getAudioTracksFullLanguages()[i] + ']',
+        text:
+          (tracks[i].label ||
+            ui_translator.getDialogInLanguage("track") + " " + String(i + 1)) +
+          " [" +
+          this.getAudioTracksFullLanguages()[i] +
+          "]",
         value: tracks[i].id,
-      })
+      });
     }
-    this.setSelectMenuOptions(document.querySelector('.audiotracks .popup .main select'), opts);
+    this.setSelectMenuOptions(this.tracks.menus.audio, opts);
     this.selectedAudioTrack(tracks[0].id);
   }
 
-  openAudioTracksMenu(){
-    document.querySelector('.audiotracks').classList.remove('hidden');
+  openAudioTracksMenu() {
+    document.querySelector(".audiotracks").classList.remove("hidden");
     this.refreshAudioTracksMenu();
   }
 
-  selectedAudioTrack(value){
-    document.querySelector('.audiotracks .popup .main .buttons span.track').innerText = document.querySelector('.audiotracks .popup .main select option[value="' + value + '"]').innerText;
+  selectedAudioTrack(value) {
+    document.querySelector(
+      ".audiotracks .popup .main .buttons span.track",
+    ).innerText = document.querySelector(
+      '.audiotracks .popup .main select option[value="' + value + '"]',
+    ).innerText;
     let track = this.videoElement.audioTracks.getTrackById(value);
-    document.querySelector('.audiotracks .popup .main .label input').value = track.label;
-    document.querySelector('.audiotracks .popup .main .id input').value = value;
-    document.querySelector('.audiotracks .popup .main .language input').value = this.getAudioTracksFullLanguages()[this.getAudioTracksIDs().indexOf(value)];
+    document.querySelector(".audiotracks .popup .main .label input").value =
+      track.label;
+    document.querySelector(".audiotracks .popup .main .id input").value = value;
+    document.querySelector(".audiotracks .popup .main .language input").value =
+      this.getAudioTracksFullLanguages()[
+        this.getAudioTracksIDs().indexOf(value)
+      ];
   }
 
-  playSelectedAudioTrack(){
-    this.playAudioTrackId(document.querySelector('.audiotracks .popup .main select').value);
+  playSelectedAudioTrack() {
+    this.playAudioTrackId(this.tracks.menus.audio.value);
   }
 
   // Video tracks
-  
-  hasVideoTracks(){
-    return document.createElement('video').videoTracks != undefined
+
+  hasVideoTracks() {
+    return document.createElement("video").videoTracks !== undefined;
   }
 
-  playVideoTrackId(id){
-    if (!this.hasVideoTracks) return null
-    for (var i=0; i < this.videoElement.videoTracks.length; i++) {
+  playVideoTrackId(id) {
+    if (!this.hasVideoTracks) return null;
+    for (var i = 0; i < this.videoElement.videoTracks.length; i++) {
       this.videoElement.videoTracks[i].selected = false;
     }
     this.videoElement.videoTracks.getTrackById(id).selected = true;
@@ -1269,269 +2329,301 @@ class Viewer {
     this.goBackward(0.0000000000000000000000000000000000001);
   }
 
-  playVideoTrackNo(no){
-    if (!this.hasVideoTracks) return null
+  playVideoTrackNo(no) {
+    if (!this.hasVideoTracks) return null;
     this.playVideoTrackId(this.videoElement.videoTracks[no].id);
   }
 
-  getVideoTracks(){
-    if (!this.hasVideoTracks) return null
+  getVideoTracks() {
+    if (!this.hasVideoTracks) return null;
     try {
       let tracks = [];
-      for (var i=0; i < this.videoElement.videoTracks.length; i++) {
-        tracks.push(this.videoElement.videoTracks[i])
+      for (var i = 0; i < this.videoElement.videoTracks.length; i++) {
+        tracks.push(this.videoElement.videoTracks[i]);
       }
-      return tracks
+      return tracks;
     } catch (e) {
-      return null
+      return null;
     }
   }
 
-  getVideoTracksIDs(){
-    if (!this.hasVideoTracks) return null
+  getVideoTracksIDs() {
+    if (!this.hasVideoTracks) return null;
     return this.getVideoTracks().map((x) => {
-      return x['id'] || null;
+      return x["id"] || null;
     });
   }
 
-  getVideoTracksLanguages(){
-    if (!this.hasVideoTracks) return null
+  getVideoTracksLanguages() {
+    if (!this.hasVideoTracks) return null;
     return this.getVideoTracks().map((x) => {
-      return x['language'] || null
+      return x["language"] || null;
     });
   }
 
-  getVideoTracksFullLanguages(){
+  getVideoTracksFullLanguages() {
     let languages = this.getVideoTracksLanguages();
-    for (var i=0; i < languages.length; i++) {
+    for (var i = 0; i < languages.length; i++) {
       // console.log(languages[i]);
-      if (['und', 'zxx', 'mul', 'qaa', 'mis'].includes(languages[i])){
-        languages[i] = ui_translator.getDialogInLanguage('track_language_' + languages[i])
+      if (["und", "zxx", "mul", "qaa", "mis"].includes(languages[i])) {
+        languages[i] = ui_translator.getDialogInLanguage(
+          "tracks/track_language_" + languages[i],
+        );
       } else {
-        languages[i] = this.full_languages_name[languages[i]].full;
+        languages[i] = this.full_languages_name[languages[i]] || languages[i];
       }
       // console.log(languages[i]);
     }
-    return languages
+    return languages;
   }
 
-  getVideoTracksAbbreviatedLanguages(){
+  getVideoTracksAbbreviatedLanguages() {
     let languages = this.getVideoTracksLanguages();
-    for (var i=0; i < languages.length; i++) {
+    for (var i = 0; i < languages.length; i++) {
       languages[i] = languages[i].substring(0, 2);
     }
-    return languages
+    return languages;
   }
 
-  getVideoTracksLabels(){
-    if (!this.hasVideoTracks) return null
+  getVideoTracksLabels() {
+    if (!this.hasVideoTracks) return null;
     return this.getVideoTracks().map((x) => {
-      return x['label'] || null;
+      return x["label"] || null;
     });
   }
 
-  getVideoTracksNumber(){
-    if (!this.hasVideoTracks) return null
+  getVideoTracksNumber() {
+    if (!this.hasVideoTracks) return null;
     return this.videoElement.videoTracks.length;
   }
 
-  getVideoTracksMenu(){
-    try{
+  getVideoTracksMenu() {
+    try {
       let tracks = [];
-      for (var i=0; i < this.getVideoTracks().length; i++) {
+      for (var i = 0; i < this.getVideoTracks().length; i++) {
         let track = this.getVideoTracks()[i];
         tracks.push({
-          "text": (track.label || ui_translator.getDialogInLanguage('track') + ' ' + String(i + 1)) + ' [' + this.getVideoTracksFullLanguages()[i] + ']',
-          "events": {
-            "click": function(e){
+          text:
+            (track.label ||
+              ui_translator.getDialogInLanguage("track") +
+                " " +
+                String(i + 1)) +
+            " [" +
+            this.getVideoTracksFullLanguages()[i] +
+            "]",
+          events: {
+            click: function (e) {
               viewer.playVideoTrackId(track.id);
-            }
-          }
+            },
+          },
         });
       }
       return {
-        "text": ui_translator.getDialogInLanguage('tracks/video_tracks'),
-        "sub": tracks
-      }
+        text: ui_translator.getDialogInLanguage("tracks/video_tracks"),
+        sub: tracks,
+      };
     } catch (e) {
-      return null
+      return null;
     }
   }
 
-  addOptionInSelectMenu(element = document.createElement('select'), option){
-    let opt = document.createElement('option');
+  addOptionInSelectMenu(element = document.createElement("select"), option) {
+    let opt = document.createElement("option");
     opt.value = option.value;
     opt.innerText = option.text;
     element.appendChild(opt);
   }
 
-  setSelectMenuOptions(element = document.createElement('select'), options){
-    element.innerHTML = '';
-    for (var i=0; i < options.length; i++){
+  setSelectMenuOptions(element = document.createElement("select"), options) {
+    element.innerHTML = "";
+    for (var i = 0; i < options.length; i++) {
       this.addOptionInSelectMenu(element, options[i]);
     }
-    return element
+    return element;
   }
 
-  refreshVideoTracksMenu(){
+  refreshTracksMenus() {
+    if (this.mode == "video") {
+      this.refreshAudioTracksMenu();
+      this.refreshVideoTracksMenu();
+    } else {
+      this.tracks.buttons.video.classList.add("hidden");
+      this.tracks.buttons.audio.classList.add("hidden");
+    }
+  }
+
+  refreshVideoTracksMenu() {
+    if (!this.hasVideoTracks() || this.getVideoTracks().length == 0) {
+      this.tracks.buttons.video.classList.add("hidden");
+      return;
+    }
+    this.tracks.buttons.video.classList.remove("hidden");
     let tracks = this.getVideoTracks();
     let opts = [];
-    for (var i=0; i < tracks.length; i++){
+    for (var i = 0; i < tracks.length; i++) {
       opts.push({
-        text: (tracks[i].label || ui_translator.getDialogInLanguage('track') + ' ' + String(i + 1)) + ' [' + this.getVideoTracksFullLanguages()[i] + ']',
+        text:
+          (tracks[i].label ||
+            ui_translator.getDialogInLanguage("track") + " " + String(i + 1)) +
+          " [" +
+          this.getVideoTracksFullLanguages()[i] +
+          "]",
         value: tracks[i].id,
-      })
+      });
     }
-    this.setSelectMenuOptions(document.querySelector('.videotracks .popup .main select'), opts);
+    this.setSelectMenuOptions(this.tracks.menus.video, opts);
     this.selectedVideoTrack(tracks[0].id);
   }
 
-  openVideoTracksMenu(){
-    document.querySelector('.videotracks').classList.remove('hidden');
+  openVideoTracksMenu() {
+    document.querySelector(".videotracks").classList.remove("hidden");
     this.refreshVideoTracksMenu();
   }
 
-  selectedVideoTrack(value){
-    document.querySelector('.videotracks .popup .main .buttons span.track').innerText = document.querySelector('.videotracks .popup .main select option[value="' + value + '"]').innerText;
+  selectedVideoTrack(value) {
+    document.querySelector(
+      ".videotracks .popup .main .buttons span.track",
+    ).innerText = document.querySelector(
+      '.videotracks .popup .main select option[value="' + value + '"]',
+    ).innerText;
     let track = this.videoElement.videoTracks.getTrackById(value);
-    document.querySelector('.videotracks .popup .main .label input').value = track.label;
-    document.querySelector('.videotracks .popup .main .id input').value = value;
-    document.querySelector('.videotracks .popup .main .language input').value = this.getVideoTracksFullLanguages()[this.getVideoTracksIDs().indexOf(value)];
+    document.querySelector(".videotracks .popup .main .label input").value =
+      track.label;
+    document.querySelector(".videotracks .popup .main .id input").value = value;
+    document.querySelector(".videotracks .popup .main .language input").value =
+      this.getVideoTracksFullLanguages()[
+        this.getVideoTracksIDs().indexOf(value)
+      ];
   }
 
-  playSelectedVideoTrack(){
-    this.playVideoTrackId(document.querySelector('.videotracks .popup .main select').value);
+  playSelectedVideoTrack() {
+    this.playVideoTrackId(this.tracks.menus.video.value);
   }
 
-  getQueryOfElement(element){
+  getQueryOfElement(element) {
     var elements = [];
     var e = null;
     elements.push(element);
-    while (e != document.body){
+    while (e != document.body) {
       elements.push(elements[elements.length - 1].parentElement);
       e = elements[elements.length - 1];
     }
     elements.reverse();
-    
-    var query = '';
-  
-    for (var i in elements){
+
+    var query = "";
+
+    for (var i in elements) {
       query += elements[i].localName;
-  
-      if (elements[i].id != ''){
-        query += '#' + elements[i].id;
+
+      if (elements[i].id != "") {
+        query += "#" + elements[i].id;
       }
-  
-      if (elements[i].className != ''){
-        if (elements[i].className.includes(' ')){
-          query += '.' + elements[i].className.replaceAll(' ', '.');
+
+      if (elements[i].className != "") {
+        if (elements[i].className.includes(" ")) {
+          query += "." + elements[i].className.replaceAll(" ", ".");
         } else {
-          query += '.' + elements[i].className
+          query += "." + elements[i].className;
         }
       }
-      
-      if ((elements.length - 1) != i){
-        query += ' ';
+
+      if (elements.length - 1 != i) {
+        query += " ";
       }
     }
-  
+
     return query;
   }
-  
-  getQueryAllOfElement(element){
+
+  getQueryAllOfElement(element) {
     let q = getQueryOfElement(element);
     let qall = [];
-  
-    for (var i=0; i < document.querySelectorAll(q).length; i++) {
-      qall.push(document.querySelectorAll(q)[i])
+
+    for (var i = 0; i < document.querySelectorAll(q).length; i++) {
+      qall.push(document.querySelectorAll(q)[i]);
     }
-    
-    return {query: q, index: qall.indexOf(element)};
+
+    return { query: q, index: qall.indexOf(element) };
   }
 
-  async importFileInPlaylist(){
-    const delay = s => new Promise(res => setTimeout(res, s*1000));
-    var input = document.createElement('input');
-    input.type = "file";
-    input.accept = "video/*, audio/*, image/*";
-    input.click();
-    await this.getPromiseFromEvent(input, 'change');
-    var file = input.files[0];
-    this.playlist_.push(file);
-  }
+  getFileType(file) {
+    let video_exts = [".mp4", ".webm", ".webv", ".ogv", ".mpeg", ".mpg"];
+    let image_exts = [".webm", ".webp", ".gif", ".png", ".jpg"];
+    let audio_exts = [".mp3", ".wav", ".ogg", ".webm", ".weba"];
+    let lyrics_exts = ["lrc", "vtt", "srt"];
 
-  getFileType(file){
-    let video_exts = ["3g2", "3gp", "aaf", "asf", "avchd", "avi", "drc", "flv", "m2v", "m3u8", "m4p", "m4v", "mkv", "mng", "mov", "mp2", "mp4", "mpe", "mpeg", "mpg", "mpv", "mxf", "nsv", "ogg", "ogv", "qt", "rm", "rmvb", "roq", "svi", "vob", "webm", "wmv", "yuv"];
-    let image_exts = ["ase", "art", "bmp", "blp", "cd5", "cit", "cpt", "cr2", "cut", "dds", "dib", "djvu", "egt", "exif", "gif", "gpl", "grf", "icns", "ico", "iff", "jng", "jpeg", "jpg", "jfif", "jp2", "jps", "lbm", "max", "miff", "mng", "msp", "nef", "nitf", "ota", "pbm", "pc1", "pc2", "pc3", "pcf", "pcx", "pdn", "pgm", "PI1", "PI2", "PI3", "pict", "pct", "pnm", "pns", "ppm", "psb", "psd", "pdd", "psp", "px", "pxm", "pxr", "qfx", "raw", "rle", "sct", "sgi", "rgb", "int", "bw", "tga", "tiff", "tif", "vtf", "xbm", "xcf", "xpm", "3dv", "amf", "ai", "awg", "cgm", "cdr", "cmx", "dxf", "e2d", "egt", "eps", "fs", "gbr", "odg", "svg", "stl", "vrml", "x3d", "sxd", "v2d", "vnd", "wmf", "emf", "art", "xar", "png", "webp", "jxr", "hdp", "wdp", "cur", "ecw", "iff", "lbm", "liff", "nrrd", "pam", "pcx", "pgf", "sgi", "rgb", "rgba", "bw", "int", "inta", "sid", "ras", "sun", "tga", "heic", "heif"];
-    let audio_exts = ["wav", "bwf", "raw", "aiff", "flac", "m4a", "pac", "tta", "wv", "ast", "aac", "mp2", "mp3", "mp4", "amr", "s3m", "3gp", "act", "au", "dct", "dss", "gsm", "m4p", "mmf", "mpc", "ogg", "oga", "opus", "ra", "sln", "vox"];
-    
-    if (typeof file != 'string'){
+    if (file instanceof Blob) {
       file = file.name;
     }
 
-    if (!file.includes('.')){
-      return file
+    if (!file.includes(".")) {
+      return file;
     }
 
-    if (video_exts.includes(file.split('.').pop())){
-      return 'video';
-    } else if (image_exts.includes(file.split('.').pop())){
-      return 'image';
-    } else if (audio_exts.includes(file.split('.').pop())){
-      return 'audio';
+    if (video_exts.includes(file.split(".").pop())) {
+      return "video";
+    } else if (image_exts.includes(file.split(".").pop())) {
+      return "image";
+    } else if (audio_exts.includes(file.split(".").pop())) {
+      return "audio";
+    } else if (lyrics_exts.includes(file.split(".").pop())) {
+      return "subtitles";
     } else {
-      return file.split('.').pop()
+      return file.split(".").pop();
     }
   }
 
-  async getMediaInfos(url, checkResponse=true){
-    const delay = s => new Promise(res => setTimeout(res, s*1000));
-    var data = {sucess: true};
-    if (this.getFileType(url) == 'video'){
-      let video = document.createElement('video');
+  async getMediaInfos(url, checkResponse = true) {
+    var data = { sucess: true };
+    if (this.getFileType(url) == "video") {
+      let video = document.createElement("video");
       video.src = url;
 
-      if (checkResponse){
-        while ((video.videoHeight == 0)){
-          await delay(0.1);
+      if (checkResponse) {
+        while (video.videoHeight == 0) {
+          await utils.delay(0.1);
         }
-  
-        while ((video.videoWidth == 0)){
-          await delay(0.1);
+
+        while (video.videoWidth == 0) {
+          await utils.delay(0.1);
         }
-        
-        while ((video.duration == NaN)){
-          await delay(0.1);
+
+        while (video.duration == NaN) {
+          await utils.delay(0.1);
         }
       }
 
-      Object.assign(data, {height: video.videoHeight, width: video.videoWidth, duration: video.duration});
-    } else if (this.getFileType(url) == 'image'){
-      let image = document.createElement('img');
+      Object.assign(data, {
+        height: video.videoHeight,
+        width: video.videoWidth,
+        duration: video.duration,
+      });
+    } else if (this.getFileType(url) == "image") {
+      let image = document.createElement("img");
       image.src = url;
-      
-      if (checkResponse){
-        while ((image.height == 0)){
-          await delay(0.1);
+
+      if (checkResponse) {
+        while (image.height == 0) {
+          await utils.delay(0.1);
         }
-  
-        while ((image.width == 0)){
-          await delay(0.1);
+
+        while (image.width == 0) {
+          await utils.delay(0.1);
         }
       }
 
-      Object.assign(data, {height: image.height, width: image.width});
-    } else if (this.getFileType(url) == 'audio'){
-      let audio = document.createElement('audio');
+      Object.assign(data, { height: image.height, width: image.width });
+    } else if (this.getFileType(url) == "audio") {
+      let audio = document.createElement("audio");
       audio.src = url;
-      
-      if (checkResponse){
-        while ((audio.duration == NaN)){
-          await delay(0.1);
+
+      if (checkResponse) {
+        while (audio.duration == NaN) {
+          await utils.delay(0.1);
         }
       }
 
-      Object.assign(data, {duration: audio.duration});
+      Object.assign(data, { duration: audio.duration });
     } else {
       data.sucess = false;
     }
@@ -1539,66 +2631,60 @@ class Viewer {
     return data;
   }
 
-  async getPlayingMediaInfos(mode = this.mode, checkResponse=true){
-    const delay = s => new Promise(res => setTimeout(res, s*1000));
-    var data = {sucess: true};
+  async getPlayingMediaInfos(mode = this.mode, checkResponse = true) {
+    var data = { sucess: true };
 
-    var video, image, audio
+    var video, image, audio;
     video = this.videoElement;
     image = this.imageElement;
     audio = this.audioElement;
 
-    if (mode == 'video'){
-      if (checkResponse){
-        while ((video.videoHeight == 0)){
-          await delay(0.1);
+    if (mode == "video") {
+      if (checkResponse) {
+        while (video.videoHeight == 0) {
+          await utils.delay(0.1);
         }
-  
-        while ((video.videoWidth == 0)){
-          await delay(0.1);
+
+        while (video.videoWidth == 0) {
+          await utils.delay(0.1);
         }
-        
-        while ((video.duration == NaN)){
-          await delay(0.1);
+
+        while (video.duration == NaN) {
+          await utils.delay(0.1);
         }
       }
 
-      Object.assign(data, {height: video.videoHeight, width: video.videoWidth, duration: video.duration});
-    } else if (mode == 'image'){
-      if (checkResponse){
-        while ((image.height == 0)){
-          await delay(0.1);
+      Object.assign(data, {
+        height: video.videoHeight,
+        width: video.videoWidth,
+        duration: video.duration,
+      });
+    } else if (mode == "image") {
+      if (checkResponse) {
+        while (image.height == 0) {
+          await utils.delay(0.1);
         }
-  
-        while ((image.width == 0)){
-          await delay(0.1);
+
+        while (image.width == 0) {
+          await utils.delay(0.1);
         }
       }
 
-      Object.assign(data, {height: image.height, width: image.width});
-    } else if (mode == 'audio'){
-      if (checkResponse){
-        while ((audio.duration == NaN)){
-          await delay(0.1);
+      Object.assign(data, { height: image.height, width: image.width });
+    } else if (mode == "audio") {
+      if (checkResponse) {
+        while (audio.duration == NaN) {
+          await utils.delay(0.1);
         }
       }
 
-      Object.assign(data, {duration: audio.duration});
+      Object.assign(data, { duration: audio.duration });
     } else {
       data.sucess = false;
     }
 
     return data;
   }
-
-  refreshPlaylist(){
-    let files = [];
-    for (var i = 0; i < this.playlist_.length; i++){
-      files.push([this.playlist_[i].name, this.getMediaLength(this.playlist_[i])]);
-    }
-  }
-
-  addFileToPlaylist(){}
 }
 
 let viewer = new Viewer(true, true);
