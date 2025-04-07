@@ -1,0 +1,90 @@
+/* Viewer Popups */
+.vfc,
+.audiotracks,
+.videotracks {
+  background-color: var(--tracks-bg);
+  position: absolute;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  height: -webkit-fill-available;
+  height: -moz-available;
+  top: 0;
+  left: 0;
+  z-index: 8;
+}
+
+.vfc .popup,
+.audiotracks .popup,
+.videotracks .popup {
+  background-color: var(--tracks-popup-bg);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.vfc .popup .header .name,
+.audiotracks .popup .header .name,
+.videotracks .popup .header .name {
+  font-weight: bold;
+}
+
+.vfc .popup .header .close,
+.audiotracks .popup .header .close,
+.videotracks .popup .header .close {
+  padding-right: 10px;
+}
+
+.vfc .popup .header .close button,
+.audiotracks .popup .header .close button,
+.videotracks .popup .header .close button {
+  border: none;
+  background: none;
+  font-weight: bolder;
+  color: var(--close-button);
+  float: right;
+  cursor: pointer;
+}
+
+.vfc .popup .main button,
+.audiotracks .popup .main button,
+.videotracks .popup .main button {
+  background-color: var(--trackpopup-button-bg);
+  border: 0;
+  border-radius: 10px;
+  padding: 20px;
+  color: var(--trackpopup-button-color);
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.vfc .popup .main .buttons,
+.audiotracks .popup .main .buttons,
+.videotracks .popup .main .buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.vfcbtn,
+.vfcbtn:hover,
+.audiotracksbtn,
+.audiotracksbtn:hover,
+.videotracksbtn,
+.videotracksbtn:hover {
+  display: flex;
+}
+
+.vfcbtn select {
+  border: none;
+  background: none;
+  width: 15px;
+}
+
+.audiotracksbtn span,
+.videotracksbtn span {
+  padding-top: 20%;
+  font-weight: bolder;
+}

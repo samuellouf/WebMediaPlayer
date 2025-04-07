@@ -1,0 +1,182 @@
+/* Viewer Controls */
+.viewer div.controls {
+  position: fixed;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 95%;
+  transition-duration: 0.5s;
+  background-color: var(--controls);
+}
+
+.viewer div.controls.hidden {
+  transition-duration: 0.5s;
+  bottom: -25%;
+}
+
+.viewer div.controls div.options:not(.selectm) {
+  display: inline-flex;
+  align-items: center;
+}
+
+.viewer div.controls .time {
+  display: flex;
+}
+
+.viewer div.controls span.i {
+  width: calc(100% - 0px);
+}
+
+.viewer div.controls .time input[type="range"] {
+  width: -webkit-fill-available;
+  width: -moz-available;
+}
+
+.viewer div.controls .time .preview {
+  position: absolute;
+  bottom: 200px;
+  transform: translate(-125px, 0px);
+}
+
+.viewer div.controls .time .preview:has(span:not(.hidden)) {
+  transform: translate(-125px, -20px);
+}
+
+.viewer div.controls .time .preview:has(span.hidden):has(source[src=""]) {
+  display: none;
+}
+
+.viewer div.controls .time .preview:has(span:not(.hidden)):has(source[src=""]) {
+  transform: translate(-47.5px, 80px);
+}
+
+.viewer div.controls .time .preview .time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: -20px;
+  background-color: gray;
+  z-index: 7;
+}
+
+.viewer div.controls .time .preview .time video {
+  width: 200px;
+}
+
+.viewer div.controls .time .preview .time video:has(source[src=""]) {
+  display: none;
+}
+
+.viewer div.controls .time .preview .time::after {
+  content: "";
+  position: absolute;
+  bottom: -8.25px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 5px solid gray;
+  border-right: 5px solid gray;
+  background: inherit;
+  left: calc(50% - 10px);
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+.viewer div.controls .playpause {
+  width: 1rem;
+  height: 1rem;
+  padding: 1rem;
+  /* filter: drop-shadow(0 0 3.1rem rgba(255,255,255, 0.8)); */
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  left: 10px;
+}
+
+.viewer div.controls .playpause button {
+  margin: 0;
+  padding: 0;
+}
+
+.viewer div.controls .playpause .play {
+  height: 0;
+  width: 0;
+  margin-left: -5px;
+  margin-top: -5px;
+  background: none;
+  border: none;
+  border-top: var(--button-height) solid transparent;
+  border-bottom: var(--button-height) solid transparent;
+  border-left: calc(var(--button-height) * 2 * 0.86) solid var(--button-color);
+}
+
+.viewer div.controls .playpause .pause {
+  position: relative;
+  background: none;
+  border: none;
+  margin-left: -8px;
+  margin-top: -2.5px;
+  height: calc(var(--button-height) * 2);
+  width: calc(var(--button-height) * 2 * 0.86);
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 33%;
+    background: var(--button-color);
+  }
+  &:before {
+    left: 0;
+  }
+  &:after {
+    right: 0;
+  }
+}
+
+.viewer div.controls div.volume div {
+  display: contents;
+}
+
+.viewer div.controls .speed-menu {
+  position: relative;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.viewer div.controls .speed-dropdown {
+  position: absolute;
+  top: -145px;
+  left: 0;
+  background-color: var(--speed-dropdown-background-color);
+  border-radius: 5px;
+  box-shadow: 0 0 10px var(--speed-dropdown-shadow);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 7;
+}
+
+.viewer div.controls .speed-dropdown.hidden {
+  display: none !important;
+}
+
+.viewer div.controls .speed-dropdown button {
+  width: 100%;
+  text-align: left;
+}
+
+.viewer div.controls svg path.w,
+.viewer div.controls svg text.w {
+  fill: var(--player-icons-colors);
+}
+
+.viewer div.controls svg g.w,
+.viewer div.controls svg path.ww,
+.viewer div.controls svg text.ww {
+  stroke: var(--player-icons-colors);
+}

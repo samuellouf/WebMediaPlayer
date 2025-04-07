@@ -1,0 +1,19 @@
+# npm
+node_modules
+
+# Various caches
+thumbs.db
+desktop.ini
+.DS_Store
+
+# Editors
+.idea
+*.sublime-workspace
+.vscode/*
+!.vscode/*.code-snippets
+
+# WebMediaPlayer temporary cache
+.temp
+
+# A folder in which I test things
+.devtest

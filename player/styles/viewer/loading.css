@@ -1,0 +1,36 @@
+/* Viewer Loading */
+.viewer div.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: var(--loading-background-color);
+  color: var(--loading-color);
+}
+
+.viewer div.loading div.content {
+  margin: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: xx-large;
+  border-radius: 20px;
+  color: var(--loading-color);
+}
+
+.viewer div.loading div.content div.animation {
+  display: inline-flex;
+  justify-content: center;
+  width: -webkit-fill-available;
+  width: -moz-available;
+}
+
+.viewer div.filename {
+  position: absolute;
+  z-index: 3;
+  font-size: 400%;
+  color: var(--filename-color);
+}
