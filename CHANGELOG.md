@@ -1,23 +1,3 @@
 # Changelog
 
-- Change the way to import files
-- Fixed the time inputs
-- Replaced the Python Server by a NodeJS server
-- Added a .gitignore
-- Changed the update method
-- Added some code to the server builder
-- Changed the styles files' organisation
-- Fixed the play/pause button
-- Added STR subtitles
-- Fixed the subtitles reading errors and added multiline subtitle reading
-- Fixed the time inputs
-- Removed unused files/functions
-- Changed the viewer event listener to change the way functions are executed (`eval('viewer.function()')` -> `viewer.function()`)
-- Fixed the iframe not closing problem
-- Fixed Firefox version of WebMediaPlayer
-- Added "Import file in new tab"
-- Made an improved Error 404 page
-- Added a "wait for click"
-- Changed the way to set/get `viewer.mode`, `viewer.fullscreen`, `veiwer.volume`, `viewer.mute`
-- Added code to properly format the files
-- Moved some code from player/scripts/script.js to player/scripts/viewer.js
+- Fixed the "wait for click" for iframe

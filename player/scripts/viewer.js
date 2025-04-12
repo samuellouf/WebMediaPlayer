@@ -1533,6 +1533,7 @@ class Viewer {
         this.audioDiv.style.display = "";
         break;
       case "iframe":
+        this.waitforclick.classList.add("hidden");
         this.iframeElement.style.display = "";
         document
           .querySelector(".viewer .closefullscreenbtn")
