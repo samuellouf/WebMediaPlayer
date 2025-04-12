@@ -1533,6 +1533,7 @@ class Viewer {
         this.audioDiv.style.display = "";
         break;
       case "iframe":
+        this.waitforclick.classList.add("hidden");
         this.iframeElement.style.display = "";
         document
           .querySelector(".viewer .closefullscreenbtn")
@@ -1735,14 +1736,14 @@ class Viewer {
         viewer.speed = speed;
       }
     })();
-    
+
     this.videoElement.playbackRate = speed;
     this.audioElement.playbackRate = speed;
-  
+
     // Update the displayed speed in the menu
     const selectedSpeed = document.getElementById("selectedSpeed");
     selectedSpeed.innerText = speed + "x";
-  
+
     // Hide the speed dropdown
     const speedDropdown = document.getElementById("speedDropdown");
     speedDropdown.classList.add("hidden");
