@@ -8,10 +8,12 @@ My own little HTML/CSS/JS media player.
 Source repo on [GitHub](https://github.com/samuellouf/WebMediaPlayer), and run it [online](https://samuellouf.github.io/WebMediaPlayer/player)
 
 ## Versions
+
 - 1.0 : The initial version
 - 2.0 : Made some huge changes (Added a NodeJS server, fixed the app for Firefox/Edge...)
 
 ## Changelog
+
 See [CHANGELOG.md](CHANGELOG.md).
 
 ## Introduction
@@ -50,14 +52,18 @@ Open `player/index.html` in your browser.
 
 ### With NodeJS
 
-Run 
+Run
+
 ```sh
 npm run update
 ```
+
 or
+
 ```sh
 npm run reinstall
 ```
 
 ### Without NodeJS
+
 Go on [https://github.com/samuellouf/WebMediaPlayer/releases/](https://github.com/samuellouf/WebMediaPlayer/releases/) and download your release.

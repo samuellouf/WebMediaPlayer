@@ -374,7 +374,7 @@ function defineMenus() {
           text: "0.25x",
           events: {
             click: function (e) {
-              viewer.speed = (0.25);
+              viewer.speed = 0.25;
             },
           },
         },
@@ -382,7 +382,7 @@ function defineMenus() {
           text: "0.5x",
           events: {
             click: function (e) {
-              viewer.speed = (0.5);
+              viewer.speed = 0.5;
             },
           },
         },
@@ -390,7 +390,7 @@ function defineMenus() {
           text: "0.75x",
           events: {
             click: function (e) {
-              viewer.speed = (0.75);
+              viewer.speed = 0.75;
             },
           },
         },
@@ -398,7 +398,7 @@ function defineMenus() {
           text: "1x",
           events: {
             click: function (e) {
-              viewer.speed = (1.0);
+              viewer.speed = 1.0;
             },
           },
         },
@@ -406,7 +406,7 @@ function defineMenus() {
           text: "1.25x",
           events: {
             click: function (e) {
-              viewer.speed = (1.25);
+              viewer.speed = 1.25;
             },
           },
         },
@@ -414,7 +414,7 @@ function defineMenus() {
           text: "1.5x",
           events: {
             click: function (e) {
-              viewer.speed = (1.5);
+              viewer.speed = 1.5;
             },
           },
         },
@@ -422,7 +422,7 @@ function defineMenus() {
           text: "1.75x",
           events: {
             click: function (e) {
-              viewer.speed = (1.75);
+              viewer.speed = 1.75;
             },
           },
         },
@@ -430,7 +430,7 @@ function defineMenus() {
           text: "2x",
           events: {
             click: function (e) {
-              viewer.speed = (2.0);
+              viewer.speed = 2.0;
             },
           },
         },
@@ -441,7 +441,7 @@ function defineMenus() {
           text: '<ui t_id="controls/custom_speed"></ui>',
           events: {
             click: function (e) {
-              viewer.speed = ("custom");
+              viewer.speed = "custom";
             },
           },
         },
@@ -627,7 +627,7 @@ function defineMenus() {
           text: "0.25x",
           events: {
             click: function (e) {
-              viewer.speed = (0.25);
+              viewer.speed = 0.25;
             },
           },
         },
@@ -635,7 +635,7 @@ function defineMenus() {
           text: "0.5x",
           events: {
             click: function (e) {
-              viewer.speed = (0.5);
+              viewer.speed = 0.5;
             },
           },
         },
@@ -643,7 +643,7 @@ function defineMenus() {
           text: "0.75x",
           events: {
             click: function (e) {
-              viewer.speed = (0.75);
+              viewer.speed = 0.75;
             },
           },
         },
@@ -651,7 +651,7 @@ function defineMenus() {
           text: "1x",
           events: {
             click: function (e) {
-              viewer.speed = (1.0);
+              viewer.speed = 1.0;
             },
           },
         },
@@ -659,7 +659,7 @@ function defineMenus() {
           text: "1.25x",
           events: {
             click: function (e) {
-              viewer.speed = (1.25);
+              viewer.speed = 1.25;
             },
           },
         },
@@ -667,7 +667,7 @@ function defineMenus() {
           text: "1.5x",
           events: {
             click: function (e) {
-              viewer.speed = (1.5);
+              viewer.speed = 1.5;
             },
           },
         },
@@ -675,7 +675,7 @@ function defineMenus() {
           text: "1.75x",
           events: {
             click: function (e) {
-              viewer.speed = (1.75);
+              viewer.speed = 1.75;
             },
           },
         },
@@ -683,7 +683,7 @@ function defineMenus() {
           text: "2x",
           events: {
             click: function (e) {
-              viewer.speed = (2.0);
+              viewer.speed = 2.0;
             },
           },
         },
@@ -694,7 +694,7 @@ function defineMenus() {
           text: '<ui t_id="controls/custom_speed"></ui>',
           events: {
             click: function (e) {
-              viewer.speed = ("custom");
+              viewer.speed = "custom";
             },
           },
         },
